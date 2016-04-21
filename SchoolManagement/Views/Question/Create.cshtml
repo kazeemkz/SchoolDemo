@@ -1,0 +1,161 @@
+﻿@model SchoolManagement.Model.Question
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <legend>Create  a Question</legend>
+
+
+        <div class="editor-label">
+            <text>Exam Code</text>
+        </div>
+        <div class="editor-field">
+            @Html.ValidationMessageFor(model => model.Exam.ExamCode)
+            @Html.DropDownListFor(model => model.Exam.ExamCode, new SelectList(Enumerable.Empty<SelectListItem>()))
+            <a href="#" id="CreateExamCode">Create New Exam Code</a>
+        </div>
+
+
+        <div class="editor-label">
+            <text>Select Class</text>
+        </div>
+
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Exam.LevelName, eLibrary.Model.LevelDictionary.LevelDicoList)
+            @Html.ValidationMessageFor(model => model)
+        </div>
+
+        @* <div class="editor-label">
+            <text> Select Subject</text>
+        </div>*@
+        @*<div class="editor-field">
+            @Html.DropDownListFor(x => x.Exam.CourseName, new SelectList(Enumerable.Empty<SelectListItem>()))
+        </div>*@
+
+        <div class="editor-label">
+            <text>Question Number</text>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OrderNumber)
+            @Html.ValidationMessageFor(model => model.OrderNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Point)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Point)
+            @Html.ValidationMessageFor(model => model.Point)
+        </div>
+
+        <div class="editor-label">
+            <text>Question Text</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Text, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+
+        <div class="editor-label">
+            <text>Option A</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice1, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option B</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice2, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option C</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice3, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option D</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice4, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+        <div class="editor-label">
+            <text>Option E</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice5, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Pick the Right Answer</text>
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(model => model.Answer, "A")A
+            @Html.RadioButtonFor(model => model.Answer, "B")B
+            @Html.RadioButtonFor(model => model.Answer, "C")C
+            @Html.RadioButtonFor(model => model.Answer, "D")D
+            @Html.RadioButtonFor(model => model.Answer, "E")E
+                     
+            @Html.ValidationMessage("rightAnswer")
+        </div>
+        <div id="options"></div>
+
+        <p>
+            <input type="submit" value="Create Question" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script>
+
+        $('#Exam_LevelName').live('change', function (e) {
+
+
+            var theCheckedValue = $('#Exam_LevelName').val();
+            $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theCheckedValue }, function (data) {
+                var ddl = $("#Exam_CourseName");
+                ddl.empty();
+                ddl.append("<option value='" + "" + "'>"
+                       + "Choose...." + "</option>");
+                for (var i = 0; i < data.length; i++) {
+                    ddl.append("<option value='" + data[i].Value + "'>"
+                         + data[i].Text + "</option>");
+                }
+
+            });
+
+        });
+
+        $.get('@Url.Action("LoadExam","Exam")', function (data) {
+            var ddl = $("#Exam.Exam_Code");
+            ddl.empty();
+            ddl.append("<option value='" + "" + "'>"
+                   + "Choose...." + "</option>");
+            for (var i = 0; i < data.length; i++) {
+                ddl.append("<option value='" + data[i].Value + "'>"
+                     + data[i].Text + "</option>");
+            }
+
+        });
+    </script>
+}

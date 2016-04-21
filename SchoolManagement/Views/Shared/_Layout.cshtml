@@ -1,0 +1,807 @@
+﻿@using SchoolManagement.Helper
+<!DOCTYPE html>
+<html lang="en">
+@{
+
+    //http://stackoverflow.com/questions/12904266/twitter-bootstrap-hide-sub-menus-in-small-screens
+    //http://www.troyhunt.com/2013/09/the-complete-guide-to-loading-free-ssl.html
+    //
+
+
+
+    string UserName = User.Identity.Name;
+    List<SchoolManagement.Model.MyRole> theRole = null;
+    theRole = Session["theRole"] as List<SchoolManagement.Model.MyRole>;
+
+}
+
+<head>
+    <meta charset="utf-8" />
+    <title>iBoard</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    <style type="text/css">
+        .item {
+            border-radius: 15px;
+            width: 120px;
+            height: 120px;
+            background-color: #FFF;
+            margin: 10px;
+            float: left;
+            -webkit-box-shadow: 0 1px 3px #c3c3c3;
+            -moz-box-shadow: 0 1px 3px #c3c3c3;
+            box-shadow: 0 1px 3px #c3c3c3;
+            overflow: hidden;
+            -webkit-transition: box-shadow 0.2s ease-in-out;
+            -moz-transition: box-shadow 0.2s ease-in-out;
+            -o-transition: box-shadow 0.2s ease-in-out;
+            -ms-transition: box-shadow 0.2s ease-in-out;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        ul.nav li.dropdown:hover > ul.dropdown-menu {
+            display: block;
+        }
+
+        .ui-datepicker {
+            background-color: #333;
+            border: 1px solid #555;
+            color: #EEE;
+        }
+
+        body {
+            padding-top: 2px;
+            padding-bottom: 40px;
+            /*background-color: #e8b5c2;*/
+            background-color: #bfd1db;
+            /*background-color: #aecbcc;*/
+            /*background-image: url(../images/background.jpg);*/
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+
+        fieldset {
+            border: 1px solid #000;
+            padding: 0 1.4em 1.4em 1.4em;
+            margin: 0 0 1.5em 0;
+        }
+
+        #ta {
+            background-color: #000;
+
+            /*background-color: #333;*/
+        }
+
+        #head {
+            background-color: #10176b;
+            /*background-color: #333;*/
+        }
+
+        .hero-unit {
+            background-color: #aecbcc;
+            /*background-color: #9dc0c2;*/
+        }
+
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        fieldset legend {
+            display: inline;
+        }
+
+        hr {
+            border: 1px solid #000;
+        }
+
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    </style>
+    @* @Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+
+    @*<div class="navbar navbar-fixed-top">*@
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @* <div class="navbar-inner">*@
+        <div class="container-fluid" id="ta">
+            <div class="navbar-header">
+                @Html.Partial("_LoginPartial")
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">*@
+                @*<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
+                <div class="row-fluid">
+                    <div class="span1">
+                        @*<img src="" alt="image 3" width="85px" height="80px">*@
+                        <img src="" alt="image 3" width="85px" height="85px">
+                    </div>
+                    <div class="span11">
+                        @*@Html.Partial("_LoginPartial")*@
+                        @*<div class="nav-collapse">*@
+                        <div class="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                @* <ul class="nav">*@
+
+                                @* <li>@Html.ActionLink("About", "About", "Home")</li>*@
+                                @if (!(Request.IsAuthenticated))
+                                {
+                                    @*<div class="navbar-collapse collapse">
+                                        <ul class="nav navbar-nav">*@
+                                    <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                                    <li>@Html.ActionLink("ABOUT iBOARD", "About", "Home")</li>
+                                    <li>@Html.ActionLink("CONTACT", "Contact", "Home")</li>
+                                    @*</ul>
+
+                                        </div>*@
+
+                                }
+                                else
+                                {
+                                    if (theRole != null)
+                                    {
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" id="dropdownCommonMenu0" data-toggle="dropdown">HOME</a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu0">
+
+                                                <li role="menuitem">
+                                                <li>@Html.ActionLink("Home", "Index", "Home", null, new { id = 0 })</li>
+                                                <li role="menuitem" class="divider"></li>
+
+                                                <li role="menuitem">
+                                                <li>@Html.ActionLink("About", "About", "Home", null, new { id = 0 })</li>
+                                                <li role="menuitem" class="divider"></li>
+                                                <li role="menuitem">
+                                                <li class="active">
+                                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                                                @*   <li role="menuitem" class="disabled">@Html.ActionLink("Item 2 (disabled)", "Index", "Home")</li>*@
+
+                                            </ul>
+                                        </li>
+
+                                        if (!(string.IsNullOrEmpty(UserName)))
+                                        {
+                                            if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("Parent"))
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu40" data-toggle="dropdown">STUDENT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu40">
+
+                                                        <li role="menuitem">@Html.ActionLink("Your Details", "Index", "PrimarySchoolStudent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Attendance Record", "StudentView", "Attendance")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("School Fees", "Index", "SchoolFeePayment")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Bought Items", "Index2", "Order")</li>
+                                                    </ul>
+                                                </li>
+
+
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu41" data-toggle="dropdown">EXAM RECORD</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu41">
+
+                                                        <li role="menuitem">@Html.ActionLink("Exam Record", "Create", "Exam")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                        <li role="menuitem">@Html.ActionLink("Quiz Record", "Index", "PractiseSave")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu42" data-toggle="dropdown">CLASS TIME TABLE</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu42">
+
+                                                        <li role="menuitem">@Html.ActionLink("Time Table", "Index", "TimeTable")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @*   <li role="menuitem" class="disabled">@Html.ActionLink("Item 2 (disabled)", "Index", "Home")</li>*@
+
+                                                    </ul>
+                                                </li>
+
+
+                                            }
+
+
+                                        }
+
+
+                                        if (!(string.IsNullOrEmpty(UserName)))
+                                        {
+                                            if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("Student"))
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu" data-toggle="dropdown">STUDENT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu">
+
+                                                        <li role="menuitem">@Html.ActionLink("Your Details", "Index", "PrimarySchoolStudent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Attendance Record", "StudentView", "Attendance")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("School Fees", "Index", "SchoolFeePayment")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Bought Items", "Index2", "Order")</li>
+                                                    </ul>
+                                                </li>
+
+
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu1" data-toggle="dropdown">EXAM RECORD</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu1">
+
+                                                        <li role="menuitem">@Html.ActionLink("Exam Record", "Create", "Exam")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                        <li role="menuitem">@Html.ActionLink("Quiz Record", "Index", "PractiseSave")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu31" data-toggle="dropdown">CLASS TIME TABLE</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu31">
+
+                                                        <li role="menuitem">@Html.ActionLink("Time Table", "Index", "TimeTable")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @*   <li role="menuitem" class="disabled">@Html.ActionLink("Item 2 (disabled)", "Index", "Home")</li>*@
+
+                                                    </ul>
+                                                </li>
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu2" data-toggle="dropdown">WRITE EXAM</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu2">
+
+                                                        <li role="menuitem">@Html.ActionLink("Write Exam", "Index", "OnlineExam")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @*   <li role="menuitem" class="disabled">@Html.ActionLink("Item 2 (disabled)", "Index", "Home")</li>*@
+
+                                                    </ul>
+                                                </li>
+
+
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu21" data-toggle="dropdown">E-LEARNING</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu21">
+                                                        <li role="menuitem">@Html.ActionLink("View e-Materials", "Index", "ReadContent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @* <li role="menuitem" class="divider"></li>
+
+                                                            <li role="menuitem">@Html.ActionLink("Info. Board", "Index", "Information")</li>*@
+
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu3" data-toggle="dropdown">INFO.</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu3">
+                                                        <li role="menuitem">@Html.ActionLink("Assignment Blog", "Index", "Post")</li>
+                                                        @* <li role="menuitem" class="divider"></li>
+
+                                                            <li role="menuitem">@Html.ActionLink("Info. Board", "Index", "Information")</li>*@
+
+                                                    </ul>
+                                                </li>
+                                            }
+                                        }
+                                        if (Request.IsAuthenticated && !(HttpContext.Current.User.IsInRole("Student")) && !(HttpContext.Current.User.IsInRole("Parent")))
+                                        {
+                                            //if (theRole != null)
+                                            //{
+                                            //    if (theRole.Count() > 0)
+                                            //    {
+                                            if (theRole[0].Student != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu4" data-toggle="dropdown">STUDENT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu4">
+                                                        <li role="menuitem">@Html.ActionLink("View Student", "Index", "PrimarySchoolStudent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink(" View Attendance", "Index", "Attendance")</li>
+
+                                                        @if (theRole[0].Attendance != "")
+                                                        {
+                                                            <li role="menuitem" class="divider"></li>
+                                                            <li role="menuitem">@Html.ActionLink("Mark Attendance", "Edit", "Attendance")</li>
+                                                        }
+
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Returning Students Registration ", "Edit", "TermRegistration")</li>
+                                                        @if (User.IsInRole("SuperAdmin"))
+                                                        {
+                                                            <li class="divider"></li>
+                                                            <li role="menuitem">@Html.ActionLink("Primary School Student Admission Form", "Create2", "PrimarySchoolStudent")</li>
+
+                                                            <li class="divider"></li>
+                                                            <li role="menuitem">@Html.ActionLink("Secondary School Student Admission Form", "Create", "SecondarySchoolStudent")</li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                            if (theRole[0].TimeTable != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu30" data-toggle="dropdown">TIME TABLE</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu30">
+                                                        <li role="menuitem">@Html.ActionLink("View Time Table", "Index", "TimeTable")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Time Table", "Create", "TimeTable")</li>
+
+                                                    </ul>
+                                                </li>
+
+                                            }
+
+                                            if (theRole[0].Subject != "" && theRole[0].ClassSubject != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu5" data-toggle="dropdown">SUBJECT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu5">
+                                                        <li role="menuitem">@Html.ActionLink("View Subject", "Index", "Subject")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Subject", "Create", "Subject")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("View Class Subject", "Index", "SubjectRegistration")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Class Subject", "Create", "SubjectRegistration")</li>
+                                                    </ul>
+                                                </li>
+
+                                            }
+                                              if (theRole[0].Level != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu8" data-toggle="dropdown">CLASS</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu8">
+                                                        <li role="menuitem">@Html.ActionLink("View Class", "Index", "Level")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Class", "Create", "Level")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+                                            if (theRole[0].Exam != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu6" data-toggle="dropdown">EXAM RECORDS</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu6">
+                                                        <li role="menuitem">@Html.ActionLink("View Exam Record.", "Index", "Exam")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+
+                                            }
+
+                                            if (theRole[0].OnlineExam != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu7" data-toggle="dropdown">ONLINE-EXAM</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu7">
+                                                        <li role="menuitem">@Html.ActionLink("View Online Exam", "LoadExamCodes", "OnlineExam")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Online Exam", "Create", "Question")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+
+                                            }
+
+                                            if (theRole[0].Material != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu20" data-toggle="dropdown">E-LEARNING</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu20">
+                                                        <li role="menuitem">@Html.ActionLink("View e-book(Student View)", "Index", "ReadContent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink(" Add Chapters", "Create", "UploadLessonNote")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink(" Add Texbooks", "Create", "UploadTextBook")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Add Additional Chapter Material", "Create", "UploadAdditionalChapterMaterial")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Delete Material", "Index", "Chapter")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+
+                                            }
+                                          
+                                              <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" id="dropdownCommonMenu12" data-toggle="dropdown">INFO.</a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu12">
+                                                    @if (theRole[0].NewsBoard != "")
+                                                    {
+                                                        <li role="menuitem">@Html.ActionLink("News Board", "Index", "NewsBoard")</li>
+                                                    }
+                                                    @if (theRole[0].Post != "")
+                                                    {
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Assignment Blog", "Index", "Post")</li>
+                                                    }
+                                                    @if (theRole[0].BulkSMS != "")
+                                                    {
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Bulk SMS", "Create", "BulkSMS")</li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                      if (theRole[0].Staff != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu11" data-toggle="dropdown">STAFF</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu11">
+                                                        <li role="menuitem">@Html.ActionLink("View Staff", "Index", "PrimarySchoolStaff")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Register Staff", "Create", "PrimarySchoolStaff")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Assigned Classes", "StaffSubjectView", "TimeTable")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Attendance Record", "Index", "AttendanceStaff")</li>
+                                                        @*<li role="menuitem">@Html.ActionLink("Attendance Record", "StaffView", "AttendanceStaff")</li>*@
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("SuperAdmin"))
+                                                        {
+
+                                                            <li role="menuitem">@Html.ActionLink("Mark Staff Attendance.", "Edit", "AttendanceStaff")</li>
+                                                            <li role="menuitem" class="divider"></li>
+                                                        }
+
+                                                        @if (theRole[0].AttendanceStaff != "")
+                                                        {
+
+
+                                                            <li role="menuitem">@Html.ActionLink("View Staff Attendance", "Index", "AttendanceStaff")</li>
+                                                            <li role="menuitem" class="divider"></li>
+                                                        }
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+                                            if (theRole[0].Parent != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu14" data-toggle="dropdown">PARENT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu14">
+                                                        <li role="menuitem">@Html.ActionLink("View Parents", "Index", "Parent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create Parent", "Create", "Parent")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+
+                                            if (theRole[0].StudentFees != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu9" data-toggle="dropdown">SCHOOL FEES</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu9">
+
+                                                        @*<li role="menuitem">@Html.ActionLink("Create School Fees", "Create", "StudentFees")</li>
+                                                            <li role="menuitem" class="divider"></li>*@
+                                                        <li role="menuitem">@Html.ActionLink("Pay Student Fees", "Index", "SchoolFeePayment")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Approve Student Fees Payment", "Index", "ApproveSchoolFeePayment")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("View Fees Account", "Index", "SchoolFeesAccount")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+
+                                                        <li role="menuitem">@Html.ActionLink("View School Fees Type", "Index", "SchoolFeesType")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Create School Fees Type", "Create", "SchoolFeesType")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        @*  <li role="menuitem">@Html.ActionLink("View/Pay Student Fees", "Index", "SchoolFeePayment")</li>
+                                                            <li role="menuitem" class="divider"></li>*@
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+
+                                            if (theRole[0].Store != "")
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu10" data-toggle="dropdown">STORE</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu10">
+                                                        <li role="menuitem">@Html.ActionLink("Sell Store Item", "Index", "StudentStoreItem")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Add Item to Store", "Create", "Store")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("View Store", "Index", "Store")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+                                                    </ul>
+                                                </li>
+                                            }
+
+
+                                          
+
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" id="dropdownCommonMenu21" data-toggle="dropdown">SALARY</a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu21">
+
+                                                    <li role="menuitem">@Html.ActionLink("View Salary", "Index", "Salary")</li>
+
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("Create Salary", "Create", "Salary")</li>
+
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("Pay Salary", "Edit", "SalaryPaymentHistory")</li>
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View Salary Payment History", "Index", "SalaryPaymentHistory")</li>
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View Deduction", "Index", "Deduction")</li>
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("Create Deduction", "Create", "Deduction")</li>
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View/Create Lateness Deduction", "Index", "LatenessDeduction")</li>
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View/Create Abscent Deduction", "Index", "AbscentDeduction")</li>
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View Staff Deduction History", "Index", "DeductionHistory")</li>
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("View Loan", "Index", "Loan")</li>
+
+
+                                                    <li role="menuitem" class="divider"></li>
+                                                    <li role="menuitem">@Html.ActionLink("Create Loan", "Create", "Loan")</li>
+
+
+                                                </ul>
+                                            </li>
+
+                                            <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu22" data-toggle="dropdown">ACCOUNT</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu22">
+
+                                                        <li role="menuitem">@Html.ActionLink("View School Account", "Index", "SchoolAccount")</li>
+
+
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Add Money to School Account", "Create", "SchoolAccount")</li>
+
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Withdraw Money from School Account", "Edit", "SchoolAccount")</li>
+
+
+
+                                                    </ul>
+                                                </li>
+                                          
+                                            if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("SuperAdmin"))
+                                            {
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" id="dropdownCommonMenu13" data-toggle="dropdown">SECURITY</a>
+                                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu13">
+                                                        <li role="menuitem">@Html.ActionLink("View Security Board", "Index", "UserAdministration")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink("Term Time Settings", "Index", "Term")</li>
+                                                        <li role="menuitem" class="divider"></li>
+                                                        <li role="menuitem">@Html.ActionLink(" View Audit Trail", "Index", "AuditTrail")</li>
+                                                        <li role="menuitem" class="divider"></li>
+
+
+                                                    </ul>
+                                                </li>
+                                            }
+                                        }
+
+                                    }
+                                }
+                                @*}*@
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* </div>*@
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                @*<br />
+                <br />*@
+
+                <b style="align-content: center">NEWS BOARD</b>
+                @* <div id='tab-dock'></div>*@
+                <div class="wrapper">
+                    <div class="accordian1">
+                    </div>
+                </div>
+
+            </div>
+            <div class="span9">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+               
+               
+              
+
+                @RenderBody()
+            </div>
+
+            @* </div>*@
+            <hr>
+            <footer>
+                <div class="content-wrapper">
+                    <div class="float-left">
+                        <p>
+                            &copy; 2012- @DateTime.Now.Year  <b>Virtual<em>Kalone</em> & Telewest Technologies</b>; Nigeria
+                            <br />
+                            <a href="http://www.betasms.com" class="facebook"></a>
+                        </p>
+                    </div>
+                    <div class="float-right">
+                        <ul id="social">
+                            @* <li><a href="http://www.betasms.com" class="facebook">Supported By Beta SMS</a></li>
+                                <li><a href="http://facebook.com" class="facebook">Facebook</a></li>
+                                    <li><a href="http://twitter.com" class="twitter">Twitter</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    @* @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Content/themes/dark-hive/css")
+
+        @Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @*<link href="~/Content/themes/dark-hive/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />*@
+    <link href="~/Content/themes/excite-bike/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+    <link href="~/Content/Siteboot.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.backstretch.min.js"></script>
+    <style type="text/css">
+    </style>
+    @* <script type="text/javascript" src="http://twitter.github.io/bootstrap/assets/js/bootstrap-dropdown.js"></script>*@
+    @RenderSection("scripts", required: false)
+    <script>
+        $('.accordian1').empty();
+        $.get('@Url.Action("LoadNewBoard", "NewsBoard")', { level: "2" }, function (data) {
+            var header = "";
+            var counter = 0;
+            var initialHeader = "";
+            var tracker = "0";
+
+            for (var i = 0; i < data.length; i++) {
+
+                counter = counter + 1;
+                if (tracker == "0") {
+                    header = '<h3><a href="#">' + data[i].Text + '</a></h3>';
+                    tracker = 1;
+                }
+                if (tracker == "1") {
+                    header = '<h3><a href="#">' + data[i].Text + '</a></h3>';
+                    header = header + '<div>' + data[i].Value + '</div>';
+                    $('.accordian1').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false }).css({ padding: "1px 1px 1px 0px" });
+
+                    /// $('.accordian1').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false }).$('.accordion .ui-accordion-header a').css({ padding: "1px 1px 1px 30px" });
+                }
+
+
+            }
+
+            //  }
+
+        });
+
+
+
+        var images = [];
+        images[0] = "/Images/images (10).jpg";
+        images[1] = "/Images/download (21).jpg";
+        images[2] = "/Images/images (2).jpg";
+        images[3] = "/Images/images (3).jpg";
+        images[4] = "/Images/images (4).jpg";
+        images[5] = "/Images/images (5).jpg";
+        images[6] = "/Images/images (6).jpg";;
+        images[7] = "/Images/images (7).jpg";;
+        images[8] = "/Images/images (8).jpg";;
+        images[9] = "/Images/images (9).jpg";;
+        images[10] = "/Images/images.jpg";
+
+        images[11] = "/Images/images (11).jpg";;
+        images[12] = "/Images/images (12).jpg";;
+        images[13] = "/Images/images (13).jpg";;
+        images[14] = "/Images/images (14).jpg";;
+        images[15] = "/Images/images (15).jpg";;
+        images[16] = "/Images/images (16).jpg";;
+        images[17] = "/Images/images (17).jpg";;
+        images[18] = "/Images/images (18).jpg";;
+        images[19] = "/Images/images (20).jpg";
+        images[20] = "/Images/images (22).jpg";
+        images[21] = "/Images/images (1).jpg";
+
+        images[22] = "/Images/download (40).jpg";
+        images[23] = "/Images/download (41).jpg";
+        images[24] = "/Images/download (42).jpg";
+        images[25] = "/Images/images (43).jpg";
+        images[26] = "/Images/images (44).jpg";
+        images[27] = "/Images/images (45).jpg";
+        images[28] = "/Images/images (46).jpg";
+        images[29] = "/Images/images (47).jpg";
+        images[30] = "/Images/images (48).jpg";
+        images[31] = "/Images/images (49).jpg";
+        images[32] = "/Images/images (50).jpg";
+        images[33] = "/Images/images (51).jpg";
+        images[34] = "/Images/images (52).jpg";
+
+        var size = images.length
+        var x = Math.floor(size * Math.random())
+        $('.span1 img').fadeIn(100, function () {
+            $(this).attr('src', images[x]).fadeIn(100);
+        })
+
+        var i = 0;
+        setInterval(fadeDivs, 10000);
+
+        function fadeDivs() {
+            i = i < images.length ? i : 0;
+            var size = images.length
+            var x = Math.floor(size * Math.random())
+            $('.span1 img').fadeIn(100, function () {
+                $(this).attr('src', images[x]).fadeIn(100);
+            })
+            i++;
+        }
+
+    </script>
+</body>
+
+</html>

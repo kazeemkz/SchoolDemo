@@ -1,0 +1,77 @@
+﻿@model SchoolManagement.Model.Term
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE TERM TIME</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Term</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TermName)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TermName, SchoolManagement.Model.LevelDictionary.TermWithNull)
+            @Html.ValidationMessageFor(model => model.TermName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TermStarts)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TermStarts)
+            @Html.ValidationMessageFor(model => model.TermStarts)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TermEnds)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TermEnds)
+            @Html.ValidationMessageFor(model => model.TermEnds)
+        </div>
+        <div class="editor-label">
+             <b>Academic Session</b>  
+        </div>
+         <div class="editor-field">
+        @Html.DropDownListFor(model => model.SessionStartYear, SchoolManagement.Model.LevelDictionary.TermYearList) <b>/</b>  @Html.DropDownListFor(model => model.SessionEndYear, SchoolManagement.Model.LevelDictionary.TermYearList)
+              @Html.ValidationMessageFor(model => model.SessionStartYear)
+             @Html.ValidationMessageFor(model => model.SessionEndYear)
+        </div>
+        <p>
+
+
+            <input type="submit" value="Create" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $("#TermStarts").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            //dateFormat: 'dd/mm/yy',
+            gotoCurrent: true
+        });
+        $("#TermEnds").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            //dateFormat: 'dd/mm/yy',
+            gotoCurrent: true
+        });
+    </script>
+}

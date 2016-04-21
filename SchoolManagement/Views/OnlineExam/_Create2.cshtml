@@ -1,0 +1,81 @@
+﻿@model SchoolManagement.Model.OnlineExam
+
+
+@{
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>OnlineExam</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExamCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExamCode)
+            @Html.ValidationMessageFor(model => model.ExamCode)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LevelName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LevelName)
+            @Html.ValidationMessageFor(model => model.LevelName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Term)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Term)
+            @Html.ValidationMessageFor(model => model.Term)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExamType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExamType)
+            @Html.ValidationMessageFor(model => model.ExamType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duration)
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Course)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Course)
+            @Html.ValidationMessageFor(model => model.Course)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Visible)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Visible)
+            @Html.ValidationMessageFor(model => model.Visible)
+        </div>
+
+        <p>
+            <input type="submit" value="Create"  class="btn-primary"/>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

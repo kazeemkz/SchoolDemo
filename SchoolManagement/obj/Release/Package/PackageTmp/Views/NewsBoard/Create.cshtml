@@ -1,0 +1,53 @@
+﻿@model SchoolManagement.Model.NewsBoard
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE NEW MESSAGE BOARD</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>News Board</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Caption)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Caption)
+            @Html.ValidationMessageFor(model => model.Caption)
+        </div>
+       @* <textarea id="attrArticleHtml" style="width: 730px; height: 500px"></textarea>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+        <br />
+        <p>
+            <input type="submit" value="Create"  class="btn-primary" />
+        </p>
+     
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+   @* <link href="~/Content/jHtmlArea/jHtmlArea.css" rel="stylesheet" />
+    <script src="~/Scripts/jHtmlArea-0.7.5.js"></script>
+    <script src="~/Scripts/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>*@
+  @*  @Scripts.Render("~/bundles/jqueryval")*@
+
+     <script>
+
+    </script>
+}

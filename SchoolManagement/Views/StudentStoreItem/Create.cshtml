@@ -1,0 +1,138 @@
+﻿@model SchoolManagement.Models.StudentItemViewModel
+@{
+    ViewBag.Title = "Sell Store Items";
+  //  Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>Sell Store Items to Students</h3>
+
+@using (Html.BeginForm("Create", "StudentStoreItemRepository", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Academic Record of @Model.StudentName ( <b>Student ID -@Model.StudentID</b>)
+        </legend>
+        <b>Select Term</b>
+        @Html.DropDownListFor(model => model.Term, SchoolManagement.Model.LevelDictionary.TermWithNull)
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Amount(#)</th>
+                    <th>Q.In Store</th>
+                    <th>Q. Needed</th>
+                    <th>Sum</th>
+                </tr>
+            </thead>
+
+            @Html.HiddenFor(m => Model.StudentID)
+            @Html.HiddenFor(m => Model.Level)
+            @Html.HiddenFor(m => Model.StudentName)
+            @for (int k = 0; k < Model.StudentStoreItem.Count(); k++)
+            {
+                <tbody>
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(m => Model.StudentStoreItem[k].ItemName)
+                                @Html.HiddenFor(m => Model.StudentStoreItem[k].ItemName)
+                        </td>
+                        <td class="price">
+                            @Html.DisplayFor(m => Model.StudentStoreItem[k].Amount)
+                              @Html.HiddenFor(m => Model.StudentStoreItem[k].Amount)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => Model.StudentStoreItem[k].Quanity)
+                              @Html.HiddenFor(m => Model.StudentStoreItem[k].Quanity)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => Model.StudentStoreItem[k].QuantityNeeded, new { style = "width:50px", @class = "qty" })
+                              @Html.HiddenFor(m => Model.StudentStoreItem[k].QuantityNeeded, new { style = "width:50px", @class = "qty" })
+                        </td>
+                        <td class='sum'>0</td>
+                    </tr>
+
+                </tbody>
+            }
+            <tr>
+                <td><b>Total</b></td>
+                <td id='total'><b></b></td>
+            </tr>
+        </table>
+
+
+        @*<div id="button">
+            <a id="click" class="kk" href="#">Update Total</a>
+
+        </div>*@
+        <p>
+            <input type="submit" value="Buy Now"  class="btn-primary"/>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+            //$("#tabs").tabs().width("900px").scrolltab();
+            //$("#tabs1").tabs().width("900px").scrolltab();
+            //$("#accordion").accordion().width("235px");
+
+            $('input:submit').click(function () {
+
+                var theValeu = $("#Term").val();
+              //  alert(theValeu);
+                if (theValeu == "") {
+                    alert("Select a Term First");
+                    return false;
+
+                }
+            });
+
+
+
+
+            $("#button").button();
+            // $(".kk").k(function () { alert($(".qty").val()); });
+
+            function getTotal() {
+                var total = 0;
+                $('.sum').each(function () {
+                    total += parseFloat(this.innerHTML)
+                });
+                $('#total').text(total);
+            }
+
+            getTotal();
+
+            $(".qty").live('keyup', function () {
+                // alert('test');
+                // $('.qty').keyup(function(){
+                var parent = $(this).parents('tr');
+                var price = $('.price', parent);
+                var sum = $('.sum', parent);
+                var value = parseInt(this.value) * parseFloat(price.get(0).innerHTML || 0);
+                sum.text(value);
+                getTotal();
+            });
+            //$("#button").click(function () {
+
+
+            //});
+
+
+        });
+    </script>
+
+}

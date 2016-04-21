@@ -1,0 +1,47 @@
+﻿@model SchoolManagement.Model.Level
+
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>CLASS CREATION</h3>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Create Class</legend>
+
+        <div class="editor-label">
+           <text><b> Class Name </b></text>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.LevelName, SchoolManagement.Model.LevelDictionary.LevelDicoList)
+            @Html.ValidationMessageFor(model => model.LevelName)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Type, SchoolManagement.Model.LevelDictionary.LevelTypeList)
+            @Html.ValidationMessageFor(model => model.LevelName)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" id="button" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    
+    </script>
+}

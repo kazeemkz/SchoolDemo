@@ -1,0 +1,417 @@
+﻿@model SchoolManagement.Model.Loan
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h4>APPROVE LOAN</h4>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    if(Model.Approved == false)
+    { 
+    <fieldset>
+        <legend>Tick Box Below to Approve Loan</legend>
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.Approved)
+        </div>*@
+        <div class="editor-field">
+          <b>Approve</b>  @Html.EditorFor(model => model.Approved)
+            @Html.ValidationMessageFor(model => model.Approved)
+        </div>
+    </fieldset>
+}
+
+
+    <fieldset>
+        <legend>Loan</legend>
+
+        @Html.HiddenFor(model => model.LoanID)
+
+        <div class="editor-label">
+            @*@Html.LabelFor(model => model.StaffID)*@
+            <b>Staff</b>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.StaffID, new SelectList((System.Collections.IEnumerable)ViewData["Staff"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.StaffID)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.DateCreated)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.DateCreated)
+            @Html.ValidationMessageFor(model => model.DateCreated)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.DateApproved)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateApproved)
+            @Html.ValidationMessageFor(model => model.DateApproved)
+        </div>*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.CreatedBy)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.CreatedBy)
+            @Html.ValidationMessageFor(model => model.CreatedBy)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.ApprovedBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ApprovedBy)
+            @Html.ValidationMessageFor(model => model.ApprovedBy)
+        </div>*@
+
+        <div class="editor-label">
+            <b>Loan Amount (NGN)</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LoanAmount)
+            @Html.ValidationMessageFor(model => model.LoanAmount)
+        </div>
+
+       
+
+        <fieldset>
+
+            <legend>Loan Repayment Structure</legend>
+            <fieldset>
+                <legend>First Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.FirstMonthPayment)
+                    @Html.ValidationMessageFor(model => model.FirstMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.FirstAmountPayment)
+                    @Html.ValidationMessageFor(model => model.FirstAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Second Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SecondMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SecondMonthPayment)
+                    @Html.ValidationMessageFor(model => model.SecondMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SecondAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SecondAmountPayment)
+                    @Html.ValidationMessageFor(model => model.SecondAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Third Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ThirdMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ThirdMonthPayment)
+                    @Html.ValidationMessageFor(model => model.ThirdMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ThirdAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ThirdAmountPayment)
+                    @Html.ValidationMessageFor(model => model.ThirdAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Forth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ForthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ForthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.ForthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ForthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ForthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.ForthAmountPayment)
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>Fifth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FifthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.FifthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.FifthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FifthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.FifthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.FifthAmountPayment)
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Sixth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SixthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SixthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.SixthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SixthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SixthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.SixthAmountPayment)
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Seventh Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SeventhMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SeventhMonthPayment)
+                    @Html.ValidationMessageFor(model => model.SeventhMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SeventhAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.SeventhAmountPayment)
+                    @Html.ValidationMessageFor(model => model.SeventhAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Eighth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EighthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EighthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.EighthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EightAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EightAmountPayment)
+                    @Html.ValidationMessageFor(model => model.EightAmountPayment)
+                </div>
+            </fieldset>
+            <fieldset>
+
+                <legend>Ninth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NinthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.NinthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.NinthAmountPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NinthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.NinthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.NinthAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Tenth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TenthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TenthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.TenthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TenthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TenthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.TenthAmountPayment)
+                </div>
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Eleventh Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EleventhMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EleventhMonthPayment)
+                    @Html.ValidationMessageFor(model => model.EleventhMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EleventhAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EleventhAmountPayment)
+                    @Html.ValidationMessageFor(model => model.EleventhAmountPayment)
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Twelfth Month Payment</legend>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TwelfthMonthPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TwelfthMonthPayment)
+                    @Html.ValidationMessageFor(model => model.TwelfthMonthPayment)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TwelfthAmountPayment)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TwelfthAmountPayment)
+                    @Html.ValidationMessageFor(model => model.TwelfthAmountPayment)
+                </div>
+
+            </fieldset>
+
+        </fieldset>
+
+        <p>
+            <input type="submit" value="Save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+
+    $("#FirstMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+       // gotoCurrent: true
+    });
+    $("#SecondMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#ThirdMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#ForthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#FifthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+    $("#SixthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#SeventhMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#EightMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+    $("#NinthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+
+    $("#TenthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+    $("#EleventhMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+    $("#TwelfthMonthPayment").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        //dateFormat: 'mm/dd/yy',
+        gotoCurrent: true
+    });
+</script>
+}
+

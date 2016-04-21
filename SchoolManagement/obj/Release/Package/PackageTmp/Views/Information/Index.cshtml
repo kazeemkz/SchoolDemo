@@ -1,0 +1,85 @@
+﻿@model IEnumerable<SchoolManagement.Model.Information>
+
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>INFORMATION BOARD</h4>
+<br />
+
+@*<table>
+    <tr>
+         @Html.ActionLink("Create New", "Create")
+    </tr>
+</table>*@
+
+
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th>
+           <b>Student ID</b>
+        </th>
+        @* <th>
+            @Html.DisplayNameFor(model => model.SentBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        @* <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>*@
+        <th>
+           <b>Date Sent</b>
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentID)
+            </td>
+            @*  <td>
+            @Html.DisplayFor(modelItem => item.SentBy)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            @* <td>
+            @Html.DisplayFor(modelItem => item.Body)
+        </td>*@
+            <td>
+                @string.Format("{0: dd/MMM/yyyy  hh:mm tt}", item.DateSent )
+               @* @Html.DisplayFor(modelItem => item.DateSent)*@
+            </td>
+            <td>
+                @if (!(User.IsInRole("Student")))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.InformationID })
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Read", "Details", new { id = item.InformationID })
+            </td>
+            <td>
+                @if (!(User.IsInRole("Student")))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.InformationID })
+                }
+            </td>
+
+
+        </tr>
+    }
+
+</table>

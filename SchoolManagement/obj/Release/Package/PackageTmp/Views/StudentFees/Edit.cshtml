@@ -1,0 +1,66 @@
+﻿@model SchoolManagement.Model.StudentFees
+
+@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>EDIT FEE ITEM</h3>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>StudentFees</legend>
+
+        @Html.HiddenFor(model => model.StudentFeesID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Level,SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+        <div class="editor-label">
+            <b>Term</b>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Term, SchoolManagement.Model.LevelDictionary.TermWithNull)
+            @Html.ValidationMessageFor(model => model.Term)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ItemName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cost)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Cost)
+            @Html.ValidationMessageFor(model => model.Cost)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    //$("#button2").button();
+    //$("#tabs").tabs().width("450px");
+    //$("#accordion").accordion().width("235px");
+</script>
+}

@@ -1,0 +1,237 @@
+﻿@model SchoolManagement.Model.Loan
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>DELETE LOAN</h4>
+
+<h4>Are you sure you want to delete this?</h4>
+<fieldset>
+    <legend>Loan</legend>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.StaffID)
+        </div>*@
+
+    <div class="display-field">
+        <b>Has Loan Been Approved?:</b>   @Html.DisplayFor(model => model.Approved)
+    </div>
+    <div class="display-field">
+        <b>Loan Awarded or to be Awarded to Staff ID :</b>   @Html.DisplayFor(model => model.StaffID)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.DateCreated)
+        </div>*@
+    <div class="display-field">
+        <b>Date Created</b> @string.Format("{0: dd-MMM-yyyy   hh:mm tt}", Model.DateApproved)
+    </div>
+
+    <div class="display-field">
+        <b>Created By</b> @string.Format("{0: dd-MMM-yyyy   hh:mm tt}", Model.DateCreated)
+
+    </div>
+
+    @*<div class="display-label">
+
+             @Html.DisplayNameFor(model => model.DateApproved)
+        </div>*@
+    <div class="display-field">
+        <b>Date Approved</b>  @Html.DisplayFor(model => model.DateApproved)
+    </div>
+
+    <div class="display-field">
+        <b>Date Approved</b>  @Html.DisplayFor(model => model.ApprovedBy)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.LoanAmount)
+        </div>*@
+    <div class="display-field">
+        <b>Loan Amount</b>  @Html.DisplayFor(model => model.LoanAmount)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.Approved)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Approved)
+        </div>*@
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.FirstMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>First Month Payment</b>   @Html.DisplayFor(model => model.FirstMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.FirstAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>First Month Amount Payment</b>   @Html.DisplayFor(model => model.FirstAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SecondMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Second Month Payment</b>     @Html.DisplayFor(model => model.SecondMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SecondAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Second Month Amount Payment</b>   @Html.DisplayFor(model => model.SecondAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.ThirdMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Third Month Payment</b>    @Html.DisplayFor(model => model.ThirdMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.ThirdAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Third Month Amount Payment</b>     @Html.DisplayFor(model => model.ThirdAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.ForthMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Fourth Month Payment</b>    @Html.DisplayFor(model => model.ForthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.ForthAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>First Month Amount Payment</b>    @Html.DisplayFor(model => model.ForthAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.FifthMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Fifth Month Payment</b>   @Html.DisplayFor(model => model.FifthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.FifthAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>First Month Amount Payment</b>   @Html.DisplayFor(model => model.FifthAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SixthMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Sixth Month Payment</b>     @Html.DisplayFor(model => model.SixthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SixthAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Sixth Month Payment</b>    @Html.DisplayFor(model => model.SixthAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SeventhMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Seven Month Payment</b>    @Html.DisplayFor(model => model.SeventhMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.SeventhAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Seventh Month Payment</b>    @Html.DisplayFor(model => model.SeventhAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.EightMonthPayment)
+        </div*@>
+    <div class="display-field">
+        <b>Eighth Month Payment</b>   @Html.DisplayFor(model => model.EightMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.EightAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Eigth Month Amount Payment</b>    @Html.DisplayFor(model => model.EightAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.NinettMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Ninth Month Payment</b>    @Html.DisplayFor(model => model.NinthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.NinettAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Ninth Month Amount Payment</b>    @Html.DisplayFor(model => model.NinthAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.TenthMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Tenth Month Payment</b>    @Html.DisplayFor(model => model.TenthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.TenthAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Tenth Month Amount Payment</b>    @Html.DisplayFor(model => model.TenthAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.EleventhMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Eleventh Month Payment</b>    @Html.DisplayFor(model => model.EleventhMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.EleventhAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Eleventh Month Amount Payment</b>    @Html.DisplayFor(model => model.EleventhAmountPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.TwelfthMonthPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Twelfth Month Payment</b>   @Html.DisplayFor(model => model.TwelfthMonthPayment)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.TwelfthAmountPayment)
+        </div>*@
+    <div class="display-field">
+        <b>Twelfth Month Payment</b>   @Html.DisplayFor(model => model.TwelfthAmountPayment)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        @Html.HiddenFor(model => model.LoanID)
+        <input type="submit" value="Delete"  class="btn-danger"/> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

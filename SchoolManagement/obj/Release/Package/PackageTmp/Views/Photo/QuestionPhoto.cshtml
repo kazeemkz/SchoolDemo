@@ -1,0 +1,225 @@
+﻿@model SchoolManagement.Model.QuestionPhoto
+
+@{
+  
+  //  Layout =  "~/Views/Shared/_Layout6.cshtml";
+}
+ <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <link href="~/Content/themes/dark-hive/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />
+    <link href="~/Content/Siteboot.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+
+@if (false)
+{
+    
+    
+   @* <script src="../../Scripts/jquery-1.6.2-vsdoc.js" type="text/javascript"></script>
+     <script src="../../Scripts/jquery-1.7.2.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery-ui-1.8.11.js" type="text/javascript"></script>
+   
+    <link rel="stylesheet" type="text/css" href="../../Content/page.css" />*@
+}
+
+<form id="fileUpload" action="/Photo/Upload" method="POST" enctype="multipart/form-data">  
+   @Html.HiddenFor(model => model.QuestionPhotoID)
+     @Html.HiddenFor(model => model.QuestionID)
+     @Html.HiddenFor(model => model.OnlineExamID)
+    <!-- Main hero unit for a primary marketing message or call to action dropzone="copy f:image/png f:image/gif f:image/jpeg" f:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet f:application/vnd.ms-excel-->
+    <div id="dropbox" dropzone="copy f:image/png f:image/gif f:image/jpeg" class="hero-unit">    
+        <h2 id="droplabel">Drop zone</h2>  
+        <p id="dnd-notes">Only images file type are supported. Multiupload is not currentrly supported. Once you will drop your image in the dropzone, the upload will start.</p>      
+        <table id="files-list-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>File name</th>
+                    <th>File size</th>
+                    <th>Upload status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="td-img-preview" class="tableData">
+                        <img id="preview" src="" alt="preview will display here" />
+                    </td>
+                    <td id="td-file-name" class="tableData"></td>
+                    <td id="td-file-size" class="tableData"></td>
+                    <td id="td-progress-bar" class="tableData">
+                        <div id="progressBarBox" class="progress progress-info progress-striped">
+                          <div class="bar"></div>
+                        </div>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+        
+        <br/> 
+        <div id="multiupload-alert"class="alert alert-error">            
+            <h4 class="alert-heading">Warning!</h4>      
+            <span id="multiupload-alert-message"></span>      
+        </div>       
+        <input id="fileSelect" type="file" name="fileSelect" />
+        <p><button id="fallback-submit" type="submit" class="btn btn-primary btn-large">Upload</button></p>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var fileName = null;
+    var fileToUpload = null;
+
+    $(document).ready(function () {
+        // init the widgets
+        $("#progressBarBox").hide();
+        $("#files-list-table").hide();
+
+        // Check if FileAPI and XmlHttpRequest.upload are supported, so that we can hide the old style input method
+        if (window.File && window.FileReader && window.FileList && window.Blob && new XMLHttpRequest().upload) {
+            $("#fileSelect").hide();
+            $("#fallback-submit").hide();
+            $("#multiupload-alert").hide();
+            var dropbox = document.getElementById("dropbox")
+            // init event handlers
+            dropbox.addEventListener("dragenter", dragEnter, false);
+            dropbox.addEventListener("dragexit", dragExit, false);
+            dropbox.addEventListener("dragleave", dragExit, false);
+            dropbox.addEventListener("dragover", dragOver, false);
+            dropbox.addEventListener("drop", drop, false);
+        }
+        else {
+            $("#multiupload-alert").hide();
+            $("#dnd-notes").hide();
+        }
+    });
+
+    function dragEnter(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+    }
+
+    function dragExit(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        $("#dropbox").removeClass("active-dropzone");
+    }
+
+    function dragOver(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        $("#dropbox").addClass("active-dropzone");
+    }
+
+    function drop(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        $("#dropbox").removeClass("active-dropzone");
+        var temp = $("#multiupload-alert");
+        // If there is an alert message displayed, we hide it
+        $("#multiupload-alert").hide();
+        var files = evt.dataTransfer.files;
+        var count = files.length;
+
+        // Only call the handler if 1 file was dropped.
+        if (count == 1) {
+            handleFiles(files);
+        }
+        else if (count > 1) {
+            var message = "Multiupload is not currently supported. Choose only one file.";
+            $("#multiupload-alert-message").html(message);
+            $("#multiupload-alert").show();
+        }
+    }
+
+    function handleFiles(files) {
+        var file = files[0];
+        if (file.type.match('^image/')) {
+            $("#files-list-table").show();
+            fileToUpload = file;
+            fileName = file.name;
+            var reader = new FileReader();
+
+            // init the reader event handlers
+            //reader.onprogress = handleReaderProgress; Commented out as we don't really need it
+            reader.onloadend = handleReaderLoadEnd;
+
+            // begin the read operation            
+            reader.readAsDataURL(file);
+            this.UploadFile(file);
+        }
+        else {
+            var message = "File type not valid. Only images are allowed.";
+            $("#multiupload-alert-message").html(message);
+            $("#multiupload-alert").show();
+        }
+    }
+
+    function handleReaderProgress(evt) {
+        if (evt.lengthComputable) {
+            var loaded = (evt.loaded / evt.total);
+            var progress = loaded * 100;
+            $(".bar").css("width", progress + "%");
+        }
+    }
+
+    function handleReaderLoadEnd(evt) {
+        var img = document.getElementById("preview");
+        img.src = evt.target.result;
+        var fileName = fileToUpload.name;
+        if (fileName.length > 20) {
+            fileName = fileName.substring(0, 20);
+            fileName = fileName + "...";
+        }
+        $("#td-file-name").text(fileName);
+        var size = fileToUpload.size / 1024;
+        size = Math.round(size * Math.pow(10, 2)) / Math.pow(10, 2);
+        $("#td-file-size").text(size + "Kb");
+        $("#progressBarBox").show("fast");
+    }
+
+    // Uploads a file to the server
+    function UploadFile(file) {
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (evt) {
+            if (evt.lengthComputable) {
+                var percentageUploaded = parseInt(100 - (evt.loaded / evt.total * 100));
+                $(".bar").css("width", percentageUploaded + "%");
+            }
+        }, false);
+
+        // File uploaded
+        xhr.addEventListener("load", function () {
+            $(".bar").css("width", "100%");
+        }, false);
+
+        // file received/failed
+        xhr.onreadystatechange = function (e) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var link = "<a href=\"" + xhr.responseText + "\" target=\"_blank\">" + fileName + "</a>";
+                    $("#td-file-name").html(link);
+                }
+            }
+        };
+
+       @* @Html.HiddenFor(model => model.QuestionPhotoID)
+        @Html.HiddenFor(model => model.QuestionID)
+     @Html.HiddenFor(model => model.OnlineExamID)*@
+
+        xhr.open("POST", "/Photo/Upload?QuestionID=" + $("#QuestionID").val() + "&OnlineExamID=" + $("#OnlineExamID").val(), true);
+
+        // Set appropriate headers        
+        xhr.setRequestHeader("Content-Type", "multipart/form-data");
+        xhr.setRequestHeader("X-File-Name", file.fileName);
+        xhr.setRequestHeader("X-File-Size", file.fileSize);
+        xhr.setRequestHeader("X-File-Type", file.type);
+
+        // Send the file                        
+        xhr.send(file);
+    }
+
+</script>
+
+    

@@ -1,0 +1,81 @@
+﻿@model SchoolManagement.Model.Store
+@{
+    ViewBag.Title = "Details";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>STORE ITEM DETAILS</h4>
+
+<fieldset>
+    <legend>@Model.ItemName</legend>
+
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.ItemName): </b>@Html.DisplayFor(model => model.ItemName)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Quanity):</b> @Html.DisplayFor(model => model.Quanity)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.AuthorName):</b>  @Html.DisplayFor(model => model.AuthorName)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Size):</b>  @Html.DisplayFor(model => model.Size)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Amount)<text>#</text>:</b>  @Html.DisplayFor(model => model.Amount)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.TotalCost)<text>#</text>:</b>  @Html.DisplayFor(model => model.TotalCost)
+    </div>
+
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Level):</b>  @Html.DisplayFor(model => model.Level)
+    </div>
+    <br />
+
+
+   @* <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.CreatedUserName):</b>  @Html.DisplayFor(model => model.CreatedUserName)
+    </div>
+
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.EditedUserName):</b>  @Html.DisplayFor(model => model.EditedUserName)
+    </div>
+
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.DeletedUserName):</b>  @Html.DisplayFor(model => model.DeletedUserName)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.DateEntered):</b>   @Html.DisplayFor(model => model.DateEntered)
+    </div>*@
+</fieldset>
+<p id="button1">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StoreID })
+    </p>
+<p id="button">
+    @Html.ActionLink("Back to List", "Index")
+    </p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $("#button1").button();
+        $("#button").button();
+        $("#tabs").tabs().width("450px");
+        $("#accordion").accordion().width("235px");
+
+        $("#tabs").tabs().width("750px");
+        $("#tabs1").tabs().width("750px");
+    </script>
+}

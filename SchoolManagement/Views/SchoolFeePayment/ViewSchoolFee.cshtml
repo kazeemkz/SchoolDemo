@@ -1,0 +1,170 @@
+﻿@model SchoolManagement.Model.SchoolFeePayment
+
+@{
+    ViewBag.Title = "View Your Fees";
+  //  Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+@if(User.IsInRole("Student"))
+{
+    <br />
+<h4> VIEW YOUR SCHOOL FEES PAYMENT RECORD</h4>
+}
+else
+{
+     <br />
+    <h4> CREATE/VIEW STUDENT'S FEES </h4>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Student ID- <b> @Model.StudentID</b></legend>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.StudentFeesID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StudentFeesID)
+            @Html.ValidationMessageFor(model => model.StudentFeesID)
+        </div>*@
+
+
+
+        @* <b>Select Term</b>
+        @Html.DropDownListFor(model => model.Term, SchoolManagement.Model.LevelDictionary.TermWithNull)*@
+
+
+
+
+
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.Level)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.ItemName)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)
+        </div>
+
+      @*  <div class="editor-label">
+            @Html.LabelFor(model => model.StudentID)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.StudentID)
+            @Html.ValidationMessageFor(model => model.StudentID)
+        </div>
+
+      @* <div class="editor-label">
+            @Html.LabelFor(model => model.Cost)
+        </div>*@
+       <div class="editor-field">
+            @Html.HiddenFor(model => model.Cost)
+            @Html.ValidationMessageFor(model => model.Cost)
+       </div>
+
+          <table style="width: 100%">
+                <tr>
+                    @{
+    int cnt = 0;
+    List<SchoolManagement.Models.StudentFeePaymentViewModel> courses = ViewBag.Fees;
+
+    foreach (var course in courses)
+    {
+        if (cnt++ % 1 == 0)
+        {
+                                @:  </tr> <tr> 
+                            }
+                            @: <td>
+                                <input type="checkbox"  class="checkboxes" disabled="disabled"
+                                       name="selectedCourses" 
+                                       value="@course.ItemName-@course.Cost"
+                                       @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                @course.ItemName @:&nbsp; # @course.Cost
+                            @:</td>
+                        }
+                        @: </tr>
+                    }
+           @*  <tr>
+                <td><b>Total Fee (#):</b></td>
+               <td id='total'></td>
+            </tr>*@
+            </table>
+        <div>
+    @*<b>Total Fee (#):<label id="te"></label> </b>*@
+            <br />
+
+            <h3>Total Fee (#): <text id="te"></text> </h3>
+     </div>
+
+       @* <p>
+            <input type="submit" value="Save"  />
+        </p>*@
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ViewYourFees", "PrimarySchoolStudent")
+</div>
+
+@section Scripts {
+  @*  @Scripts.Render("~/bundles/jqueryval")*@
+<script>
+    //$("#tabs").tabs().width("780px");
+    //$("#tabs1").tabs().width("780px");
+    //$("#accordion").accordion().width("235px");
+    $('input:submit').click(function () {
+
+        var theValeu = $("#Term").val();
+        //  alert(theValeu);
+        if (theValeu == "") {
+            alert("Select a Term First");
+            return false;
+
+        }
+    });
+
+    $('input:submit').click(function () {
+        if ($("input[type='checkbox']:checked").length < 1) {
+            alert("Select at Least on Item");
+            return false; // cancel submit
+        }
+    });
+
+    countChecked();
+    function countChecked() {
+        var totalCost = 0;
+        var n = $("input:checked").length;
+        if (n == 0) {
+            $('#te').text("No Payment Yet!");
+            return;
+        }
+        $("input[type='checkbox']:checked").each(
+
+     function () {
+
+         var Cost = $(this).val();
+         var theCost = Cost.split('-');
+         var theCostinNumber = parseFloat(theCost[1]);
+         totalCost = totalCost + theCostinNumber;
+         $('#te').text(totalCost);
+         // alert(totalCost);
+
+     })
+    };
+
+    $(":checkbox").click(countChecked)
+
+
+</script>
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SchoolManagement.Model.Chapter>
+@{
+    ViewBag.Title = "_IndexPartial";
+}
+
+<h3>Available Chapters for Chosen Subject</h3>
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+            <text>Chapter Number</text>
+        </th>
+       @* <th>
+            <text></text>
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>
+            <text>Subject</text>
+        </th>
+             
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+           @* <td>
+              <text></text>
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+           
+            
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ChapterID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ChapterID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ChapterID })
+            </td>*@
+        </tr>
+    }
+</table>

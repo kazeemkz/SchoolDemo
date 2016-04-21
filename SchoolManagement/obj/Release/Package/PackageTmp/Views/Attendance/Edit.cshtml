@@ -1,0 +1,53 @@
+﻿@model SchoolManagement.Models.AttendanceViewModel
+
+@{
+    ViewBag.Title = "Attendance";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>MARK ATTENDANCE</h3>
+@using (Html.BeginForm("Edit", "Attendance", FormMethod.Get))
+{
+    <fieldset>
+        <legend>Search Box</legend>
+        <table>
+            <tr>
+                <td><b>Class:</b>@Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))</td>
+
+            </tr>
+        </table>
+
+        <input type="submit" value="Search" id="search" class="btn-primary" />
+    </fieldset>
+}
+<br />
+
+@using (Html.BeginForm("Edit", "Attendance", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>@*@ViewBag.Arm*@</legend>
+        @Html.EditorFor(x => x.TheAttendance)
+        <p>
+            <input type="submit" value="Save"  id ="save" class="btn-primary"/>
+        </p>
+    </fieldset>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+       
+        //$("#search").button();
+        //$("#save").button();
+      
+
+    </script>
+}
+

@@ -1,0 +1,61 @@
+﻿@model SchoolManagement.Model.Parent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>PARENT DETAILS</h4>
+
+<fieldset>
+    <legend>Parent</legend>
+
+    <div class="display-field">
+        <b>User ID:</b>  @Html.DisplayFor(model => model.UserID)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>First Name:</b>   @Html.DisplayFor(model => model.FirstName)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>Middle Name:</b>    @Html.DisplayFor(model => model.MiddleName)
+    </div>
+
+    <br />
+    <div class="display-field">
+        <b>Last Name:</b>   @Html.DisplayFor(model => model.LastName)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>Registration Date:</b>@string.Format("{0:dd-MMM-yyyy, hh:mm tt}", @Model.Date)
+    </div>
+    <br />
+    <fieldset>
+        <legend>Student's @Model.LastName Can View</legend>
+        <div class="display-label">
+            <b>Student ID One:</b>   @Html.DisplayFor(model => model.StudentIDOne)
+        </div>
+        <br />
+        <div class="display-field">
+            <b>Student ID Two:</b> @Html.DisplayFor(model => model.StudentIDTwo)
+        </div>
+        <br />
+        <div class="display-field">
+            <b>Student ID Three:</b> @Html.DisplayFor(model => model.StudentIDThree)
+        </div>
+        <br />
+
+        <div class="display-field">
+            <b>Student ID Four:</b>   @Html.DisplayFor(model => model.StudentIDFour)
+        </div>
+        <br />
+        <div class="display-field">
+            <b>Student ID Five:</b>  @Html.DisplayFor(model => model.StudentIDFive)
+        </div>
+    </fieldset>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ParentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,153 @@
+﻿@model SchoolManagement.Model.Course
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4> SELECT A CLASS AND CHOOSE AN ITEM TO DELETE </h4>
+
+<div class="editor-label">
+    @*<b>
+        <text>Level</text>
+    </b>*@
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.LevelStringID, SchoolManagement.Model.LevelDictionary.LevelDicoList)
+    @Html.ValidationMessageFor(model => model.LevelStringID)
+</div>
+
+<div id="faqs-container" class="accordian">
+      @if (ViewBag.Success == "1")
+        {
+            <div id="dialog" title=" Delete Success Dialog">
+
+                <b>Chapter Delete Was Successsfull!</b>
+            </div>
+        }
+    <h3><a href="#"></a></h3>
+    <div class="accordian2">
+       
+    </div>
+   
+</div>
+
+
+​​
+
+@section Scripts {
+   @* @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")*@
+
+    <style type="text/css">
+        h1.ui-accordion-header {
+            font-size: 12px;
+        }
+
+        div.ui-accordion-content {
+            font-size: 12px;
+            font-family: georgia;
+            font-style: italic;
+        }
+    </style>
+    <script>
+        $("#dialog").dialog().width("350px").css("background-color", "grey");
+
+        $("div.accordian2").accordion({
+            autoHeight: false,
+            collapsible: true,
+            active: false
+        });
+        //.width("190px");
+
+        
+
+        $('#LevelStringID').live('change', function (e) {
+            $('.accordian2').empty();
+            var initialHeader = "";
+            //var theLevel = $(this).val();
+
+
+            var theLevel = $(this).val().split(' ');
+            var theLevel1 = theLevel[0] + theLevel[1];
+            var tracker = "0";
+            var header = "";
+            var counter = 0;
+         
+
+            $.get('@Url.Action("LoadCourse","ReadContent")', { level: theLevel1 }, function (data) {
+              
+                var tracker = "0";
+                var header = "";
+                var counter = 0;
+                for (var i = 0; i <= data.length; i++) {
+                    counter = counter + 1;
+                   // alert(counter);
+                    var data1 = data[i].Text;
+                    var slitedValue = data1.split(':');
+                  //  alert(data[i].Value);
+
+                    if (tracker == "0") {
+                        initialHeader = slitedValue[0];
+                        header = '<h3><a href="#">' + initialHeader + '</a></h3>';
+                        // alert(initialHeader + "==" + slitedValue[0]);
+                        // initialHeader = slitedValue[0];
+                        tracker = 1;
+                    }
+                    if (initialHeader == slitedValue[0]) {
+
+                        header = header + '<div><a rel="newpage"' + 'href=/Chapter/DeleteChapter?stringName=' + data[i].Value + '>' + slitedValue[1] + '</a></br>';
+                        if (counter == data.length) {
+                            $('.accordian2').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false });
+                        }
+                    }
+                    else {
+                        $('.accordian2').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false });
+                        header = "";
+                        initialHeader = slitedValue[0];
+                        header = '<h3><a href="#">' + initialHeader + '</a></h3>';
+                        header = header + '<div><a rel="newpage"' + 'href=/Chapter/DeleteChapter?stringName=' + data[i].Value + '>' + slitedValue[1] + '</a></br>';
+                        if (counter == data.length) {
+                            $('.accordian2').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false });
+                        }
+                    }
+
+
+
+                }
+
+            });
+
+            //$(".accordian1").bind("accordionchange click", function (event, ui) {
+            //    var href = $(this).attr('href');
+            //    alert(href);
+            //    //  alert("HI");
+            //});
+
+
+            //$(".accordian1").bind("click", function (event, ui) {
+
+            //  $.get('@Url.Action("LoadCourse","ReadContent")', { level: theLevel }, function (data) {
+
+
+            // });
+            //  $(this).attr('href');
+            //alert($(this).attr('href'));
+            //  });
+            $('a[rel="newpage"]').click(function () {
+               var theValue = $(this).attr('href');
+               alert(theValue);
+               // return false;
+            });
+
+            //$('a').bind('click', function (e) {
+            //    var href = $(this).attr('href');
+            //    alert(href);
+
+            //});
+
+        });
+    </script>
+
+
+
+}

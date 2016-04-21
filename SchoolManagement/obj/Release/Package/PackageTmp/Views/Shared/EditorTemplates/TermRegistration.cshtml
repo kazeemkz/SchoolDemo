@@ -1,0 +1,91 @@
+﻿@model SchoolManagement.Model.TermRegistration
+@using SchoolManagement.Model
+@using JobHustler.DAL
+
+@{
+    ViewBag.Title = "Attendance";
+    UnitOfWork w = new UnitOfWork();
+
+    List<SchoolFeesType> sFeeType = w.SchoolFeesTypeRepository.Get().ToList();
+    List<Level> theLevels = w.LevelRepository.Get().ToList();
+    List<SelectListItem> theItem = new List<SelectListItem>();
+    theItem.Add(new SelectListItem() { Text = "None", Value = "" });
+
+    foreach (SchoolFeesType level in sFeeType)
+    {
+        theItem.Add(new SelectListItem() { Text = level.SchoolFeesKind, Value = level.SchoolFeesKind });
+    }
+
+    ViewData["feekind"] = theItem;
+}
+
+@*<h2>Attendance</h2>*@
+
+@*@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    *@<fieldset>
+        <legend></legend>
+
+        @*  @Html.HiddenFor(model => model.AttendanceID)*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.StudentID)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.StudentID)
+            @Html.ValidationMessageFor(model => model.StudentID)
+        </div>
+
+
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.Term)
+            @*  @Html.ValidationMessageFor(model => model.DateTaken)*@
+        </div>
+
+        <div class="editor-label">
+
+            @Html.HiddenFor(model => model.LastName)
+            @Html.HiddenFor(model => model.FirstName)
+              @Html.HiddenFor(model => model.Level)
+              @Html.HiddenFor(model => model.Sex)
+              <b>Class: </b>@Html.DisplayFor(model => model.Level)
+        <br />
+            <b>Name:</b>: @Html.DisplayFor(model => model.LastName), @Html.DisplayFor(model => model.FirstName)
+            <br />
+            <b>Student ID:</b>  @Html.DisplayFor(model => model.StudentID)
+        </div>
+        @if(Model.Owing <= 0)
+        {
+        
+        <b>School Fees Type: </b>@Html.DropDownListFor(model => model.SchoolFeesKind, new SelectList((System.Collections.IEnumerable)ViewData["feekind"], "Value", "Text"))
+        <div class="editor-label">
+            <b>Tick to Register</b>: @Html.CheckBoxFor(model => model.Register)
+        </div>
+        <div class="editor-field">
+
+            @Html.ValidationMessageFor(model => model.Register)
+        </div>
+        }
+        else
+        {
+            <br />
+           <h3>You Cannot Register for this Term as you are OWING-# @Html.DisplayFor(model => model.Owing) </h3>
+            
+        }
+
+
+        @*  <p>
+            <input type="submit" value="Save" />
+        </p>*@
+    </fieldset>
+@*}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

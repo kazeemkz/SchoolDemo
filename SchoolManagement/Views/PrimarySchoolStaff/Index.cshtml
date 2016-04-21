@@ -1,0 +1,221 @@
+﻿@model PagedList.IPagedList<SchoolManagement.Model.PrimarySchoolStaff>
+@{
+    ViewBag.Title = "Index";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>LIST OF ALL REGISTERED STAFF</h4>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Search Box</legend>
+
+        <table>
+
+            <tr>
+
+                <td>
+                    <b>Approved:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("ApprovedString", SchoolManagement.Model.LevelDictionary.Approved)
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <b>Find by Sex: </b>
+                </td>
+                <td>
+                    @Html.DropDownList("SexString", SchoolManagement.Model.SexDictionary.SexDicoList)
+                    &nbsp;
+
+                </td>
+            </tr>
+
+            <tr>
+
+
+                <td>
+                    <b>Find by Role:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("role", new SelectList((System.Collections.IEnumerable)ViewData["Level"], "Value", "Text"))
+                    &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <b>Find by name:</b>
+                </td>
+                <td>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+
+
+            <tr>
+
+
+                <td>
+                    <b>Find by Staff ID:</b>
+                </td>
+                <td>
+                    @Html.TextBox("StudentIDString", ViewBag.CurrentFilter as string)
+                    &nbsp;
+                </td>
+            </tr>
+
+
+        </table>
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+   
+}
+
+<fieldset>
+    <legend>@ViewBag.Count Record(s) Found</legend>
+
+   <table class="table table-striped table-hover table-bordered table-condensed">
+        <tr>
+            <th>
+                <b>Role</b>
+            </th>
+
+
+            <th>
+                <b>Name</b>
+            </th>
+
+            @*  <th>
+            <b>Enroll.</b>
+        </th>
+
+        <th>
+            <b>D.O.B</b>
+        </th>*@
+
+            <th>
+                <b>Sex</b>
+            </th>
+
+            <th>
+                <b>Approved?</b>
+            </th>
+
+
+            <th></th>
+            <th></th>
+            @*  <th></th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+
+                @*<td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>*@
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsApproved)
+                </td>
+                <td>
+                     @Html.ActionLink("Edit", "Edit", new { id = SchoolManagement.Models.Encript.EncryptString(item.PersonID.ToString(),true) }, null)
+                  @*  @Html.ActionLink("Edit", "Edit", new { id = item.PersonID })*@
+                </td>
+                <td>
+                  @*  @Html.ActionLink("Details", "Details", new { id = item.PersonID })*@
+                      @Html.ActionLink("Details", "Details", new { id = SchoolManagement.Models.Encript.EncryptString(item.PersonID.ToString(),true) }, null)
+                </td>
+               @if (!(item.IsApproved))
+            {
+            <td>
+               @* @Html.ActionLink("Delete", "Delete", new { id = item.PersonID })*@
+                 @Html.ActionLink("Delete", "Delete", new { id = SchoolManagement.Models.Encript.EncryptString(item.PersonID.ToString(),true) }, null)
+            </td>
+            }
+            </tr>
+        }
+    </table>
+</fieldset>
+<table>
+    <tr>
+        <td>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            &nbsp;
+        </td>
+        @if (Model.HasPreviousPage)
+        {
+            <td>
+                @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            @Html.Raw("&nbsp;")
+            <td>
+                @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td><<
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+                < Prev
+            </td>
+        }
+        &nbsp;
+    @if (Model.HasNextPage)
+    {
+        <td>
+            @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>
+            @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+    }
+    else
+    {
+        <td>Next >
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>>>
+        </td>
+    }
+    </tr>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+     //   $("#button").button();
+
+    </script>
+}

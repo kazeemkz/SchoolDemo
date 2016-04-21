@@ -1,0 +1,122 @@
+﻿@model SchoolManagement.Model.Store
+@{
+    ViewBag.Title = "Create";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4> STORE ITEM CREATION </h4>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Create an Item in the Store</legend>
+
+        <div class="editor-label">
+           @* @Html.LabelFor(model => model.Level)*@<b>Class:(May not be required if item is generic. However, may be required in creating textbooks)</b>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Level, SchoolManagement.Model.LevelDictionary.LevelDicoList)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+      
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Quanity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Quanity)
+            @Html.ValidationMessageFor(model => model.Quanity)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.ItemName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)
+        </div>
+
+        <div class="editor-label">
+           @* @Html.LabelFor(model => model.AuthorName)*@ <b>Author Name (Texbooks Only)</b> 
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AuthorName)
+            @Html.ValidationMessageFor(model => model.AuthorName)
+        </div>
+
+        <div class="editor-label">
+          @*  @Html.LabelFor(model => model.Size)*@ <b>Size (e.g Sizes of Shoes or Uniforms etc )</b> 
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Size)
+            @Html.ValidationMessageFor(model => model.Size)
+        </div>
+
+         <div class="editor-label">
+           <text><b>Cost per Unit(in Naira)</b></text>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+
+
+@*
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedUserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedUserName)
+            @Html.ValidationMessageFor(model => model.CreatedUserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EditedUserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EditedUserName)
+            @Html.ValidationMessageFor(model => model.EditedUserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DeletedUserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DeletedUserName)
+            @Html.ValidationMessageFor(model => model.DeletedUserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateEntered)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateEntered)
+            @Html.ValidationMessageFor(model => model.DateEntered)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Create" id="button" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div id="button1">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        //$("#button1").button();
+        //$("#button").button();
+
+        //$("#tabs").tabs().width("450px");
+        //$("#accordion").accordion().width("235px");
+
+        //$("#tabs").tabs().width("750px");
+        //$("#tabs1").tabs().width("750px");
+
+    </script>
+}

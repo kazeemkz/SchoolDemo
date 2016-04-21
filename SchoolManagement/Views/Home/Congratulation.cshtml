@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Learning for Life Schools";
+}
+
+@if (ViewData["Success"] != null)
+{
+    <div id="successMessage">
+        <h2>CONGRATULATIONS!!!</h2>
+        <br />
+        <h3>An Email has been sent to you,</h3>
+        <h3>Your Account will be approved as soon as you make Payment</h3>
+    </div>
+}
+<div class="hero-unit">
+    <hgroup class="title">
+<p><img src="~/Images/peenet.jpg" width="150" height="150" />
+       @* <h2>@ViewBag.Title</h2></p>*@
+        <br />
+        <h3>@ViewBag.Message</h3>
+    </hgroup>
+    <p>
+        
+
+        @*To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">
+            http://asp.net/mvc</a>. The page features
+        <mark>videos, tutorials,
+                        and samples</mark>
+        to help you get the most from ASP.NET MVC. If you have any questions about ASP.NET
+        MVC visit <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">
+            our forums</a>.*@
+    </p>
+
+   @* <p>
+        <a class="btn btn-primary btn-large" href="#" id="deviceWidth">Show 'device-width'</a></p>*@
+</div>
+@*<h3>Perazim Empowerment Network</h3>*@
+<div class="row-fluid">
+    <div class="span4">
+        <h3>
+           PEENET</h3>
+        <p>
+           Confronted with the rate of unemployment across the globe, the time to
+            empower young and inspiring entrepreneurs with basic networking skills is
+            now. This is the time to take advantage of our ever increasing population
+            rather than see it as a disadvantage. The time to empower our teeming
+        young population with basic financial education needed to take advantage
+            of practical business opportunities, most of which abound on the internet
+            is now. We believe that the best poverty alleviation mechanism
+            is the one that not only teaches, but also shows the way by mentoring our
+            members to start an enterprise of their own proceed from their networking
+                activities; the foundation is a well nurtured financial education. A great
+            business we believe begins with building a network of five; the power of 5.
+        </p>
+        @*<a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more</a>*@
+    </div>
+    <div class="span4">
+        <h3>
+            CORE VALUES</h3>
+        <p>
+           We are empowering Nigerians with information that will help them leverage
+on these areas in a way that they can start a business within weeks by
+joining our network of leaders with little capital and minimum overhead
+cost:
+            <b>
+            <br />
+1.      Knowledge Based Networking Approach With A Business Attached
+             <br />
+2.      Internet/Information Marketing Approach With A Business Attached
+             <br />
+3.      Mini Importation Business Concepts that can be started Immediately
+             <br />
+4.      Financial Education/Financial Intelligence
+             <br />
+                </b>
+These are the values of our organization.
+
+
+        </p>
+      @*  <a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more</a>*@
+    </div>
+    <div class="span4">
+        <h3>
+           BECOME A MEMBER EMPOWERMENT NETWORK (PEENET)</h3>
+        <p>
+         
+Complete the online membership form, deposit the sum of Fifteen Thousand
+Naira (N15, 000) bank account and complete the payment form
+by giving details of your payment. Once the registration process is
+completed, you will begin to receive your compulsory training (online or
+offline options available).
+
+When you share the value of these training with 5 people, who also
+register with us for the same amount of money, you will be handed over a
+business which is worth Sixty Thousand Naira! This is not a loan. It is a
+business that has been put together to earn you passive income for life.
+This is a business that we will continue to support you to do; you will
+not be left out there in the cold to figure it out for yourself because we
+are into it together.
+
+This is a business of the 21st century as quoted by Robert Kiyosaki
+(author of the #1 bestseller book Rich Dad Poor Dad).Your responsibility
+in this business is to be a leader. You are not a salesman in this
+business but a teacher.
+
+we will empower, support, mentor
+and guide until we all succeed!
+
+        </p>
+       @* <a class="btn" href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more</a>*@
+    </div>
+</div>
+@section Scripts{
+       <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () {
+            $('#deviceWidth').on('click', function () {
+                alert("Layout Viewport Width = " + document.documentElement.clientWidth);
+            });
+
+            $("#successMessage").dialog({
+                show: { effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 10 },
+                modal: true,
+                height: 300,
+                width: 300,
+                closeOnEscape: false,
+
+            }).css("background-color", "grey").css("foreground-color", "grey"); // border: 1px solid #787878;
+
+
+
+
+        });
+    </script>
+}

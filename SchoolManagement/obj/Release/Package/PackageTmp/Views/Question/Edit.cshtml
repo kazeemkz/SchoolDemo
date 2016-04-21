@@ -1,0 +1,119 @@
+﻿@model SchoolManagement.Models.QuestionViewModel
+@{
+    ViewBag.Title = "Edit";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+@if (@Model.TheQuestions.Count > 0)
+{
+    <h3>Edit Exam/Test Questions</h3>
+    @*<h3>Exam Code:--@Model.TheQuestions[0].Exam.ExamCode</h3>
+
+    <h3>Subject:--@Model.TheQuestions[0].Exam.Course</h3>
+
+    <h3>Term:--@Model.TheQuestions[0].Exam.Term</h3>*@
+    
+    
+    <h3>Exam Code:--@ViewBag.ExamCode</h3>
+
+    <h3>Subject:--@ViewBag.ExamCourse</h3>
+
+    <h3>Term:--@ViewBag.ExamTerm</h3>
+
+    using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        for (int k = 0; k < Model.TheQuestions.Count(); k++)
+        {
+        @Html.HiddenFor(m => Model.TheQuestions[k].QuestionID)
+        @Html.HiddenFor(m => Model.TheQuestions[k].OnlineExamID)
+        @Html.HiddenFor(m => Model.TheQuestions[k].OrderNumber)
+        @Html.HiddenFor(m => Model.TheQuestions[k].HasImage)
+
+
+   
+        <table>
+            <tr>
+                <td>
+                    <b>Q-@Model.TheQuestions[k].OrderNumber</b>
+
+                </td>
+                <td>
+                    @* style = "width:50px" *@
+
+                    <b>Question-@Model.TheQuestions[k].OrderNumber,  Question Text:</b>
+                    <br />
+                    @Html.TextAreaFor(m => Model.TheQuestions[k].Text, new { style = "width: 700px; height: 60px;" })
+                    <br />
+                    <b>Mark Assigned:</b>   @Html.TextBoxFor(m => Model.TheQuestions[k].Point, new { style = "width:50px" })
+                    <br />
+                    <table>
+                        <tr>
+                            <td>
+                                <b>Delete This Question:</b>   @Html.CheckBoxFor(m => Model.TheQuestions[k].Delete)
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Change/Upload Image", "Create2", "Photo", new { QuestionID = Model.TheQuestions[k].QuestionID, OnlineExamID = Model.TheQuestions[k].OnlineExamID }, null)
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+                    @if (Model.TheQuestions[k].HasImage == true)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.ActionLink("Delete Question Image", "DeleteImage", "Question", new { QuestionID = Model.TheQuestions[k].QuestionID, OnlineExamID = Model.TheQuestions[k].OnlineExamID }, null)
+                                </td>
+                            </tr>
+                        </table>
+                        <p>
+                            <img src="@Url.Action("GetImage", "Question", new { QuestionID = Model.TheQuestions[k].QuestionID, OnlineExamID = Model.TheQuestions[k].OnlineExamID })"  width="500" height="400" />
+                        </p>
+                    }
+                    <br />
+
+
+                    @Html.EditorFor(m => Model.TheQuestions[k].Choices[0], "Choices")
+                    @Html.EditorFor(m => Model.TheQuestions[k].Choices[1], "Choices")
+                    @Html.EditorFor(m => Model.TheQuestions[k].Choices[2], "Choices")
+                    @Html.EditorFor(m => Model.TheQuestions[k].Choices[3], "Choices")
+                    @if (Model.TheQuestions[k].Choices.Count > 4)
+                    {
+                        @Html.EditorFor(m => Model.TheQuestions[k].Choices[4], "Choices")
+                    }
+                </td>
+            </tr>
+        </table>
+        }
+        <p>
+            <input type="submit" value="Save" id="button4" class="btn-primary" />
+        </p>
+    }
+    <br />
+}
+else
+{
+<b>No Question for Selected Exam!</b>
+}
+<br />
+<br />
+<div id="button2">
+    @Html.ActionLink("Back to List", "LoadExamCodes", "OnlineExam")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#button4").button();
+        //$("#button2").button();
+        //$("#tabs").tabs().width("450px");
+        //$("#accordion").accordion().width("235px");
+    </script>
+}

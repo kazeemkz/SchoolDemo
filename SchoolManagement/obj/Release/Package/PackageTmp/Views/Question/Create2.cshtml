@@ -1,0 +1,292 @@
+﻿@model SchoolManagement.Model.Question
+@{
+    ViewBag.Title = "Create Questions";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>ONLINE EXAM -CREATE  QUESTIONS</h4>
+@using (Html.BeginForm())
+{
+
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Create Exam/Test Questions</legend>
+
+        <div class="editor-label">
+            <text>Exam Code</text>
+        </div>
+        @* <div class="editor-field">
+                @Html.DropDownListFor(model => model.Exam.ExamCode, new SelectList(Enumerable.Empty<SelectListItem>()))
+
+            </div>*@
+
+        <table>
+            <tr>
+                <td>
+                    @Html.DropDownListFor(model => model.Exam.ExamCode, new SelectList(Enumerable.Empty<SelectListItem>()))
+                    @Html.ValidationMessageFor(model => model.Exam.ExamCode)
+                    <a href="" id="CreateExamCode">Create New Exam Code</a >@*("CreatePartial", "OnlineExam")');*@
+                @*    @Html.ActionLink("Create New Exam Code", "CreatePartial", "OnlineExam", null; new { @class = "modalEdit" })*@
+             
+ <div id="clientdetailmodal"></div>
+                </td>
+                <td></td>
+            </tr>
+
+        </table>
+
+
+
+        <div class="editor-label">
+            <text>Question Number</text>
+        </div>
+
+
+        <div class="editor-field">
+            @* @Html.HiddenFor(model => model.OrderNumber, new { disabled = "disabled", @readonly = "readonly" })*@
+
+            @Html.HiddenFor(model => model.OrderNumber)
+            @Html.Editor("OrderNumber1", new { style = "width:50px" })
+
+            @*  @Html.TextBox("OrderNumber1", new { style = "width:50px", disabled = "disabled" })    *@
+            @*  @Html.HiddenFor(m => Model.TheSubjects[k].FirstCA, new { style = "width:50px" })*@
+
+            @Html.ValidationMessageFor(model => model.OrderNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Point)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Point)
+            @Html.ValidationMessageFor(model => model.Point)
+        </div>
+
+        <div class="editor-label">
+            <b>Does Question has Image?</b>
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.HasImage, SchoolManagement.Model.LevelDictionary.HasQuestionImage)
+            @Html.ValidationMessageFor(model => model.HasImage)
+        </div>
+
+        <div class="editor-label">
+            <text>Question Text</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Text, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+
+        <div class="editor-label">
+            <text>Option A</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice1, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option B</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice2, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option C</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice3, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Option D</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice4, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+        <div class="editor-label">
+            <text>Option E</text>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Choice5, new { @width = "200px" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+        <div class="editor-label">
+            <text>Pick the Right Answer</text>
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(model => model.Answer, "A")A
+            @Html.RadioButtonFor(model => model.Answer, "B")B
+            @Html.RadioButtonFor(model => model.Answer, "C")C
+            @Html.RadioButtonFor(model => model.Answer, "D")D
+            @Html.RadioButtonFor(model => model.Answer, "E")E
+
+            @Html.ValidationMessageFor(model => model.Answer)
+        </div>
+
+        <div id="ExamCodeCreateDialog" style="overflow: hidden;"></div>
+        <div id="CreateCourseDialog" style="overflow: hidden;"></div>
+        <div id="ViewChapterDialog" style="overflow: hidden;"></div>
+        @* if (ViewBag.Success == "1")
+            {
+            <div id="dialog" title=" Upload Success Dialog">
+
+                <b>Lesson Note Was Successsfully Uploaded!</b>
+            </div>
+            }*@
+
+
+        <p>
+            <input type="submit" value="Create Question" class="btn-primary"/>
+        </p>
+
+    </fieldset>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "LoadExamCodes", "OnlineExam")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/Content/themes/base/css")
+        @Scripts.Render("~/bundles/jquery")*@
+
+    @*@Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+@*    <script src="~/Scripts/jquery-1.6.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.3.custom.js"></script>*@
+
+
+
+@*<script src="~/Scripts/jquery-ui-1.8.11.js"></script>*@
+@*<script src="~/Scripts/jquery-ui-1.8.11.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            myDialog = $("<div> </div>");
+           // $("#tabs").tabs().width("900px").scrolltab();
+           // $("#tabs1").tabs().width("900px").scrolltab();
+
+           // $("#tabs").tabs().width("450px");
+            //$("#accordion").accordion().width("235px");
+            $("#OrderNumber1").width("50px");
+
+            var SubjectValue = "";
+            var theCheckedValue = "JSS1";
+
+            var theExamCode = '@(ViewBag.ExamCode)';
+
+            //load course based on jss1 value first
+            $.get('@Url.Action("LoadExam", "OnlineExam")', { level: theExamCode }, function (data) {
+                var ddl = $("#Exam_ExamCode");
+                ddl.empty();
+
+                if (theExamCode == "") {
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+                }
+                else {
+                    //ddl.append("<option value='" + "" + "'>"
+                    //      + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                    $.get('@Url.Action("LoadNextQuestionNumber", "OnlineExam")', { examCode: data[0].Value }, function (data) {
+                        $("#OrderNumber").empty();
+                        $("#OrderNumber").val(data);
+
+                        $("#OrderNumber1").empty();
+                        $("#OrderNumber1").val(data);
+
+
+
+                    });
+                }
+
+            });
+
+
+
+            $('#Exam_ExamCode').live('change', function (e) {
+                var theValue = $('#Exam_ExamCode').val();
+                //alert(theValue);
+                $.get('@Url.Action("LoadNextQuestionNumber", "OnlineExam")', { examCode: theValue }, function (data) {
+                    $("#OrderNumber").empty();
+                    $("#OrderNumber").val(data);
+
+                    $("#OrderNumber1").empty();
+                    $("#OrderNumber1").val(data);
+
+
+
+                });
+            });
+
+
+
+            $("#dialog").dialog().width("350px").css("background-color", "grey");
+
+   $("#CreateExamCode")
+   .button()
+   .click(function (e) {
+      
+       myDialog.dialog("open");
+     //  $("#ExamCodeCreateDialog").dialog("open");
+       e.preventDefault();
+
+   });
+
+      
+
+         
+            // $("#ExamCodeCreateDialog").dialog({
+   myDialog.dialog({
+
+                autoOpen: false,
+                resizable: false,
+                width: 500,
+                height:550,
+                title: "",
+                modal: true,
+
+        open: function (event, ui) {
+                   @*  myDialog.load('@Url.Action("CreatePartial", "CreatePartial")');*@
+
+     
+            var url = "@Url.Action("CreatePartial", "OnlineExam")";
+            //  SubjectValue = $('input:radio:checked').val() + ":" + $("#Subject").val();
+            $(this).load(url);
+            //  $(this).load('../Chapter/ViewChapterPartial?CoureLevel=' + theInputParam);
+
+
+                },
+
+                //close: function (event, ui) {
+                //    myDialog.remove();    //basically what this does is empty it, and remove any dialog functionality from the div.
+                //}
+                buttons: {
+
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+                }
+            });
+
+        });
+       // });
+    </script>
+}

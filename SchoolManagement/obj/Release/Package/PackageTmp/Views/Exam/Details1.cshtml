@@ -1,0 +1,62 @@
+﻿@model SchoolManagement.Models.ExamSubjectReg
+@{
+    ViewBag.Title = "Details1";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<br />
+<br />
+<h4>UPLOAD/VIEW STUDENT'S OLD ACADEMIC RESULTS</h4>
+<br />
+@using (Html.BeginForm("Edit", "Exam",null, FormMethod.Get, new { ids =ViewBag.ID }))
+{
+    <legend>Search Box</legend>
+    <fieldset>
+        <table>
+            @*@Html.ValidationSummary(true)*@
+
+
+            <tr>
+
+
+                <td><b>Class</b></td>
+                <td>@Html.DropDownListFor(Model => Model.Level, SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone1)</td>
+
+            </tr>
+            <tr>
+                <td><b>Term</b></td>
+                <td>@Html.DropDownListFor(Model => Model.Term, SchoolManagement.Model.LevelDictionary.Term)</td>
+
+            </tr>
+
+
+
+
+
+        </table>
+
+        @Html.HiddenFor(Model => Model.StudentIDInt)
+        <br>
+        <input type="submit" value="Search For Records" id="button" class="btn-primary" />
+
+    </fieldset>
+}
+
+<br />
+<br />
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        //$('#button').button();
+        //$('#button2').button();
+        //$("#tabs").tabs().width("750px");
+        //$("#tabs1").tabs().width("750px");
+
+    </script>
+}

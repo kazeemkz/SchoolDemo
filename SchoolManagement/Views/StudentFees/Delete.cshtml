@@ -1,0 +1,39 @@
+﻿@model SchoolManagement.Model.StudentFees
+@{
+    ViewBag.Title = "Delete";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>DELETE FEE ITEM</h3>
+
+<h3>Are you sure you want to delete this?</h3>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>StudentFees</legend>
+          @Html.HiddenFor(model => model.StudentFeesID)
+        <div class="display-label">
+        </div>
+        <div class="display-field">
+        </div>
+
+        <div class="display-label">
+            <b>@Html.DisplayNameFor(model => model.Level):</b> @Html.DisplayFor(model => model.Level)
+        </div>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ItemName):</b>  @Html.DisplayFor(model => model.ItemName)
+        </div>
+
+        <div class="display-label">
+        </div>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Cost):</b>  @Html.DisplayFor(model => model.Cost)
+        </div>
+    </fieldset>
+  
+    <p>
+        <input type="submit" value="Delete"  class="btn-danger"/>
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

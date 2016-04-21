@@ -1,0 +1,593 @@
+﻿@model SchoolManagement.Model.SchoolFeePayment
+
+@{
+    ViewBag.Title = "Create/View Student's Fees";
+    var theOwingValue = @ViewBag.totalOwing;
+    // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+
+    // List<SchoolManagement.Models.StudentFeePaymentViewModel> course = ViewBag.Fees;
+    // int number = courses.Count();
+}
+<br />
+<h4>PAY STUDENT FEES </h4>
+<fieldset>
+
+    <legend>Fee Category Selection</legend>
+
+
+    @using (Html.BeginForm("Edit", "SchoolFeePayment", FormMethod.Get))
+    {
+        @*@Html.ValidationSummary(true)*@
+
+        <table>
+            <tr>
+                <td><b>Term</b></td>
+                @Html.Hidden("term")
+                @* <td>@Html.DropDownList("term", SchoolManagement.Model.LevelDictionary.TermWithNull)</td>*@
+                <td>@ViewBag.Term</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td><b>School Fee Type</b></td>
+                <td>@ViewBag.TheSchoolFeesType</td>
+                @*  <td>@Html.DropDownList("feekind", new SelectList((System.Collections.IEnumerable)ViewData["SchoolFeesKind"], "Value", "Text"))</td>*@
+                @Html.Hidden("TheSchoolFeesType")
+            </tr>
+
+            <tr>
+                <td>
+                    <b>Academic Year</b>
+                </td>
+                <td>
+                    @ViewBag.session
+                </td>
+            </tr>
+
+
+
+        </table>
+        <br />@*
+            <input type="submit" value="Select Fee Category" id="button3" class="btn-primary" />*@
+
+
+    }
+</fieldset>
+@if (ViewBag.Last10Transactions != null)
+{
+    <fieldset>
+        <legend>Last 10 Payment Details For @ViewBag.Name, Student ID- @Model.StudentID </legend>
+        <table class="table table-striped table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    <b>Date Paid</b>
+                </th>
+                <th>
+                    <b>Session</b>
+                </th>
+
+                <th>
+                    <b>Level</b>
+                </th>
+                <th>
+                    <b>School Fees Type</b>
+                </th>
+                <th>
+                    <b>Term</b>
+                </th>
+                <th>
+                    <b>School Fees Amount(#)</b>
+                </th>
+                <th>
+                    <b>Paid(#)</b>
+                </th>
+                <th>
+                    <b>Owing(#)</b>
+                </th>
+
+            </tr>
+
+            @foreach (var item in ViewBag.Last10Transactions as List<SchoolManagement.Model.SchoolFeePayment>)
+            {
+                <tr>
+
+                    <td>
+                        @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", item.DatePaid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Session)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TheSchoolFeesType)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Term)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owing)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+        @* <b>Payments are up to date and you are not owing!</b>*@
+    </fieldset>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+    @*you have paid to date*@
+    @if (ViewBag.theCurrentTermPayment != 0 && ViewBag.TermRegistration != null && (decimal)ViewBag.totalOwing <= 0)
+    {
+        <fieldset>
+            <legend>Payment Details For @ViewBag.Name, Student ID- @Model.StudentID </legend>
+            <table class="table table-striped table-hover table-bordered table-condensed">
+                <tr>
+                    <th>
+                        <b>Date Paid</b>
+                    </th>
+
+                    <th>
+                        <b>Session</b>
+                    </th>
+                    <th>
+                        <b>Level</b>
+                    </th>
+                    <th>
+                        <b>School Fees Type</b>
+                    </th>
+                    <th>
+                        <b>Term</b>
+                    </th>
+                    <th>
+                        <b>School Fees Amount(#)</b>
+                    </th>
+                    <th>
+                        <b>Paid(#)</b>
+                    </th>
+                    <th>
+                        <b>Owing(#)</b>
+                    </th>
+
+                </tr>
+
+                @foreach (var item in ViewBag.Last10Transaction as List<SchoolManagement.Model.SchoolFeePayment>)
+                {
+                    <tr>
+
+                        <td>
+                            @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", item.DatePaid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Session)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Level)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TheSchoolFeesType)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Term)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Paid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Owing)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+            <b>Payments are up to date and you are not owing for selected Term!</b>
+        </fieldset>
+    }
+    else
+    {
+
+        if (ViewBag.TermRegistration != null)
+        {
+            <fieldset>
+                <legend>Pending Payments For @ViewBag.Name, Student ID- @Model.StudentID </legend>
+                <table class="table table-striped table-hover table-bordered table-condensed">
+                    <tr>
+                        <th>
+                            <b>Date Paid</b>
+                        </th>
+                        <th>
+                            <b>Session</b>
+                        </th>
+                        <th>
+                            <b>Level</b>
+                        </th>
+                        <th>
+                            <b>School Fees Type</b>
+                        </th>
+                        <th>
+                            <b>Term</b>
+                        </th>
+                        <th>
+                            <b>School Fees Amount(#)</b>
+                        </th>
+                        <th>
+                            <b>Paid(#)</b>
+                        </th>
+                        <th>
+                            <b>Owing(#)</b>
+                        </th>
+                        <th></th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.Owing as List<SchoolManagement.Model.SchoolFeePayment>)
+                    {
+                        <tr>
+
+                            <td>
+                                @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", item.DatePaid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Session)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Level)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TheSchoolFeesType)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Term)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cost)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Paid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Owing)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </fieldset>
+            <b>You Are Owing a Total Amount Of #:@ViewBag.totalOwing</b>
+        }
+        if (ViewBag.ParentStudent == null)
+        {
+            if (ViewBag.TermRegistration != null)
+            {
+                using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+
+                    if ((decimal)ViewBag.totalOwing > 0)
+                    {
+                        <fieldset>
+                            <legend>Pay School Fees <b>DEBT</b> For @ViewBag.Name, Student ID- @Model.StudentID </legend>
+
+
+
+                            <h3>You are Owing -# @ViewBag.totalOwing</h3>
+                            <br />
+
+                            <br />
+                            <div class="editor-field">
+                                @Html.HiddenFor(model => model.Level)
+                                @Html.HiddenFor(model => model.Term)
+                                @Html.HiddenFor(model => model.TheSchoolFeesType)
+                                @Html.HiddenFor(model => model.Cost)
+                                @Html.HiddenFor(model => model.Session)
+
+
+                                @Html.ValidationMessageFor(model => model.Level)
+                            </div>
+                            <br />
+                            <b>Payment Options:</b>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Cash")<b> CASH</b>
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Teller")<b>TELLER</b>
+                                <br />
+
+                                <b>Teller Number</b>    @Html.EditorFor(m => Model.TellerNumber)
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "POS")<b>POS</b>
+                                <br />
+                                <b>POS Transaction Number</b>    @Html.EditorFor(m => Model.POSTransactionNumber)
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Cheque")<b>CHEQUE</b>
+                                <br />
+                                <b>Cheque Number</b>    @Html.EditorFor(m => Model.ChequeNumber)
+                                <br />
+                            </fieldset>
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Bank Draft") <b>BANK DRAFT</b>
+                                <br />
+                                <b>Bank Draft Number</b>    @Html.EditorFor(m => Model.BankDraftNumber)
+                            </fieldset>
+                            <br />
+                            <br />
+                            <div class="editor-label">
+                                <b>Enter Amount to Pay  to Clear Debts</b>
+                            </div>
+
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Paid)
+                                @Html.ValidationMessageFor(model => model.Paid)
+                            </div>
+
+
+                            <div class="editor-field">
+                                @Html.HiddenFor(model => model.StudentID)
+                                @Html.ValidationMessageFor(model => model.StudentID)
+                            </div>
+
+
+
+                        </fieldset>
+                    }
+                    else
+                    {
+                        <fieldset>
+                            <legend>Pay School Fees For @ViewBag.Name, Student ID- @Model.StudentID, @ViewBag.Term Term,@ViewBag.Class  </legend>
+
+
+                            <br />
+                            <b>School Fee Type- </b>@ViewBag.TheSchoolFeesType
+                            <br />
+                            <b>Cost-</b>#  @ViewBag.Cost
+
+                            <br />
+                            <div class="editor-field">
+                                @Html.HiddenFor(model => model.Level)
+                                @Html.HiddenFor(model => model.Term)
+                                @Html.HiddenFor(model => model.TheSchoolFeesType)
+                                @Html.HiddenFor(model => model.Cost)
+                                @Html.HiddenFor(model => model.Session)
+
+
+                                @Html.ValidationMessageFor(model => model.Level)
+                            </div>
+                            <br />
+                            <b>Payment Options:</b>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Cash")<b> CASH</b>
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Teller")<b>TELLER</b>
+                                <br />
+
+                                <b>Teller Number</b>    @Html.EditorFor(m => Model.TellerNumber)
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "POS")<b>POS</b>
+                                <br />
+                                <b>POS Transaction Number</b>    @Html.EditorFor(m => Model.POSTransactionNumber)
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Cheque")<b>CHEQUE</b>
+                                <br />
+                                <b>Cheque Number</b>    @Html.EditorFor(m => Model.ChequeNumber)
+                                <br />
+                            </fieldset>
+                            <fieldset>
+                                @Html.RadioButtonFor(m => Model.PaymentMethod, "Bank Draft") <b>BANK DRAFT</b>
+                                <br />
+                                <b>Bank Draft Number</b>    @Html.EditorFor(m => Model.BankDraftNumber)
+                            </fieldset>
+                            <br />
+                            <br />
+                            <div class="editor-label">
+                                <b>Enter Amount to Pay</b>
+                            </div>
+
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Paid)
+                                @Html.ValidationMessageFor(model => model.Paid)
+                            </div>
+
+
+                            <div class="editor-field">
+                                @Html.HiddenFor(model => model.StudentID)
+                                @Html.ValidationMessageFor(model => model.StudentID)
+                            </div>
+                        </fieldset>
+                    }
+                    <p>
+                        <input type="submit" value="Save" class="btn-primary" id="pay" />
+                    </p>
+
+                }
+            }
+        }  @*for student and staff*@
+    }
+    <div id="button2">
+        @Html.ActionLink("Back to List", "Index", "SchoolFeePayment")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+            $("#TellerNumber").attr('disabled', 'disabled');
+            $("#POSTransactionNumber").attr('disabled', 'disabled');
+            $("#ChequeNumber").attr('disabled', 'disabled');
+            $("#BankDraftNumber").attr('disabled', 'disabled');
+
+            var radioValue = "";
+            $('input[name=PaymentMethod]:radio').change(function () {
+                radioValue = $(this).val();
+                //  alert(radioValue);
+
+                if (radioValue == "Cash") {
+                    $("#TellerNumber").attr('disabled', 'disabled');
+                    $("#TellerNumber").attr('disabled', 'disabled');
+                    $("#POSTransactionNumber").attr('disabled', 'disabled');
+                    $("#ChequeNumber").attr('disabled', 'disabled');
+                    $("#BankDraftNumber").attr('disabled', 'disabled');
+                }
+
+                if (radioValue == "Teller") {
+                    $("#TellerNumber").removeAttr('disabled');
+                    // $("#TellerNumber").attr('disabled', 'disabled');
+                    $("#POSTransactionNumber").attr('disabled', 'disabled');
+                    $("#ChequeNumber").attr('disabled', 'disabled');
+                    $("#BankDraftNumber").attr('disabled', 'disabled');
+                }
+                if (radioValue == "POS") {
+                    $("#POSTransactionNumber").removeAttr('disabled');
+                    $("#TellerNumber").attr('disabled', 'disabled');
+                    //  $("#POSTransactionNumber").attr('disabled', 'disabled');
+                    $("#ChequeNumber").attr('disabled', 'disabled');
+                    $("#BankDraftNumber").attr('disabled', 'disabled');
+                }
+                if (radioValue == "Cheque") {
+                    $("#ChequeNumber").removeAttr('disabled');
+                    $("#TellerNumber").attr('disabled', 'disabled');
+                    $("#POSTransactionNumber").attr('disabled', 'disabled');
+                    // $("#ChequeNumber").attr('disabled', 'disabled');
+                    $("#BankDraftNumber").attr('disabled', 'disabled');
+                }
+                if (radioValue == "Bank Draft") {
+                    $("#BankDraftNumber").removeAttr('disabled');
+                    $("#TellerNumber").attr('disabled', 'disabled');
+                    $("#POSTransactionNumber").attr('disabled', 'disabled');
+                    $("#ChequeNumber").attr('disabled', 'disabled');
+                    // $("#BankDraftNumber").attr('disabled', 'disabled');
+                }
+            });
+
+
+            // alert($("feekind option:selected").index());
+            $('input:submit').click(function () {
+
+                var theValeu = $("#Term").val();
+
+                if (theValeu == "") {
+                    alert("Select a Term First");
+                    return false;
+
+                }
+            });
+
+
+            $("#pay").click(function () {
+
+
+
+                //  var theSession = $('#Session').val();
+                var theSchoolSession = '@ViewBag.session';
+                $("#Session").val(theSchoolSession);
+
+                var theOverallTotal = $('#Paid').val();
+                var theSchoolFeesTypeTerm = '@ViewBag.TheSchoolFeesType';
+                $("#TheSchoolFeesTypeTerm").val(theSchoolFeesTypeTerm);
+
+                var theCost = '@ViewBag.Cost';
+                $("#Cost").val(theCost);
+                if (theOverallTotal <= 0) {
+                    //if (this.value == "undefined") {
+                    alert("Amount Payeable Should be Greater than 0");
+                    return false;
+                }
+
+
+                if (radioValue == "Teller") {
+                    if ($("#TellerNumber").val() == "") {
+
+                        alert("Enter Teller Number !");
+                        return false;
+                    }
+                }
+
+
+                if (radioValue == "POS") {
+                    if ($("#POSTransactionNumber").val() == "") {
+
+                        alert("Enter POS Transaction Number !");
+                        return false;
+                    }
+                }
+                if (radioValue == "Cheque") {
+                    if ($("#ChequeNumber").val() == "") {
+                        alert("Enter Cheque Number !");
+                        return false;
+                    }
+                }
+                if (radioValue == "Bank Draft") {
+                    if ($("#BankDraftNumber").val() == "") {
+                        alert("Enter Bank Draft Number !");
+                        return false;
+                    }
+                }
+                if (radioValue == "") {
+                    // if ($("#BankDraftNumber").val() == "") {
+                    alert("Enter a Payment Method !");
+                    return false;
+                    // }
+                }
+
+            });
+
+            countChecked();
+
+            $(":checkbox").click(countChecked)
+            $("#tabs").tabs().width("450px");
+            $("#accordion").accordion().width("235px");
+
+        </script>
+    }

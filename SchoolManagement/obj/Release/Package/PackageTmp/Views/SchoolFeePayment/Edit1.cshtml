@@ -1,0 +1,151 @@
+﻿@model SchoolManagement.Model.SchoolFeePayment
+
+@{
+    ViewBag.Title = "Create/View Student's Fees";
+    // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+
+   // List<SchoolManagement.Models.StudentFeePaymentViewModel> course = ViewBag.Fees;
+   // int number = courses.Count();
+}
+<br />
+<h4>CREATE/VIEW STUDENT FEES </h4>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend> Pay School Fees For @ViewBag.Name, Student ID- @Model.StudentID, @ViewBag.Term Term,@ViewBag.Class </legend>
+
+     
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.Level)
+            @Html.HiddenFor(model => model.Term)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.ItemName)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ItemName)
+            @Html.ValidationMessageFor(model => model.ItemName)
+        </div>
+
+      @*  <div class="editor-label">
+            @Html.LabelFor(model => model.StudentID)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.StudentID)
+            @Html.ValidationMessageFor(model => model.StudentID)
+        </div>
+
+      @* <div class="editor-label">
+            @Html.LabelFor(model => model.Cost)
+        </div>*@
+       <div class="editor-field">
+            @Html.HiddenFor(model => model.Cost)
+            @Html.ValidationMessageFor(model => model.Cost)
+       </div>
+
+          <table style="width: 100%">
+                <tr>
+                    @{
+    int cnt = 0;
+    List<SchoolManagement.Models.StudentFeePaymentViewModel> courses = ViewBag.Fees;
+
+    foreach (var course in courses)
+    {
+        if (cnt++ % 1 == 0)
+        {
+                                @:  </tr> <tr> 
+                            }
+                            @: <td>
+                                <input type="checkbox"  class="checkboxes"
+                                       name="selectedCourses" 
+                                       value="@course.ItemName-@course.Cost"
+                                       @(Html.Raw(course.Assigned ? "checked=\"checked\"" : "")) />
+                                @course.ItemName @:&nbsp; # @course.Cost
+           
+                            @:</td>
+                        }
+                        @: </tr>
+                       
+                    }
+           @*    <tr>
+                <td><b>Total Fee (#):</b></td>
+               <td id='total'></td>
+            </tr>*@
+            </table>
+        <div>
+            @*<h3>Total Fee (#): <text></text><label id="te"></label> </h3>*@
+            <br />
+        
+            <h3>Total Fee (#): <text id="te"></text> </h3>
+     </div>
+     
+        <p>
+            <input type="submit" value="Save" class="btn-primary"  />
+        </p>
+     
+    </fieldset>
+}
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index", "SchoolFeePayment")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+   
+    $('input:submit').click(function () {
+
+        var theValeu = $("#Term").val();
+        //  alert(theValeu);
+        if (theValeu == "") {
+            alert("Select a Term First");
+            return false;
+
+        }
+    });
+
+    $('input:submit').click(function () {
+        if ($("input[type='checkbox']:checked").length < 1) {
+            alert("Select at Least one Item");
+            return false; // cancel submit
+        }
+    });
+
+    countChecked();
+    function countChecked() {
+        var totalCost = 0;
+       
+        var n = $("input:checked").length;
+        if (n == 0)
+        {
+            $('#te').text("No Payment Yet!");
+            return;
+        }
+        $("input[type='checkbox']:checked").each(
+    
+     function () {
+        // alert("Hi");
+         var Cost = $(this).val();
+         var theCost = Cost.split('-');
+         var theCostinNumber = parseFloat(theCost[1]);
+        // alert(theCostinNumber);
+         totalCost = totalCost + theCostinNumber;
+         $('#te').text(totalCost);
+         // alert(totalCost);
+
+     })
+
+    };
+
+    $(":checkbox").click(countChecked)
+    $("#tabs").tabs().width("450px");
+    $("#accordion").accordion().width("235px");
+
+</script>
+}

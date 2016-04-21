@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SchoolManagement.Model.Term>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+<h4>VIEW TERM TIME</h4>
+<br />
+<h4>ENSURE ACCURATE SETTING OF THE TIME</h4>
+<br />
+<p>
+    @if(@ViewBag.Count == 0)
+    {
+    @Html.ActionLink("Create Term Time", "Create")
+    }
+</p>
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+           <b>Term</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TermStarts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TermEnds)
+        </th>
+         <th>
+           <b>Session</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.TermName == "1")
+                {
+                    <b>First</b>
+                }
+                @if (item.TermName == "2")
+                {
+                      <b>Second</b>
+                }
+                @if (item.TermName == "3")
+                {
+                     <b>Third</b>
+                }
+               @* @Html.DisplayFor(modelItem => item.TermName)*@
+            </td>
+            <td>
+                  @string.Format("{0:dd-MMM-yyyy}", item.TermStarts)
+               @* @Html.DisplayFor(modelItem => item.TermStarts)*@
+            </td>
+            <td>
+                 @string.Format("{0:dd-MMM-yyyy}", item.TermEnds)
+              @*  @Html.DisplayFor(modelItem => item.TermEnds)*@
+            </td>
+              <td> @Html.DisplayFor(modelItem => item.SessionStartYear)/@Html.DisplayFor(modelItem => item.SessionEndYear)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TermID }) |
+          @*  @Html.ActionLink("Details", "Details", new { id = item.TermID }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.TermID })
+            </td>
+          
+        </tr>
+    }
+
+</table>

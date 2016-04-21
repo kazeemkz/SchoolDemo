@@ -1,0 +1,64 @@
+﻿@model SchoolManagement.Models.PrimarySchoolStudentViewModel
+
+@{
+    ViewBag.Title = "Edit Student Information";
+  //  Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+  @*  <title>EditSuperAdmin</title>*@
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+     <h3>BULK-UPDATE</h3>
+    @using (Html.BeginForm("EditSuperAdmin", "PrimarySchoolStudent"))
+    {
+        <fieldset>
+            <legend>Search Box</legend>
+            <table>
+                <tr>
+                    <td><b>Class:</b>@Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))</td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Search" id="search" class="btn-primary" />
+        </fieldset>
+    }
+    <br />
+
+    @*  @using (Html.BeginForm("EditSuperAdmin1", "PrimarySchoolStudent",null, FormMethod.Post,null))*@
+    @using (Html.BeginForm("EditSuperAdmin1", "PrimarySchoolStudent", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+       
+        <br />
+        <b>@ViewBag.Student Record(s) Found</b>
+        @Html.EditorFor(x => x.Item)
+    
+        <p>
+            <input type="submit" value="Save" id="submit" class="btn-primary" />
+        </p>
+       
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+     //   $("#search").button();
+      //  $("#submit").button();
+
+    </script>
+}

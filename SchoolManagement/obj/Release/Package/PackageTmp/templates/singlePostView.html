@@ -1,0 +1,58 @@
+﻿
+<a href="#/" class="btn">Back</a>
+   <div class="messages">
+
+        <div class="container-fluid">
+           <div class="message row" data-ng-repeat="i in data.Uniquetopic">
+              <div class="title span8">
+                    {{i.Title}} By {{i.FirstName}} {{i.LastName}} 
+                </div>
+                <div class="date span2">
+                    {{i.DateCreated | date:"medium"}}
+                </div>
+              <div class="contents span8">
+                <img src="../Person/GetImage?id={{i.PID}}"  width="20" height="20" />   {{i.PostBody}}
+                </div>
+                <div class="toolbar span10">
+                   <!--  <input type="button" value="Reply" class="btn btn-primary" />-->
+                   <!-- <button class="btn btn-primary reply-button">Reply</button>-->
+                </div>
+                <div class="replies span10">
+                    <div class="reply" data-ng-repeat="r in i.Comments">
+                        <div class="created pull-right">
+                          {{r.DateCreated | date:"medium"}} by {{r.FirstName}} {{r.LastName}} 
+                        </div>
+                        <div class="content">
+                         <img src="../Person/GetImage?id={{r.PID}}"  width="20" height="20" />   {{r.Content}}
+                        </div>
+
+                    </div>
+
+                   
+                </div>
+
+
+            </div>
+
+
+        </div>
+     
+      <form name="newReplyForm" method="post"  novalidate data-ng-submit="addReply()">
+          <!-- <form name="newReplyForm" method="post" >-->
+           <fieldset>
+               <legend> <h3>Add Reply</h3></legend>
+               <div>
+            <label for="body">Body</label>
+            <textarea name="body" rows="5" cols="30"  data-ng-model="newReply.Content" data-ng-minlength="15" required/>
+               <span class="error" data-ng-show="newReplyForm.body.$error.required">*</span>
+              <span class="error" data-ng-show="newReplyForm.body.$error.minlength">Minimum Character is 15</span>
+        </div>
+        <div>
+
+            <input type="submit"  value="Save" data-ng-disabled="newReplyForm.$invalid" class="btn btn-primary"/>
+          <!--  <a href="#/" class="btn">Cancel</a>-->
+        </div>
+           </fieldset>
+
+       </form>
+    </div>

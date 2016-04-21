@@ -1,0 +1,82 @@
+﻿@model SchoolManagement.Model.Information
+
+@{
+    ViewBag.Title = "Details";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4> MESSAGE DETAILS</h4>
+
+<fieldset>
+    <legend>Message</legend>
+
+    <div class="display-label">
+    </div>
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.To):</b>  @Html.DisplayFor(model => model.To)
+    </div>
+
+    <div class="display-label">
+    </div>
+    <div class="display-field">
+        <b>Student ID:</b>  @Html.DisplayFor(model => model.StudentID)
+    </div>
+
+    <div class="display-label">
+    </div>
+    <div class="display-field">
+        <b>Sent By:</b>  @Html.DisplayFor(model => model.SentBy)  @ViewBag.Name
+    </div>
+
+    <div class="display-label">
+    </div>
+    <div class="display-field">
+
+        @{
+            string theDate = String.Format("{0:ddd, MMM d, yyyy, h:mm:ss tt}", Model.DateSent); 
+        }
+    
+        <b>Date Sent:</b>     @theDate  @*@Html.DisplayFor(model => model.DateSent)*@
+    </div>
+
+    @* <div class="display-label">
+    </div>
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Title)</b>   @Html.DisplayFor(model => model.Title)
+    </div>*@
+
+    <div class="display-label">
+        <b>@Html.DisplayNameFor(model => model.Body):</b>
+    </div>
+    <fieldset>
+        <legend><b>@Model.Title</b></legend>
+        @Html.DisplayFor(model => model.Body)
+    </fieldset>
+
+
+</fieldset>
+<table>
+
+    <tr>
+        <td>
+
+            @if ((User.Identity.Name.Equals(Model.SentBy)))
+            {
+                
+                @Html.ActionLink("Edit", "Edit", new { id = Model.InformationID })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+            @Html.ActionLink("Back to List", "Index")
+
+        </td>
+    </tr>
+</table>
+
+<p>
+</p>
+<p>
+</p>

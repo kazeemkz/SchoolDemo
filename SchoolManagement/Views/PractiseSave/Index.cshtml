@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SchoolManagement.Model.PractiseSave>
+
+@{
+    ViewBag.Title = "Index";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>CHECK RESULTS - QUIZ RESULTS</h4>
+<br />
+@using (Html.BeginForm("Index", "PractiseSave", FormMethod.Get, new { id = Convert.ToInt32(ViewBag.ID) }))
+
+{
+    <fieldset>
+        <legend>Search Box</legend>
+
+        <table>
+          @*  @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("Parent"))*@
+           
+                <tr>
+                    <td><b>Level: </b></td>
+                    <td> @Html.DropDownList("level", SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone1)</td>
+                </tr>
+            
+
+            <tr>
+
+                <td>
+                    <b>Term:</b>
+                </td>
+                <td>
+                  @Html.DropDownList("term", SchoolManagement.Model.LevelDictionary.Term)
+                </td>
+            </tr>
+
+            @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("Parent"))
+            {
+                <tr>
+                    <td>Student: </td>
+                    <td> @Html.DropDownList("studentID", new SelectList((System.Collections.IEnumerable)ViewData["Students"], "Value", "Text"))</td>
+                </tr>
+            }
+
+
+        </table>
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+   
+
+}
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<fieldset>
+
+    <legend>@ViewBag.Level</legend>
+   <table class="table table-hover table-bordered table-condensed">
+    <tr>
+       @* <th>
+            @Html.DisplayNameFor(model => model.StudentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level)
+        </th>*@
+        <th>
+           <b>Test Code</b>
+        </th>
+        <th>
+           <b>Subject</b>
+        </th>
+        <th>
+         <b>Score(%)</b>
+        </th>
+        @*<th></th>*@
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       @* <td>
+            @Html.DisplayFor(modelItem => item.StudentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level)
+        </td>*@
+         <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score)
+        </td>
+       @* <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PractiseSaveID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PractiseSaveID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PractiseSaveID })
+        </td>*@
+    </tr>
+}
+
+</table>
+</fieldset>

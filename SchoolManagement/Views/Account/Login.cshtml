@@ -1,0 +1,96 @@
+﻿@model SchoolManagement.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+    //Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@*<hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+    </hgroup>*@
+
+@if (ViewData["Success"] != null)
+{
+    <div id="successMessage">
+        <h2>CONGRATULATIONS!!!</h2>
+        <br />
+        <h3>An Email has been sent to you,</h3>
+        <h3>Your Account will be approved as soon as you make Payment</h3>
+    </div>
+}
+
+<section id="loginForm">
+    @*<h2>Use a local account to log in.</h2>*@
+   @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @*@Html.AntiForgeryToken()*@
+        @Html.ValidationSummary(true, "Log in was unsuccessful. Please correct the errors and try again.")
+       
+
+        <fieldset>
+            <legend>USE YOUR ACCOUNT TO LOG IN</legend>
+            @*<ol>
+                <li>*@
+                  <b>  @Html.LabelFor(m => m.UserName)</b>
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                @*</li>
+                <li>*@
+                   <b> @Html.LabelFor(m => m.Password)</b>
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+    <br />
+               @* </li>
+    <li>
+           @Html.CheckBoxFor(m => m.RememberMe)
+           @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+       </li>*@
+            @*</ol>*@
+            <input type="submit" value="Log in" class="btn-primary" />
+        </fieldset>@*
+            <p>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </p>*@
+    }
+</section>
+
+@*<section class="social" id="socialLoginForm">
+        <h2>Use another service to log in.</h2>
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>*@
+
+@section Scripts {
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+
+            //$("#successMessage").dialog({
+            //    show: { effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 10 },
+            //    modal: true,
+            //    height: 300,
+            //    width: 300,
+            //    closeOnEscape: false,
+
+            //}).css("background-color", "grey").css("foreground-color", "grey"); // border: 1px solid #787878;
+
+            //AutoCloseDialogBox(5000);
+
+            // AutoCloseDialogBox(10000);
+
+            //  function AutoCloseDialogBox(sec) {
+
+            //    setTimeout(function () { $("#successMessage").dialog("close"); }, sec);
+
+            //  };
+
+        });
+
+
+
+
+    </script>
+}

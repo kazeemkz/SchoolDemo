@@ -1,0 +1,97 @@
+﻿@model SchoolManagement.Models.TermRegistrationViewModel
+
+@{
+    ViewBag.Title = "Attendance";
+    // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>STUDENT REGISTRATION</h3>
+@using (Html.BeginForm("Edit", "TermRegistration", FormMethod.Get))
+{
+    <fieldset>
+        <legend> Selection Box</legend>
+        <table>
+            <tr>
+                <td><b>Class:</b></td>
+                <td>@Html.DropDownList("level",SchoolManagement.Model.LevelDictionary.LevelDicoList)</td>
+            </tr>
+            <tr>
+                <td><b>Term:</b></td>
+                <td>@Html.DropDownList("Term", SchoolManagement.Model.LevelDictionary.TermWithNullRegistration)</td>
+            </tr>
+            <tr>
+                <td><b>Academic Session:</b></td>
+                <td>@Html.DropDownList("Session", SchoolManagement.Model.LevelDictionary.SessionList)</td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Search" id="search" class="btn-primary" />
+    </fieldset>
+}
+<br />
+@if (Model.TheTermRegistration != null)
+{
+    using (Html.BeginForm("Edit", "TermRegistration", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.Hidden("level1")
+    @Html.Hidden("Term2")
+    @Html.Hidden("Session3")
+    <fieldset>
+        <legend></legend>
+
+        @Html.EditorFor(x => x.TheTermRegistration)
+        <p>
+            <input type="submit" value="Save" id="save" class="btn-primary" />
+        </p>
+    </fieldset>
+    }
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $("#search").click(function () {
+            var level = $('#level').val();
+            $("#level1").val(level);
+           // alert($("#level1").val());
+
+            //  var term = $('#Term').val();
+            $("#Term2").val(term);
+
+
+            var session = $('#Session').val();
+            $("#Session3").val(session);
+
+
+
+        });
+
+        $("#save").click(function () {
+            var level = $('#level').val();
+            $("#level1").val(level);
+
+
+            var term = $('#Term').val();
+            $("#Term2").val(term);
+
+            // alert(session);
+            var session = $('#Session').val();
+            $("#Session3").val(session);
+
+
+
+        });
+
+    </script>
+}
+
+

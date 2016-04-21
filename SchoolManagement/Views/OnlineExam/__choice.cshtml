@@ -1,0 +1,28 @@
+﻿@model SchoolManagement.Model.Choice
+@if (Model.IsSelected && Model.IsAnswer)
+{
+    @*<text>@Model.Question.Exam.Duration</text>*@
+
+    <div style="background-color: lightgreen">
+        @Html.RadioButton("Exam.Questions[" +( Model.Question.OrderNumber-1) + "].Choices[0].ChoiceID", Model.ChoiceID)
+        
+        @Model.Text
+    </div>
+}
+@*@if (!Model.IsSelected && Model.IsAnswer  && Model.Question.Exam.Duration >0)
+{ 
+    
+    <div style="background-color: red">
+        @Html.RadioButton("Exam.Questions[" +( Model.Question.OrderNumber-1) + "].Choices[0].ChoiceID", Model.ChoiceID)
+        
+        @Model.Text
+    </div>
+}*@
+else
+{ 
+
+    @Html.RadioButton("Exam.Questions[" + (Model.Question.OrderNumber-1) + "].Choices[0].ChoiceID", Model.ChoiceID) 
+    @Model.Text 
+
+
+}

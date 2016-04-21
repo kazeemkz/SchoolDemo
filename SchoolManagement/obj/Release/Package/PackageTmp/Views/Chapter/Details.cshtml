@@ -1,0 +1,50 @@
+﻿@model SchoolManagement.Model.Chapter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Chapter</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Path)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Path)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CourseID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CourseID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Number)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Number)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ParentName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ParentName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ChapterID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

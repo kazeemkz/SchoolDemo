@@ -1,0 +1,106 @@
+﻿@model SchoolManagement.Model.Store
+@{
+    ViewBag.Title = "Delete";
+  //  Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>DELETE</h4>
+@using (Html.BeginForm())
+{
+
+    <h3>Are you sure you want to delete Store Item @Model.ItemName ?</h3>
+    <fieldset>
+        <legend>@Model.ItemName </legend>
+
+        @* <div class="display-label">
+         @Html.DisplayNameFor(model => model.StoreID)
+    </div>*@
+        <div class="display-field">
+            @Html.HiddenFor(model => model.StoreID)
+        </div>
+
+        <div class="display-label">
+        </div>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ItemName):</b> @Html.DisplayFor(model => model.ItemName)
+        </div>
+        <br />
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Quanity):</b>  @Html.DisplayFor(model => model.Quanity)
+        </div>
+        <br />
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.AuthorName):</b>   @Html.DisplayFor(model => model.AuthorName)
+        </div>
+        <br />
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Size):</b>  @Html.DisplayFor(model => model.Size)
+        </div>
+
+        @* <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EditedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EditedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeletedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeletedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>*@
+    </fieldset>
+    
+    
+    
+@*<div id="button2">
+          @Html.ActionLink("Back to List", "Index")
+    </div>
+    <p>
+        <input type="submit" value="Delete" id="button" />
+           
+    </p>
+
+
+    <p>
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+    
+    <span>
+        <p id="button2">
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        <p>
+            <input type="submit" value="Delete" id="button" class="btn-danger" />
+        </p>
+    </span>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#button").button();
+        //$("#button2").button();
+
+    </script>
+}

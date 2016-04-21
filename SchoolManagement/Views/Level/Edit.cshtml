@@ -1,0 +1,56 @@
+﻿@model SchoolManagement.Model.Level
+
+@{
+    ViewBag.Title = "Edit";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>EDIT CLASS</h4>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend> Edit Class</legend>
+
+        @Html.HiddenFor(model => model.LevelID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LevelName)
+        </div>
+        <div class="editor-field">
+         @*   @Html.EditorFor(model => model.LevelName)*@
+             @Html.DropDownListFor(model => model.LevelName, SchoolManagement.Model.LevelDictionary.LevelDicoList)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+        @*    @Html.EditorFor(model => model.Type)*@
+            @Html.DropDownListFor(model => model.Type, SchoolManagement.Model.LevelDictionary.LevelTypeList)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" id="button" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+     //   $("#button").button();
+     //   $("#button2").button();
+     //   $("#button3").button();
+
+     ////   $("#button2").button();
+     //   $("#tabs").tabs().width("450px");
+     //   $("#accordion").accordion().width("235px");
+
+    </script>
+}

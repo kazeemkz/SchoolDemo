@@ -1,0 +1,190 @@
+﻿@model SchoolManagement.Model.SchoolFeePayment
+
+@{
+    //ViewBag.Title = "Edit";
+}
+
+<h4>EDIT PAYMENT</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>School Fee Payment Entered By @Model.EnteredBy</legend>
+
+        @Html.HiddenFor(model => model.SchoolFeePaymentID)
+        @Html.HiddenFor(model => model.TheSchoolFeesType)
+        @Html.HiddenFor(model => model.Level)
+        @Html.HiddenFor(model => model.StudentID)
+        @Html.HiddenFor(model => model.Cost)
+        @Html.HiddenFor(model => model.Owing)
+        @Html.HiddenFor(model => model.Term)
+        @Html.HiddenFor(model => model.DatePaid)
+        @Html.HiddenFor(model => model.EnteredBy)
+        @Html.HiddenFor(model => model.PaymentMethod)
+        @Html.HiddenFor(model => model.TellerNumber)
+        @Html.HiddenFor(model => model.ChequeNumber)
+        @Html.HiddenFor(model => model.BankDraftNumber)
+        @Html.HiddenFor(model => model.POSTransactionNumber)
+        @Html.HiddenFor(model => model.Approved)
+
+        @*   <div class="editor-label">
+            @Html.LabelFor(model => model.TheSchoolFeesType)
+        </div>*@
+        @* <div class="editor-field">
+            @Html.EditorFor(model => model.TheSchoolFeesType)
+            @Html.ValidationMessageFor(model => model.TheSchoolFeesType)
+        </div>*@
+
+        @*  <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Level)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>*@
+
+        <fieldset>
+            <legend>Payment Details</legend>
+
+            <b>Approved?:</b>   @Html.DisplayFor(model => model.Approved)
+            <br />
+            <b>Payment for Student of Class</b> @Html.DisplayFor(model => model.Level)
+            <br />
+            <b>Student ID</b> @Html.DisplayFor(model => model.StudentID)
+            <br />
+            <b>Term</b> @Html.DisplayFor(model => model.Term)
+            <br />
+            <b>Date Paid</b>   @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", Model.DatePaid) @*@Html.DisplayFor(model => model.Term)*@
+            <br />
+            <b>Payment Method:</b>   @Html.DisplayFor(model => model.PaymentMethod)
+            <br />
+            <b>Teller Number:</b>   @Html.DisplayFor(model => model.TellerNumber)
+            <br />
+            <b>Cheque Number:</b>   @Html.DisplayFor(model => model.ChequeNumber)
+            <br />
+            <b>Bank Draft Number:</b>   @Html.DisplayFor(model => model.BankDraftNumber)
+            <br />
+            <b>POS Transaction Number:</b>   @Html.DisplayFor(model => model.POSTransactionNumber)
+        </fieldset>
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.PaymentMethod)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PaymentMethod)
+            @Html.ValidationMessageFor(model => model.PaymentMethod)
+        </div>*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.TellerNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TellerNumber)
+            @Html.ValidationMessageFor(model => model.TellerNumber)
+        </div>*@
+
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.ChequeNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ChequeNumber)
+            @Html.ValidationMessageFor(model => model.ChequeNumber)
+        </div>*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.BankDraftNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BankDraftNumber)
+            @Html.ValidationMessageFor(model => model.BankDraftNumber)
+        </div>*@
+
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.POSTransactionNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.POSTransactionNumber)
+            @Html.ValidationMessageFor(model => model.POSTransactionNumber)
+        </div>*@
+
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.Approved)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Approved)
+            @Html.ValidationMessageFor(model => model.Approved)
+        </div>*@
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.StudentID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StudentID)
+            @Html.ValidationMessageFor(model => model.StudentID)
+        </div>*@
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.Cost)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Cost)
+            @Html.ValidationMessageFor(model => model.Cost)
+        </div>*@
+
+        @* <div class="editor-label">
+            @Html.LabelFor(model => model.Owing)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Owing)
+            @Html.ValidationMessageFor(model => model.Owing)
+        </div>*@
+
+        @*  <div class="editor-label">
+            @Html.LabelFor(model => model.DatePaid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DatePaid)
+            @Html.ValidationMessageFor(model => model.DatePaid)
+        </div>*@
+        <fieldset>
+            <legend>Modify Payment</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Paid)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Paid)
+                @Html.ValidationMessageFor(model => model.Paid)
+            </div>
+        </fieldset>
+        @*        <div class="editor-label">
+            @Html.LabelFor(model => model.Term)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Term)
+            @Html.ValidationMessageFor(model => model.Term)
+        </div>*@
+
+        @*  <div class="editor-label">
+            @Html.LabelFor(model => model.EnteredBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EnteredBy)
+            @Html.ValidationMessageFor(model => model.EnteredBy)
+        </div>*@
+
+
+
+        <p>
+            <input type="submit" value="Save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

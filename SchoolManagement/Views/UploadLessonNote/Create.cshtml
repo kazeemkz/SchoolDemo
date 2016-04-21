@@ -1,0 +1,277 @@
+﻿@model SchoolManagement.Models.UploadLessonNoteViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE A CHAPTER NOTE</h4>
+@using (Html.BeginForm("Create", "UploadLessonNote", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Upload Chapter Note</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+            @* @ViewBag.Level = @Model.Level;*@
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 1", new { @checked = "checked" })JSS1
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 2")JSS2
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 3")JSS3
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 1")SSS1
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 2")SSS2
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 3")SSS3
+           
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+        @* <div class="editor-field">
+            @Html.DropDownListFor(model => model.Level, eLibrary.Model.LevelDictionary.LevelDicoList)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @*  @Html.DropDownListFor(model => model.Subject,  eLibrary.Model.CourseDictionary.CourseDicoList)
+            @Html.ValidationMessageFor(model => model.Subject)*@
+            @Html.DropDownListFor(x => x.Subject, new SelectList(Enumerable.Empty<SelectListItem>()))
+            @*  <select id="Subject" data-value="true" name="Subject"></select>*@
+            @* <a href="#" id="ViewSubject">Select from Existing Subjects</a>*@
+           @* <a href="#" id="CreateSubject">Create New Subject</a>*@
+             <a href="#" id="ViewChapter">View Existing Chapters for Chosen Subject</a>
+        </div>
+
+        <div class="editor-label">
+           <b>Chapter Number</b>
+        </div>
+        <div class="editor-field">
+            @*  @Html.DropDownListFor(model => model.Chapter, eLibrary.Model.ChapterDictionary.ChapterDicoList)*@
+           @* @Html.HiddenFor(model => model.Chapter)
+           @Html.Editor("theChapter")*@
+             @Html.EditorFor(model => model.Chapter)
+            @Html.ValidationMessageFor(model => model.Chapter)
+           @* <a href="#" id="ViewChapter">View Existing Chapters for Chosen Subject</a>*@
+        </div>
+
+        <div class="editor-label">
+            <text><b> Chapter/Topic Title</b></text>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TopicTitle)
+            @Html.ValidationMessageFor(model => model.TopicTitle)
+        </div>
+
+        <div id="ViewCourseDialog" style="overflow: hidden;"></div>
+        <div id="CreateCourseDialog" style="overflow: hidden;"></div>
+        <div id="ViewChapterDialog" style="overflow: hidden;"></div>
+        @if (ViewBag.Success == "1")
+        {
+            <div id="dialog" title=" Upload Success Dialog">
+
+                <b>Lesson Note Was Successsfully Uploaded!</b>
+            </div>
+        }
+        <fieldset>
+            <legend>Upload a PDF File ONLY </legend>
+            <input type="file" id="FileUpload1" name="FileUpload1" /><br />
+
+        </fieldset>
+
+        <p>
+            <input type="submit" value="Create Chapter Note" />
+        </p>
+    </fieldset>
+}
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+@section Scripts {
+    @* @Scripts.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")*@
+   @* @Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+            var SubjectValue = "";
+            var theRealVal = $("input[name='Level']:checked").val();
+            //  var theRealVal = $('input:radio[name=Level]:checked').val();
+            //load course based on jss1 value first
+            $.get('@Url.Action("LoadCourse", "UploadLessonNote")', { level: theRealVal }, function (data) {
+                var ddl = $("#Subject");
+                ddl.empty();
+                ddl.append("<option value='" + "" + "'>"
+                       + "Choose...." + "</option>");
+                for (var i = 0; i < data.length; i++) {
+                    ddl.append("<option value='" + data[i].Value + "'>"
+                         + data[i].Text + "</option>");
+                }
+
+            });
+
+            //$("ViewChapterDialog").cl(function () {
+            //    alert("HI");
+
+
+            //});
+
+            $('input:radio').click(function () {
+
+                var theCheckedValue = $('input:radio:checked').val();
+                $.get('@Url.Action("LoadCourse", "UploadLessonNote")', { level: theCheckedValue }, function (data) {
+                    var ddl = $("#Subject");
+                    ddl.empty();
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                });
+            });
+
+
+            $("#dialog").dialog().width("350px").css("background-color", "grey");
+
+            $("#ViewCourseDialog").dialog({
+
+                autoOpen: false,
+                resizable: false,
+                width: 200,
+                title: "View Existing Subjects",
+                modal: true,
+                open: function (event, ui) {
+                    $(this).load('@Url.Action("IndexPartial", "Course")');
+                },
+                buttons: {
+
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+                }
+            })
+
+
+            $("#CreateCourseDialog").dialog({
+
+                autoOpen: false,
+                resizable: false,
+                width: 600,
+                title: "Create Subject",
+                modal: true,
+
+                open: function (event, ui) {
+
+                    $(this).load('@Url.Action("CreatePartial", "Course")');
+
+                },
+                buttons: {
+
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+                }
+            });
+
+
+            $("#ViewChapterDialog").dialog({
+
+                autoOpen: false,
+                resizable: false,
+                width: 600,
+                title: "View Chapters for Selected Subject",
+                modal: true,
+
+                open: function (event, ui) {
+                    var theInputParam = SubjectValue;
+                    var url = "@Url.Action("ViewChapterPartial", "Chapter")?CoureLevel=" + theInputParam;
+                  //  SubjectValue = $('input:radio:checked').val() + ":" + $("#Subject").val();
+                    $(this).load(url);
+                  //  $(this).load('../Chapter/ViewChapterPartial?CoureLevel=' + theInputParam);
+
+
+                },
+                buttons: {
+
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+                }
+            });
+
+            $("#ViewSubject")
+       .button()
+       .click(function (e) {
+           $("#ViewCourseDialog").dialog("open");
+           e.preventDefault();
+
+       });
+
+            $("#ViewChapter").button().click(function (e) {
+               // alert(SubjectValue);
+               // var theVV = $('input:radio:checked').val();
+
+                var theLevel = $('input:radio:checked').val().split(' ');
+                var theLevel1 = theLevel[0] + theLevel[1];
+                SubjectValue = theLevel1 + ":" + $("#Subject").val();
+                //SubjectValue = $('input:radio:checked').val() + ":" + $("#Subject").val();
+
+
+                $("#ViewChapterDialog").dialog("open");
+                e.preventDefault();
+
+
+            });
+
+            $("#CreateSubject")
+      .button()
+      .click(function (e) {
+          //theLevelVal = $("#Level").val();
+          $("#CreateCourseDialog").dialog("open");
+          e.preventDefault();
+
+      });
+           @* $('#Chapter').live('change', function (e) {
+                var inputValu = $('input:radio:checked').val() + ":" + $("#Subject").val() + ":" + $(this).val();
+                $.get('@Url.Action("FindDuplicateChapterNumber", "UploadLessonNote")', { chapterLevel: inputValu }, function (data) {
+
+                    $("Chapter").text(data);
+
+                    $("theChapter").text(data);
+
+                    //if (data == "1") {
+                    //  alert("This Chapter Number exist for Selected Subject, Choose another Chapter Number");
+                    // }
+
+                });
+            });*@
+
+         @*   $('#Subject').live('change', function (e) {
+                var inputValu = $('input:radio:checked').val() + ":" + $("#Subject").val();
+                $.get('@Url.Action("FindDuplicateChapterNumber", "UploadLessonNote")', { chapterLevel: inputValu }, function (data) {
+
+
+                    $("#Chapter").empty();
+                    $("#Chapter").val(data);
+
+                    $("#theChapter").empty();
+                    $("#theChapter").val(data);
+
+                    //if (data == "1") {
+                    //  alert("This Chapter Number exist for Selected Subject, Choose another Chapter Number");
+                    // }
+
+                });
+            });*@
+
+        });
+    </script>
+}

@@ -1,0 +1,399 @@
+﻿@model SchoolManagement.Models.ExamSubjectReg
+@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+@{
+    bool outOfSchool = true;
+    bool print = false;
+
+    if (!(string.IsNullOrEmpty(Model.StudentClassType)))
+    {
+        print = true;
+        string[] thesplit = Model.StudentClassType.Split(':');
+        if (thesplit.Count() == 2)
+        {
+            outOfSchool = false;
+        }
+        else
+        {
+            outOfSchool = true;
+        }
+    }
+}
+
+<h3>STUDENT ACADEMIC RECORDS</h3>
+
+
+@using (Html.BeginForm("Edit", "Exam", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    if (Model.FailedSubjects == null)
+    {
+
+    }
+    else
+    {
+    <fieldset>
+        <legend>Academic Record of @Model.StudentID with Student ID - @Model.StudentName ( <b>@Model.StudentClassType
+            Term-@Model.Term, Repeat Time(s)- @Model.Repeat </b>) Session -@ViewBag.SessionFailed1</legend>
+        <table class="table  table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    <text>Subject</text>
+                </th>
+                <th>
+                    <text>Test 1(20)</text>
+                </th>
+                <th>
+                    <text>Test 2(20)</text>
+                </th>
+                <th>
+                    <text>Exam(60)</text>
+                </th>
+                <th>
+                    <text>Total</text>
+                </th>
+                <th></th>
+            </tr>
+
+            @Html.HiddenFor(m => Model.StudentName)
+            @Html.HiddenFor(m => Model.Term)
+            @Html.HiddenFor(m => Model.StudentID)
+            @Html.HiddenFor(m => Model.Level)
+            @for (int k = 0; k < Model.FailedSubjects.Count(); k++)
+            {
+                <tr>
+                    <td>
+                        @Html.HiddenFor(m => Model.FailedSubjects[k].Name)
+                        @Html.DisplayFor(m => Model.FailedSubjects[k].Name)
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects[k].FirstCA) == 0 || User.IsInRole("SuperAdmin"))
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].FirstCA, new { style = "width:50px" })
+                        }
+
+
+                        else
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].FirstCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects[k].FirstCA, new { style = "width:50px" })
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects[k].SecondCA) == 0 || User.IsInRole("SuperAdmin"))
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].SecondCA, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].SecondCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects[k].SecondCA, new { style = "width:50px" })
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects[k].SubjectExam) == 0 || User.IsInRole("SuperAdmin"))
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].SubjectExam, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.TextBoxFor(m => Model.FailedSubjects[k].SubjectExam, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects[k].SubjectExam, new { style = "width:50px" })
+                        }
+                    </td>
+
+
+                    @{
+                        decimal? finalTotal = Model.FailedSubjects[k].FirstCA + Model.FailedSubjects[k].SubjectExam + Model.FailedSubjects[k].SecondCA;
+                    }
+
+                    @*<text>@Model.TheSubjects[k].Total % </text>*@
+
+                    <td>
+                        <text>@finalTotal % </text>
+                        @*<text>@Model.FailedSubjects[k].Total % </text>*@
+                    </td>
+                    @*  <td>{
+            @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.LevelID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LevelID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LevelID })
+            </td>*@
+                </tr>
+            }
+        </table>
+        @if (outOfSchool == false)
+        {
+            <p>
+                <input type="submit" value="Save" id="button" class="btn-primary" />
+            </p>
+        }
+    </fieldset>
+    }
+    if (Model.TheSubjects != null)
+    {
+    <fieldset>
+        <legend>Previous Academic Record of @Model.StudentID with Student ID - @Model.StudentName
+            ( <b>@Model.Level
+                Term-@Model.Term</b> )Session -@ViewBag.Session</legend>
+        <table class="table  table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    <text>Subject</text>
+                </th>
+                <th>
+                    <text>Test 1(20)</text>
+                </th>
+                <th>
+                    <text>Test 2(20)</text>
+                </th>
+                <th>
+                    <text>Exam(60)</text>
+                </th>
+                <th>
+                    <text>Total</text>
+                </th>
+                <th></th>
+            </tr>
+
+
+            @for (int k = 0; k < Model.TheSubjects.Count(); k++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => Model.TheSubjects[k].Name)
+                        @Html.HiddenFor(m => Model.TheSubjects[k].Name)
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.TheSubjects[k].FirstCA) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].FirstCA, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].FirstCA, new { style = "width:50px" })
+                        }
+
+
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].FirstCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].FirstCA, new { style = "width:50px" })
+                         
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.TheSubjects[k].SecondCA) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].SecondCA, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].SecondCA, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].SecondCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].SecondCA, new { style = "width:50px" })
+                        
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.TheSubjects[k].SubjectExam) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].SubjectExam, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].SubjectExam, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.TheSubjects[k].SubjectExam, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.TheSubjects[k].SubjectExam, new { style = "width:50px" })
+                         
+                        }
+                    </td>
+
+                    @{
+                        decimal? finalTotal = Model.TheSubjects[k].FirstCA + Model.TheSubjects[k].SubjectExam + Model.TheSubjects[k].SecondCA;
+                    }
+
+                    @*<text>@Model.TheSubjects[k].Total % </text>*@
+
+                    <td>
+                        <text>@finalTotal % </text>
+                        @*<text>@Model.TheSubjects[k].Total % </text>*@
+                    </td>
+                    @*  <td>{
+            @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.LevelID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LevelID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LevelID })
+            </td>*@
+                </tr>
+            }
+        </table>
+
+
+    </fieldset>
+    }
+
+
+
+    if (Model.FailedSubjects2 != null)
+    {
+    <fieldset>
+        <legend>Previous Academic Record of @Model.StudentID with Student ID - @Model.StudentName
+            ( <b>@Model.Level
+                Term-@Model.Term</b> )</legend>
+        <table class="table  table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                    <text>Subject</text>
+                </th>
+                <th>
+                    <text>Test 1(20)</text>
+                </th>
+                <th>
+                    <text>Test 2(20)</text>
+                </th>
+                <th>
+                    <text>Exam(60)</text>
+                </th>
+                <th>
+                    <text>Total</text>
+                </th>
+                <th></th>
+            </tr>
+
+
+            @for (int k = 0; k < Model.FailedSubjects2.Count(); k++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => Model.FailedSubjects2[k].Name)
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects2[k].FirstCA) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].FirstCA, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].FirstCA, new { style = "width:50px" })
+                        }
+
+
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].FirstCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].FirstCA, new { style = "width:50px" })
+                         
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects2[k].SecondCA) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].SecondCA, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].SecondCA, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].SecondCA, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].SecondCA, new { style = "width:50px" })
+                        
+                        }
+                    </td>
+                    <td>
+                        @if (Convert.ToDecimal(Model.FailedSubjects2[k].SubjectExam) == 0)
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].SubjectExam, new { style = "width:50px" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].SubjectExam, new { style = "width:50px" })
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => Model.FailedSubjects2[k].SubjectExam, new { style = "width:50px", disabled = "disabled" })
+                            @Html.HiddenFor(m => Model.FailedSubjects2[k].SubjectExam, new { style = "width:50px" })
+                         
+                        }
+                    </td>
+                    @{
+                        decimal? finalTotal = Model.FailedSubjects2[k].FirstCA + Model.FailedSubjects2[k].SubjectExam + Model.FailedSubjects2[k].SecondCA;
+                    }
+
+                    @*<text>@Model.TheSubjects[k].Total % </text>*@
+
+                    <td>
+                        <text>@finalTotal % </text>
+                        @*<text>@Model.FailedSubjects2[k].Total % </text>*@
+                    </td>
+                    @*  <td>{
+            @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.LevelID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LevelID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LevelID })
+            </td>*@
+                </tr>
+            }
+        </table>
+
+
+    </fieldset>
+    }
+
+}
+@if (Model.TheSubjects != null)
+{
+    if (Model.Term.Equals("3"))
+    {
+    <fieldset>
+        <legend>Promote/Repeat  @Model.StudentID with Student ID - @Model.StudentName  Currently in @Model.StudentClassType</legend>
+
+        @using (Html.BeginForm("PromotEditStudent", "Exam", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+
+    
+            <div class="editor-field">
+                @Html.DropDownList("level", new SelectList((System.Collections.IEnumerable)ViewData["Level"], "Value", "Text"))
+                @Html.HiddenFor(model => model.StudentName)
+            </div>
+    
+            <br /> 
+            <input type="submit" value="Update" id="button3" class="btn-primary" />
+  
+
+        }
+    </fieldset>
+    
+
+    }
+}
+
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<br />
+@if (print)
+{
+    <div id="button4">
+        @Html.ActionLink("Print Result", "PrintResult", new { Term = Model.Term, studentName = Model.StudentName, studentLevel = Model.Level })
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //  $("#button").button();
+        //  $("#button2").button();
+        //  $("#button3").button();
+
+
+        ////  $("#button2").button();
+        //  $("#tabs").tabs().width("450px");
+        //  $("#accordion").accordion().width("235px");
+
+        //  $("#tabs").tabs().width("750px");
+        //  $("#tabs1").tabs().width("750px");
+
+    </script>
+}

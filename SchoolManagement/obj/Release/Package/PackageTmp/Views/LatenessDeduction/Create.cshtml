@@ -1,0 +1,52 @@
+﻿@model SchoolManagement.Model.LatenessDeduction
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE LATENESS DEDUCTION</h4>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Lateness Deduction</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Hour)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Hour, SchoolManagement.Model.LevelDictionary.HourDicList)
+            @Html.ValidationMessageFor(model => model.Hour)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Minute)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Minute, SchoolManagement.Model.LevelDictionary.MinuteDickDicList)
+            @Html.ValidationMessageFor(model => model.Minute)
+        </div>
+
+        <div class="editor-label">
+            <b>Amount To Be Deducted Per Lateness (NGN)</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AmountToBeDeducted)
+            @Html.ValidationMessageFor(model => model.AmountToBeDeducted)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

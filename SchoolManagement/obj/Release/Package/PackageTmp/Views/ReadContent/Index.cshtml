@@ -1,0 +1,144 @@
+﻿@model SchoolManagement.Model.Course
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>SELECT YOUR LEVEL  (E-BOOKS)</h4>
+
+<div class="editor-label">
+    @*<b>
+        <text>Level</text>
+    </b>*@
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.LevelStringID, SchoolManagement.Model.LevelDictionary.LevelDicoList)
+    @Html.ValidationMessageFor(model => model.LevelStringID)
+</div>
+ 
+@*<div id="faqs-container" class="accordian">
+    <h3><a href="#"></a></h3>*@
+    <div class="accordian2">
+</div>
+    <div id="DisplayPDF">
+
+​​
+
+@section Scripts {
+   @* @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")*@
+
+    <style type="text/css">
+        h1.ui-accordion-header {
+            font-size: 12px;
+        }
+
+        div.ui-accordion-content {
+            font-size: 14px;
+            font-family: georgia;
+            font-style: italic;
+        }
+    </style>
+    <script>
+        //// $("#accordion").accordion().width("200px");jss1
+
+       
+
+        //$("div.accordian1").accordion(
+        //   { active: 'false', clearStyle: true, autoHeight: false }
+        //);
+        //.width("190px");
+
+
+
+        $('#LevelStringID').live('change', function (e) {
+            $('.accordian2').empty();
+            $("#DisplayPDF").html("");
+            var initialHeader = "";
+           // var theLevel = $(this).val();
+
+            var theLevel = $(this).val().split(' ');
+            var theLevel1 = theLevel[0] + theLevel[1];
+           // alert(theLevel1);
+            var tracker = "0";
+            var header = "";
+            var counter = 0;
+
+
+            $.get('@Url.Action("LoadCourse","ReadContent")', { level: theLevel1 }, function (data) {
+
+               // alert(theLevel);
+                var tracker = "0";
+                var header = "";
+                var counter = 0;
+                for (var i = 0; i <= data.length; i++) {
+                  //  header = "";
+                    counter = counter + 1;
+                    // alert(counter);
+                    var data1 = data[i].Text;
+                    var slitedValue = data1.split(':');
+                      //alert(data[i].Value);
+
+                    if (tracker == "0") {
+                        initialHeader = slitedValue[0];
+                        header = '<h3><a href="#">' + initialHeader + '</a></h3>';
+                        tracker = 1;
+                    }
+                    if (initialHeader == slitedValue[0]) {
+
+                        header = header + '<div><a  class="foobar"' + 'href= "#" id=../ReadContent/Report?stringName=' + data[i].Value + '>' + slitedValue[1] + '</a><br>';
+                        if (counter == data.length) {
+                            $('.accordian2').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false }).width("955px");
+                           // header = "";
+                        }
+                    }
+                    else {
+                        $('.accordian2').append(header + '</div>').accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false }).width("955px");
+                        header = "";
+
+                        initialHeader = slitedValue[0];
+                        header = '<h3><a href="#">' + initialHeader + '</a></h3>';
+                       
+                            header = header + '<div><a   class="foobar"' + 'href= "#" id=../ReadContent/Report?stringName=' + data[i].Value + '>' + slitedValue[1] + '</a><br>';
+                     
+                        if (counter == data.length) {
+                            $('.accordian2').append(header).accordion('destroy').accordion({ active: 'false', clearStyle: true, autoHeight: false }).width("955px");
+                        }
+                    }
+
+
+
+                }
+
+            });
+
+
+
+
+
+        });
+
+
+        $('.foobar').live('click', function (e) {
+            var hrefw = $(this).attr('id');
+            $('#DisplayPDF').html(
+          $('<iframe/>', {
+              src: hrefw,
+              width: '955px',
+              height: '750px',
+              toolbar:0
+          })
+      );
+            return false;
+
+
+
+        });
+
+
+    </script>
+
+
+
+}

@@ -1,0 +1,111 @@
+﻿@model SchoolManagement.Model.SecretCode
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<style type="text/css">
+    #body22 {
+        font-size: 11px;
+    }
+</style>
+ <script>
+     $(document).ready(function () {
+
+         $(':submit').click(function () {
+
+             var theValue = $('#model_Code').val();
+
+
+             $.post('@Url.Action("ValidateCode", "PrimarySchoolStudentController")', { code: theValue }, function (data) {
+                  //$("#OrderNumber").empty();
+                  //$("#OrderNumber").val(data);
+
+                  //$("#OrderNumber1").empty();
+                  //$("#OrderNumber1").val(data);
+                 alert("Hey");
+                @* if (data == "1") {
+                     // RedirectToAction("Create2", "PrimarySchoolStudent");
+                    // @Url.Action("Create2","PrimarySchoolStudent");
+                 }
+                 else {
+                    // @Url.Action("Login","Account");
+                     alert("Incorrect Secret Code!, Please Try Again");*@
+                 
+
+
+              });
+            // alert("HI");
+         });
+         
+         // $('#dialog').dialog();
+      
+     });
+
+    </script>
+<div id="body22">
+    @using (Html.BeginForm("ValidateCode", "PrimarySchoolStudent"))
+    {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend><b>Please Enter Secret Code</b></legend>
+
+            @*  <div class="editor-label">
+            @Html.LabelFor(model => model.Code)
+        </div>*@
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Code)
+                @Html.ValidationMessageFor(model => model.Code)
+            </div>
+
+            @* <div class="editor-label">
+            @Html.LabelFor(model => model.UsedFrequency)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UsedFrequency)
+            @Html.ValidationMessageFor(model => model.UsedFrequency)
+        </div>*@
+
+            @* <div class="editor-label">
+            @Html.LabelFor(model => model.CreationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreationDate)
+            @Html.ValidationMessageFor(model => model.CreationDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GivenOut)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GivenOut)
+            @Html.ValidationMessageFor(model => model.GivenOut)
+        </div>*@
+
+          
+            <p>
+                <input type="submit" value="Submit" />
+            </p>
+        </fieldset>
+    }
+</div>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+@section Scripts {
+    @* @Scripts.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+
+           // $('#dialog').dialog();
+            // alert("HI");
+        });
+
+    </script>
+}

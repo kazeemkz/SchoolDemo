@@ -1,0 +1,57 @@
+﻿@model SchoolManagement.Model.Term
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>DELETE</h4>
+
+<h3>Are you sure you want to delete this TERM SETTINGS?</h3>
+<fieldset>
+    <legend>Term</legend>
+  
+   @* <div class="display-label">
+
+        @Html.DisplayNameFor(model => model.TermName)
+    </div>*@
+    <div class="display-field">
+         @if (Model.TermName == "1")
+                {
+                      <b>Term : First</b>
+                }
+                @if (Model.TermName == "2")
+                {
+                      <b>Term : Second</b>
+                }
+                @if (Model.TermName == "3")
+                {
+                     <b>Term : Third</b>
+                }
+  
+    </div>
+
+   @* <div class="display-label">
+        @Html.DisplayNameFor(model => model.TermStarts)
+    </div>*@
+    <div class="display-field">
+    <b>Term Starts:</b>    @string.Format("{0:dd-MMM-yyyy}", Model.TermStarts)
+        @* @Html.DisplayFor(model => model.TermStarts)*@
+    </div>
+
+    @*<div class="display-label">
+        @Html.DisplayNameFor(model => model.TermEnds)
+    </div>*@
+    <div class="display-field">
+     <b>Term Ends:</b>   @string.Format("{0:dd-MMM-yyyy}", Model.TermEnds)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+      @Html.HiddenFor(model => model.TermID)
+    <p>
+        <input type="submit" value="Delete" class="btn-danger" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

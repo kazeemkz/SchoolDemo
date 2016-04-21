@@ -1,0 +1,60 @@
+﻿@model SchoolManagement.Model.Attendance
+
+@{
+    ViewBag.Title = "Attendance";
+}
+
+@*<h2>Attendance</h2>*@
+
+@*@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    *@<fieldset>
+        <legend></legend>
+
+     @*  @Html.HiddenFor(model => model.AttendanceID)*@
+
+       @*<div class="editor-label">
+            @Html.LabelFor(model => model.StudentID)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.StudentID)
+            @Html.ValidationMessageFor(model => model.StudentID)
+        </div>
+
+     
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.arm)
+          @*  @Html.ValidationMessageFor(model => model.DateTaken)*@
+        </div>
+
+         <div class="editor-label">
+             @Html.HiddenFor(model => model.SurName)
+              @Html.HiddenFor(model => model.MiddleName)
+              @Html.HiddenFor(model => model.FirstName)
+            <b>Name:</b>: @Html.DisplayFor(model => model.SurName), @Html.DisplayFor(model => model.MiddleName) , @Html.DisplayFor(model => model.FirstName)
+             <br />
+             <b>Student ID:</b>  @Html.DisplayFor(model => model.StudentID)
+        </div>
+        <div class="editor-label">
+            <b>Tick if Present</b>: @Html.CheckBoxFor(model => model.Present)
+        </div>
+        <div class="editor-field">
+           
+            @Html.ValidationMessageFor(model => model.Present)
+        </div>
+
+      @*  <p>
+            <input type="submit" value="Save" />
+        </p>*@
+    </fieldset>
+@*}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,29 @@
+﻿@model SchoolManagement.Model.SchoolFeesType
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<br />
+<h4>DELETE</h4>
+
+<h3>Are you sure you want to delete this School Fees Type?</h3>
+<fieldset>
+    <legend>School Fees Type</legend>
+    @Html.HiddenFor(model => model.SchoolFeesTypeID)
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.SchoolFeesKind)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolFeesKind)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete"  class="btn-danger" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

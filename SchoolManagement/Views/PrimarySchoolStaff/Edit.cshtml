@@ -1,0 +1,378 @@
+﻿@*@model SchoolManagement.Model.PrimarySchoolStaff*@
+@model SchoolManagement.Models.StaffViewModel
+@{
+    ViewBag.Title = "EDIT STAFF PROFILE";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>EDIT STAFF PROFILE</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Edit @Model.PrimarySchoolStaff.LastName 's Details</legend>
+
+        @*   <div class="editor-label">
+            @Html.LabelFor(model => model.PresentLevel)
+        </div>*@
+        @if (Model.PrimarySchoolStaff.IsApproved == true)
+        {
+            @Html.HiddenFor(model => model.PrimarySchoolStaff.IsApproved)
+        }
+        @Html.HiddenFor(model => model.PrimarySchoolStaff.PersonID)
+        @Html.HiddenFor(model => model.PrimarySchoolStaff.UserID)
+        @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.PersonID)
+        @if (Model.PrimarySchoolStaff.IsApproved == false)
+        {
+            <fieldset>
+                <legend>Approval Action on @Model.PrimarySchoolStaff.LastName</legend>
+                <div class="editor-label">
+                    <b>Check the Box Below To Approve Staff</b>
+                </div>
+                <div class="editor-label">
+                    @Html.EditorFor(model => model.PrimarySchoolStaff.IsApproved)
+                    @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.IsApproved)
+                </div>
+                <div class="editor-label">
+                </div>
+                <div class="editor-field">
+                    <text>Prospective Staff Unique Number If Approved: </text>@ViewBag.Staff
+                </div>
+            </fieldset>
+        }
+@* @Html.HiddenFor(model => model.IsApproved)*@
+
+
+        <div class="editor-label">
+           <b>Software Role</b>
+        </div>
+        <div class="editor-field">
+        @*    @Html.EditorFor(model => model.Role)    @Html.DropDownList("RoleDrop", (IEnumerable<SelectListItem>)ViewBag.Role)
+            @Html.DropDownListFor(model => model.Role, new SelectList((System.Collections.IEnumerable)ViewData["Role"], "Text", "Value"))*@
+             @Html.DropDownListFor(model => model.PrimarySchoolStaff.Role, new SelectList((System.Collections.IEnumerable)ViewBag.Role, "Text", "Value"))
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Role)
+            @*  <div class="editor-label">
+            @Html.LabelFor(model => model.Role)
+        </div>
+       <div class="editor-field">
+
+             @Html.DropDownListFor(model => model.Role,(IEnumerable<SelectListItem>) ViewBag.Role)
+           
+         
+              @Html.DropDownListFor(model => model.Role, new SelectList((System.Collections.IEnumerable)ViewData["Role"], "Text", "Value"))*@
+        </div>
+
+         <fieldset>
+            <legend>Fill this Section if Proposed Staff is a  <b>Class Teacher</b></legend>
+
+
+            <div class="editor-label">
+                <b>Class Teacher Of</b>
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.PrimarySchoolStaff.ClassTeacherOf, new SelectList((System.Collections.IEnumerable)ViewData["Level"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.ClassTeacherOf)
+            </div>
+            <br />
+            <br />
+            <b>Fill Remaining Section if Proposed Staff is a Class Teacher of More than one Class</b>
+
+            <hr />
+            <div class="editor-label">
+                <b>Class Teacher Of</b>
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("classteacher1", new SelectList((System.Collections.IEnumerable)ViewData["Level1"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.ClassTeacherOf)
+            </div>
+
+            <div class="editor-label">
+                <b>Class Teacher Of</b>
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("classteacher2", new SelectList((System.Collections.IEnumerable)ViewData["Level2"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.ClassTeacherOf)
+            </div>
+            <div class="editor-label">
+                <b>Class Teacher Of</b>
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("classteacher3", new SelectList((System.Collections.IEnumerable)ViewData["Level3"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.ClassTeacherOf)
+            </div>
+
+            <div class="editor-label">
+                <b>Class Teacher Of</b>
+
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("classteacher4", new SelectList((System.Collections.IEnumerable)ViewData["Level4"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.ClassTeacherOf)
+            </div>
+        </fieldset>
+
+
+
+
+      @*  <div class="editor-label">
+            <b>ClassTeacherOf/ School Role</b>
+           
+        </div>
+        <div class="editor-field">
+            @Html.ValidationMessageFor(model => model.ClassTeacherOf)
+            @Html.DropDownListFor(model => model.ClassTeacherOf, new SelectList((System.Collections.IEnumerable)ViewData["Level"], "Value", "Text"))
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.SubjectStrength)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PrimarySchoolStaff.SubjectStrength, new SelectList((System.Collections.IEnumerable)ViewData["Subject"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.SubjectStrength)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.HightestQualification)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PrimarySchoolStaff.HightestQualification, SchoolManagement.Model.LevelDictionary.Qualifications)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.HightestQualification)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.FirstName)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Middle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.Middle)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Middle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.LastName)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.Email)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Email)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Sex)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PrimarySchoolStaff.Sex, SchoolManagement.Model.SexDictionary.SexDicoList)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Sex)
+        </div>
+
+        @*  <div class="editor-label">
+            @Html.LabelFor(model => model.EnrollmentDate)
+        </div>*@
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.PrimarySchoolStaff.EnrollmentDate)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.EnrollmentDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Telephone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.Telephone)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Telephone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.DOB)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.DOB)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.DOB)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.BloodGroup)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PrimarySchoolStaff.BloodGroup, SchoolManagement.Model.LevelDictionary.BloodGroup)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.BloodGroup)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Genotype)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PrimarySchoolStaff.Genotype, SchoolManagement.Model.LevelDictionary.Genotype)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Genotype)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrimarySchoolStaff.Disability)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PrimarySchoolStaff.Disability)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.Disability)
+        </div>
+
+             
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.PrimarySchoolStaff.DateApproved)
+            @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.DateApproved)
+        </div>
+
+        <fieldset>
+            <legend>Account Section</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PrimarySchoolStaff.BankName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PrimarySchoolStaff.BankName)
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.BankName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PrimarySchoolStaff.BankAddress)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PrimarySchoolStaff.BankAddress)
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.BankAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PrimarySchoolStaff.AccountName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PrimarySchoolStaff.AccountName)
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.BankAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PrimarySchoolStaff.AccountNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PrimarySchoolStaff.AccountNumber)
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.AccountNumber)
+            </div>
+
+            <div class="editor-label">
+                <b>Salary</b>
+            </div>
+            <div class="editor-field">
+                @*@Html.CheckBoxFor(model => model.PrimarySchoolStaff.LatenessDeduction)*@
+                @Html.DropDownListFor(model => model.PrimarySchoolStaff.SalaryID, new SelectList((System.Collections.IEnumerable)ViewData["salary"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.SalaryID)
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend> Lateness Deductions</legend>
+
+            <div class="editor-label">
+                <b>Do you want this Staff Charged for Lateness?</b>
+            </div>
+            <div class="editor-field">
+                @*@Html.CheckBoxFor(model => model.PrimarySchoolStaff.LatenessDeduction)*@
+                @Html.DropDownListFor(model => model.PrimarySchoolStaff.LatenessDeduction, new SelectList((System.Collections.IEnumerable)ViewData["LatenessDeduction"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.LatenessDeduction)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend> Abscent from work Deductions</legend>
+
+            <div class="editor-label">
+                <b>Do you want this Staff Charged for Abscent Days at work??</b>
+            </div>
+            <div class="editor-field">
+                @*@Html.CheckBoxFor(model => model.PrimarySchoolStaff.LatenessDeduction)*@
+                @Html.DropDownListFor(model => model.PrimarySchoolStaff.AbscentDeduction, new SelectList((System.Collections.IEnumerable)ViewData["AbscentDeduction"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.PrimarySchoolStaff.AbscentDeduction)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Other Contributions/Deductions</legend>
+
+            <div class="editor-field">
+
+                @*@foreach (var dic in Model.Deductions)*@
+                @for (int i = 0; i < Model.Deductions.Count; i++)
+                {
+
+                    <div>
+                        @Html.HiddenFor(m => m.Deductions[i].DeductionID)
+                        @Html.HiddenFor(m => m.Deductions[i].DeductionDescription)
+                        @Html.HiddenFor(m => m.Deductions[i].Amount)
+                        @Html.CheckBoxFor(m => m.Deductions[i].Selected, new { id = "checkbox_" + i })
+                        @Html.DisplayFor(m => m.Deductions[i].DeductionDescription), NGN @Html.DisplayFor(m => m.Deductions[i].Amount)
+ 
+                    </div>
+                    <br />
+                }
+
+
+            </div>
+        </fieldset>
+
+
+        <fieldset>
+            <legend>Change @Model.PrimarySchoolStaff.LastName 's Photo</legend>
+            <div id="button">
+                <a href="@Url.Action("Edit", "Photo", new { id = SchoolManagement.Models.Encript.EncryptString(Model.PrimarySchoolStaff.PersonID.ToString(), true) })">Create
+                another Photo </a>
+            </div>
+        </fieldset>
+
+        <p>
+            <input type="submit" value="Save" class="btn-primary" />
+        </p>
+    </fieldset>
+
+
+}
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+       // $("#button").button();
+        $('#RoleDrop').live('change', function (e) {
+            $("#Role").empty();
+            var value = $('#RoleDrop').val();
+            $("#Role").val(value);
+
+           
+            // $("#ViewChapterDialog").dialog("open");
+        });
+
+        $("#tabs").tabs().width("450px");
+        $("#accordion").accordion().width("235px");
+
+        $("#DOB").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            //dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+    </script>
+}

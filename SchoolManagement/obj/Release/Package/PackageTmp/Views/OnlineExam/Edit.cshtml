@@ -1,0 +1,96 @@
+﻿@model SchoolManagement.Model.OnlineExam
+
+@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>EDIT EXAM</h4>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Exam</legend>
+
+        @Html.HiddenFor(model => model.OnlineExamID)
+        @Html.HiddenFor(model => model.Date)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExamCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExamCode)
+            @Html.ValidationMessageFor(model => model.ExamCode)
+        </div>
+
+          <div class="editor-label">
+            @Html.LabelFor(model => model.Course)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Course, new SelectList((System.Collections.IEnumerable)ViewData["Subject"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.Course)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Duration)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Duration)
+            @Html.ValidationMessageFor(model => model.ExamCode)
+        </div>
+
+        
+        <div class="editor-label">
+          <b>Class:</b>
+        </div>
+        <div class="editor-field">
+           @Html.DropDownListFor(Model => Model.LevelName, SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone)
+            @Html.ValidationMessageFor(model => model.LevelName)
+        </div>
+
+         <div class="editor-label">
+            @Html.LabelFor(model => model.ExamType)
+        </div>
+        <div class="editor-field">
+          @Html.DropDownListFor(model => model.ExamType, SchoolManagement.Model.LevelDictionary.TestType)
+            @Html.ValidationMessageFor(model => model.ExamType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Term)
+        </div>
+        <div class="editor-field">
+          @Html.DropDownListFor(model => model.Term, SchoolManagement.Model.LevelDictionary.Term)
+            @Html.ValidationMessageFor(model => model.Term)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Visible)
+        </div>
+        <div class="editor-field">
+          @Html.DropDownListFor(model => model.Visible, SchoolManagement.Model.LevelDictionary.Visible)
+            @Html.ValidationMessageFor(model => model.Visible)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div id="button2">
+    @Html.ActionLink("Back to List", "LoadExamCodes")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#accordion").accordion({ active: 'false' });
+        //$("#button2").button();
+        //$("#tabs").tabs().width("450px");
+        //$("#accordion").accordion().width("235px");
+
+    </script>
+}

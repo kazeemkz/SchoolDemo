@@ -1,0 +1,172 @@
+﻿@model SchoolManagement.Models.UploadTextBookViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE A TEXTBOOK</h4>
+@using (Html.BeginForm("Create", "UploadTextBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Upload TextBook</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+        </div>
+       @* <div class="editor-field">
+            @Html.DropDownListFor(model => model.Level, eLibrary.Model.LevelDictionary.LevelDicoList)
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>*@
+         <div class="editor-field">
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 1", new { @checked = "checked" })JSS1
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 2")JSS2
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 3")JSS3
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 1")SS1
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 2")SS2
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 3")SS3
+           
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @*  @Html.DropDownListFor(model => model.Subject,  eLibrary.Model.CourseDictionary.CourseDicoList)
+            @Html.ValidationMessageFor(model => model.Subject)*@
+            @Html.DropDownListFor(x => x.Subject, new SelectList(Enumerable.Empty<SelectListItem>()))
+            @*  <select id="Subject" data-value="true" name="Subject"></select>*@
+            @* <a href="#" id="ViewSubject">Select from Existing Subjects</a>*@
+         
+        </div>
+
+          @if (ViewBag.Success == "1")
+        {
+            <div id="dialog" title=" Upload Success Dialog">
+
+                <b>Text-Book Was Successsfully Uploaded!</b>
+            </div>
+        }
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TextBookTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TextBookTitle)
+            @Html.ValidationMessageFor(model => model.TextBookTitle)
+        </div>
+        <div id="CreateCourseDialog" style="overflow: hidden;"></div>
+      
+        <fieldset>
+            <legend>Upload e-TextBook in PDF Format ONLY </legend>
+            <b>Please select File : </b>
+            <input type="file" id="FileUpload1" name="FileUpload1" /><br />
+
+        </fieldset>
+
+        <p>
+            <input type="submit" value="Create TextBook" />
+        </p>
+    </fieldset>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+  @*  @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")*@
+    <script>
+        $(document).ready(function () {
+           // $("#dialog").dialog().width("350px").css("background-color", "grey");
+            //load course based on jss1 value first
+            var theRealVal = $('input:radio[name=Level]:checked').val();
+            $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theRealVal }, function (data) {
+                var ddl = $("#Subject");
+                ddl.empty();
+                ddl.append("<option value='" + "" + "'>"
+                       + "Choose...." + "</option>");
+                for (var i = 0; i < data.length; i++) {
+                    ddl.append("<option value='" + data[i].Value + "'>"
+                         + data[i].Text + "</option>");
+                }
+
+            });
+            $("#dialog").dialog().width("350px").css("background-color", "grey");
+            $('input:radio').click(function () {
+                var theCheckedValue = $('input:radio:checked').val();
+                //load course based on jss1 value first
+                $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theCheckedValue }, function (data) {
+                    var ddl = $("#Subject");
+                    ddl.empty();
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                });
+
+                var theCheckedValue = $('input:radio:checked').val();
+                $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theCheckedValue }, function (data) {
+                    var ddl = $("#Subject");
+                    ddl.empty();
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                });
+            });
+
+            $("#CreateCourseDialog").dialog({
+
+                autoOpen: false,
+                resizable: false,
+                width: 600,
+                title: "Create Subject",
+                modal: true,
+
+                open: function (event, ui) {
+                    $(this).load('@Url.Action("CreatePartial", "Course")');
+                },
+                buttons: {
+
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+
+                }
+            });
+
+            $("#Subject").click(function (e) {
+
+                if ($("#Level").val() == "") {
+
+                    alert("Please Select a Level First !");
+                }
+            })
+
+
+            $("#CreateSubject")
+      .button()
+      .click(function (e) {
+          if ($("#Level").val() == "") {
+
+              alert("Please Select a Level First !");
+          } else {
+              $("#CreateCourseDialog").dialog("open");
+              e.preventDefault();
+          }
+      });
+
+
+        });
+    </script>
+}

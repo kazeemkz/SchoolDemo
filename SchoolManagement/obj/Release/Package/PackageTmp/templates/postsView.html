@@ -1,0 +1,60 @@
+﻿<div>
+    <div class="message-header">
+
+        <h1>Message Board</h1>
+        <p class="lead">Latest Messages.......</p>
+
+    </div>
+
+    Message Count: {{data.topics.length}}
+
+
+    <div data-ng-show="adminStatus">
+
+        <a href="#newmessage">Add New Post</a>
+    </div>
+
+    <div class="progress progress-striped active" data-ng-show="isBusy">
+        <div class="bar" style="width: 100%;"></div>
+
+    </div>
+    <div class="messages">
+
+        <div class="container-fluid">
+            <div class="message row" data-ng-repeat="i in data.topics">
+                <div class="title span8">
+                 <img src="../Person/GetImage?id={{i.PID}}"  width="20" height="20" />  <a href="#/message/{{i.PostID}}"> {{i.Title}}</a>  <h6>By {{i.FirstName}} {{i.LastName}} ,  Reply Count: {{i.Comments.length}}  </h6>
+                </div>
+                <div class="date span2">
+                    {{i.DateCreated | date:"medium"}}
+                </div>
+                <div class="contents span8">
+                    {{i.PostBody}}
+                </div>
+                <div class="toolbar span10">
+                   <!--  <input type="button" value="Reply" class="btn btn-primary" />-->
+                   <!-- <button class="btn btn-primary reply-button">Reply</button>-->
+                </div>
+
+
+
+             <!--  <div class="replies span10">
+                    <div class="reply" data-ng-repeat="r in i.Comments">
+                        <div class="created pull-right">
+                          {{r.DateCreated | date:"medium"}}
+                        </div>
+                        <div class="content">
+                           {{r.Content}}
+                        </div>
+
+                    </div>
+                </div>-->
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

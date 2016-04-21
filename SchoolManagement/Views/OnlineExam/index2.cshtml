@@ -1,0 +1,195 @@
+﻿@model PagedList.IPagedList<SchoolManagement.Model.OnlineExam>
+@{
+    ViewBag.Title = "List Of Exams";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>LIST OF ONLINE EXAMS</h4>
+
+
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Search Box</legend>
+
+        <table>
+
+            <tr>
+
+                <td>
+                    <b>Find by Exam-Code:</b>
+                </td>
+                <td>
+                    @Html.TextBox("ExamCode", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+
+
+
+            <tr>
+
+
+                <td>
+                    <b>Find by Class:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("LevelString", SchoolManagement.Model.LevelDictionary.LevelDicoList)
+                    &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <b>Visible: </b>
+                </td>
+                <td>
+                    @Html.DropDownList("Visible", SchoolManagement.Model.LevelDictionary.Visible)
+                    &nbsp;
+
+                </td>
+            </tr>
+
+
+
+        </table> 
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+}
+
+<fieldset>
+    <legend> @ViewBag.Count Online-Exam Found</legend>
+    @if (Model != null)
+    { 
+
+  
+        <table  class="table table-striped table-hover table-bordered table-condensed">
+            <tr>
+                <th>
+                <b>Exam Code</b>
+                </th>
+                <th>
+                    <b>Class</b>
+                </th>
+                <th>
+                    <b>Visible</b>
+                </th>
+
+                  <th>
+                    <b>Total Question</b>
+                </th>
+                <th>
+                    <b>Date Created</b>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LevelName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Visible)
+                    </td>
+
+                    <td>
+                        @Html.Raw(item.Question.Count())
+                    </td>
+
+                    <td>
+                        @string.Format("{0: dd-MMM-yyyy   hh:mm tt}", item.Date)
+                        @*@Html.DisplayFor(modelItem => item.Date)*@
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OnlineExamID })
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.OnlineExamID })
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Questions", "Edit", "Question", new { id = item.OnlineExamID }, null)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.OnlineExamID })
+                    </td>
+                </tr>
+            }
+        </table>
+ 
+    }
+</fieldset>
+
+<table>
+    <tr>
+        <td>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            &nbsp;
+        </td>
+        @if (Model.HasPreviousPage)
+        {
+            <td>
+                @Html.ActionLink("<<", "LoadExamCodes", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            @Html.Raw("&nbsp;")
+            <td>
+                @Html.ActionLink("< Prev", "LoadExamCodes", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td><<
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+        < Prev
+            </td>
+        }
+        &nbsp;
+    @if (Model.HasNextPage)
+    {
+        <td>
+            @Html.ActionLink("Next >", "LoadExamCodes", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>
+            @Html.ActionLink(">>", "LoadExamCodes", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+    }
+    else
+    {
+        <td>Next >
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>>>
+        </td>
+    }
+    </tr>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#accordion").accordion({ active: 'false' });
+        //$("#button").button();
+        //$("#button2").button();
+        //$("#tabs").tabs().width("450px");
+        //$("#accordion").accordion().width("235px");
+
+    </script>
+}

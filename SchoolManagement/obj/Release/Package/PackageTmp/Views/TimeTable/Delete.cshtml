@@ -1,0 +1,55 @@
+﻿@model SchoolManagement.Models.TimeTable
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>DELETE</h4>
+
+<h3>Are you sure you want to delete an Item in the Time Table?</h3>
+<fieldset>
+    <legend>Delete Time Table Item</legend>
+
+    @*<div class="display-label">
+        @Html.DisplayNameFor(model => model.Class)
+    </div>*@
+    <div class="display-field">
+    <b>CLASS:</b>    @Html.DisplayFor(model => model.Class)
+    </div>
+    <b>Start Time:</b>  @Html.DisplayFor(model => model.StratTimeHour) :   @Html.DisplayFor(model => model.StratTimeMinute)
+    <br />
+    <b>Stop Time:</b>   @Html.DisplayFor(model => model.EndTimeHour) :  @Html.DisplayFor(model => model.EndTimeMinute)
+  
+
+  
+    <div class="display-field">
+      <b>Subject:</b>  @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    
+    <div class="display-field">
+    <b>Day:</b>    @Html.DisplayFor(model => model.Day)
+    </div>
+
+    
+    <div class="display-field">
+     <b>Teacher:</b>   @Html.DisplayFor(model => model.Teacher)
+    </div>
+
+@*    <div class="display-label">
+        @Html.DisplayNameFor(model => model.TeachingSubjectID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeachingSubjectID)
+    </div>*@
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        @Html.HiddenFor(model => model.TeachingSubjectID)
+        <input type="submit" value="Delete" class="btn-danger" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

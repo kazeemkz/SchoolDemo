@@ -1,0 +1,309 @@
+﻿@model SchoolManagement.Models.TimeTable
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4>CREATE TIME TABLE</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Intuitive TimeTable Creation</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Class)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Class, new SelectList((System.Collections.IEnumerable)ViewData["Level"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.Class)
+        </div>
+
+        <div class="editor-label">
+        </div>
+        <div class="editor-field"></div>
+        <fieldset>
+            <legend>Select Time Range</legend>
+            <table>
+
+                <tr>
+                    <td>
+                        <b>Starting Hour</b>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.StratTimeHour, SchoolManagement.Model.LevelDictionary.HourDicList)
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td>
+                        <b>Starting Minute</b>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.StratTimeMinute, SchoolManagement.Model.LevelDictionary.MinuteDickDicList)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Stopping Hour</b>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.EndTimeHour, SchoolManagement.Model.LevelDictionary.HourDicList)
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <b>Stopping Minute</b>
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.EndTimeMinute, SchoolManagement.Model.LevelDictionary.MinuteDickDicList)
+                    </td>
+                </tr>
+            </table>
+
+        </fieldset>
+        @Html.ValidationMessageFor(model => model.StratTimeHour)
+
+
+
+        @Html.ValidationMessageFor(model => model.StratTimeMinute)
+
+
+        @Html.ValidationMessageFor(model => model.EndTimeHour)
+
+
+
+        @Html.ValidationMessageFor(model => model.EndTimeMinute)
+
+
+
+        @*          <div class="editor-label">
+            @Html.LabelFor(model => model.EndTimeMinute)
+        </div>
+        <div class="editor-field"> </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Day)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Day, SchoolManagement.Model.LevelDictionary.DayList)
+            @Html.ValidationMessageFor(model => model.Day)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Subject, new SelectList((System.Collections.IEnumerable)ViewData["Subject"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.Subject)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Teacher)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Teacher, new SelectList((System.Collections.IEnumerable)ViewData["Staff"], "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.Teacher)
+        </div>
+
+        <p>
+            <input id="submit" type="submit" value="Create" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+
+            $("#Subject").attr('disabled', 'disabled');
+            $("#Teacher").attr('disabled', 'disabled');
+            $("#submit").attr('disabled', 'disabled');
+            $("#Day").attr('disabled', 'disabled');
+
+            if ($('#Class').val() == "") {
+                $("#Day").attr('disabled', 'disabled');
+            }
+
+            if ($('#StratTimeHour').val() == "") {
+                $("#Day").attr('disabled', 'disabled');
+            }
+
+            if ($('#StratTimeMinute').val() == "") {
+                $("#Day").attr('disabled', 'disabled');
+            }
+            if ($('#EndTimeHour').val() == "") {
+                $("#Day").attr('disabled', 'disabled');
+            }
+
+            if ($('#EndTimeMinute').val() == "") {
+                $("#Day").attr('disabled', 'disabled');
+
+            }
+            $('#StratTimeHour').live('change', function (e) {
+
+                // alert("Hello!");
+                if ($('#Class').val() != "" && $('#StratTimeHour').val() != "" && $('#StratTimeMinute').val() != "" && $('#EndTimeHour').val() != "" && $('#EndTimeMinute').val() != "") {
+                    $("#Day").removeAttr('disabled');
+                }
+                else {
+                    $("#Day").attr('disabled', 'disabled');
+                }
+
+            });
+
+
+            $('#StratTimeMinute').live('change', function (e) {
+
+                // alert("Hello!");
+                if ($('#Class').val() != "" && $('#StratTimeHour').val() != "" && $('#StratTimeMinute').val() != "" && $('#EndTimeHour').val() != "" && $('#EndTimeMinute').val() != "") {
+                    $("#Day").removeAttr('disabled');
+                }
+                else {
+                    $("#Day").attr('disabled', 'disabled');
+                }
+
+            });
+
+            $('#EndTimeHour').live('change', function (e) {
+
+                //  alert($('#EndMinute').val());
+                if ($('#Class').val() != "" && $('#StratTimeHour').val() != "" && $('#StratTimeMinute').val() != "" && $('#EndTimeHour').val() != "" && $('#EndTimeMinute').val() != "") {
+                    $("#Day").removeAttr('disabled');
+                }
+                else {
+                    $("#Day").attr('disabled', 'disabled');
+                }
+
+            });
+
+            $('#EndTimeMinute').live('change', function (e) {
+
+                // alert("Hello!");
+                if ($('#Class').val() != "" && $('#StratTimeHour').val() != "" && $('#StratTimeMinute').val() != "" && $('#EndTimeHour').val() != "" && $('#EndTimeMinute').val() != "") {
+                    $("#Day").removeAttr('disabled');
+                }
+                else {
+                    $("#Day").attr('disabled', 'disabled');
+                }
+            });
+
+            $('#Class').live('change', function (e) {
+
+                // alert("Hello!");
+                if ($('#Class').val() != "" && $('#StratTimeHour').val() != "" && $('#StratTimeMinute').val() != "" && $('#EndTimeHour').val() != "" && $('#EndTimeMinute').val() != "") {
+                    $("#Day").removeAttr('disabled');
+                }
+                else {
+                    $("#Day").attr('disabled', 'disabled');
+                }
+            });
+
+
+            $('#Subject').live('change', function (e) {
+
+
+                var theValue = $('#Subject').val() + ";" + $('#Class').val() + ";" + $('#StratTimeHour').val() + ";" + $('#StratTimeMinute').val() + ";" + $('#Day').val();;
+                // public ActionResult CheckSubjectSlotAvialability(string subject, string level, string StartHourclinet, string StartMinuteclinet)
+                //   alert("Hello");
+
+                $.get('@Url.Action("CheckSubjectSlotAvialability", "TimeTable")', { levels: theValue }, function (data) {
+                    var theV = data;
+                    if (theV == "") {
+                        $("#Teacher").removeAttr('disabled');
+
+                    }
+                    else {
+                        alert(theV);
+                        $("#Subject").attr('disabled', 'disabled');
+                        $("#Teacher").attr('disabled', 'disabled');
+                    }
+                });
+            });
+
+
+
+
+            $('#Teacher').live('change', function (e) {
+
+
+                var theValue = $('#Subject').val() + ";" + $('#Class').val() + ";" + $('#StratTimeHour').val() + ";" + $('#StratTimeMinute').val() + ";" + $('#Teacher').val() + ";" + $('#Day').val();
+
+                $.get('@Url.Action("CheckStaffSlotAvialability", "TimeTable")', { levels: theValue }, function (data) {
+
+                    var theV = data;
+                    if (theV == "") {
+
+                        $("#submit").removeAttr('disabled');
+                    }
+                    else {
+
+                        alert(theV);
+                    }
+                });
+            });
+
+
+
+
+            $('#Day').live('change', function (e) {
+
+                if ($('#Day').val() == "") {
+                    $("#Subject").attr('disabled', 'disabled');
+                    $("#Teacher").attr('disabled', 'disabled');
+                    return false;
+
+                }
+                var hourstart = $('#StratTimeHour').val();// 
+                var hoursend = $('#EndTimeHour').val();
+
+                if (hoursend < hourstart) {
+                    alert("End Time of a Subject must be greater than its start time!");
+                    return false;
+                }
+                if ($('#Day').val() == "") {
+                    $("#Subject").attr('disabled', 'disabled');
+                    $("#Teacher").attr('disabled', 'disabled');
+                    return false;
+
+                }
+
+                var theValue = $('#Subject').val() + ";" + $('#Class').val() + ";" + $('#StratTimeHour').val() + ";" + $('#StratTimeMinute').val() + ";" + $('#Teacher').val() + ";" + $('#Day').val();
+                // public ActionResult CheckSubjectSlotAvialability(string subject, string level, string StartHourclinet, string StartMinuteclinet)
+                //   alert("Hello");
+
+                $.get('@Url.Action("CheckDaySlotAvialability", "TimeTable")', { levels: theValue }, function (data) {
+                    var theV = data;
+                    if (theV == "") {
+                        $("#Subject").removeAttr('disabled');
+                        //   $("#Teacher").removeAttr('disabled');
+                    }
+                    else {
+                        $("#Subject").attr('disabled', 'disabled');
+                        $("#Teacher").attr('disabled', 'disabled');
+                        alert(theV);
+                    }
+
+
+                });
+            });
+        });
+
+
+    </script>
+}

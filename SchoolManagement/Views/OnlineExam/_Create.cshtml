@@ -1,0 +1,104 @@
+﻿@model SchoolManagement.Model.OnlineExam
+
+@{
+    Layout = null;
+    }
+
+     <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*script src="~/Scripts/jquery-1.6.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+@*<style type="text/css">
+        #body22 {
+            font-size: 11px;
+            background-color:#fff;
+        }
+    </style>*@
+<div id="body22">
+    @using (Html.BeginForm("Create", "OnlineExam"))
+    {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Create Exam Code</legend>
+
+            @*<div class="editor-label">
+                @Html.LabelFor(model => model.ExamCode)
+            </div>*@
+            <b>Exam Code</b>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ExamCode)
+                @Html.ValidationMessageFor(model => model.ExamCode)
+            </div>
+
+
+            <div class="editor-label">
+                <b>Class</b>
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(Model => Model.LevelName, SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone)
+                @*  @Html.RadioButtonFor(Model => Model.LevelName, "JSS2")JSS2
+            @Html.RadioButtonFor(Model => Model.LevelName, "JSS3")JSS3
+            @Html.RadioButtonFor(Model => Model.LevelName, "SS1")SS1
+            @Html.RadioButtonFor(Model => Model.LevelName, "SS2")SS2
+            @Html.RadioButtonFor(Model => Model.LevelName, "SS3")SS3
+           *@
+                @Html.ValidationMessageFor(model => model.LevelName)
+            </div>
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Course)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.Course, new SelectList((System.Collections.IEnumerable)ViewData["Subject"], "Value", "Text"))
+                @Html.ValidationMessageFor(model => model.Course)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Duration)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Duration)
+                @Html.ValidationMessageFor(model => model.Duration)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Term)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.Term, SchoolManagement.Model.LevelDictionary.TermWithNull)
+                @Html.ValidationMessageFor(model => model.Term)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ExamType)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.ExamType, SchoolManagement.Model.LevelDictionary.TestType)
+                @Html.ValidationMessageFor(model => model.ExamType)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Visible)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.Visible, SchoolManagement.Model.LevelDictionary.Visible)
+                @Html.ValidationMessageFor(model => model.Visible)
+            </div>
+
+
+
+            <p>
+                <input type="submit" value="Create"  class="btn-primary"/>
+            </p>
+        </fieldset>
+    }
+</div>
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

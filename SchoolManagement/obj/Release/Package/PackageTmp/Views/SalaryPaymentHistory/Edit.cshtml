@@ -1,0 +1,40 @@
+﻿@model SchoolManagement.Models.SalaryPaymentHistoryViewModel
+
+@{
+    ViewBag.Title = "Attendance";
+    // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+<br />
+<h3>PAY SALARY FOR THE MONTH OF @string.Format("{0:MMM-yyyy}", @DateTime.Now)</h3>
+
+<br />
+
+@using (Html.BeginForm("Edit", "SalaryPaymentHistory", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>@*@ViewBag.Arm*@</legend>
+        @Html.EditorFor(x => x.TheSalaryPaymentHistory)
+        <p>
+            <input type="submit" value="Pay Salary" id="save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        //$("#search").button();
+        //$("#save").button();
+
+
+    </script>
+}
+

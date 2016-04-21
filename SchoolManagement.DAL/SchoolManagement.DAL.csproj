@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4948710C-45AE-4E01-A508-9173271898F8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SchoolManagement.DAL</RootNamespace>
+    <AssemblyName>SchoolManagement.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcMembership">
+      <HintPath>..\packages\MvcMembership.3.8.0\lib\40\MvcMembership.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.15.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>bin\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbscentDeductionRepository.cs" />
+    <Compile Include="ActivityRepository.cs" />
+    <Compile Include="AdditionalChapterTextRepository.cs" />
+    <Compile Include="AuditTrailRepository.cs" />
+    <Compile Include="BlogRepository.cs" />
+    <Compile Include="BulkSMSRepository.cs" />
+    <Compile Include="ChapterRepository.cs" />
+    <Compile Include="ChoiceRepository.cs" />
+    <Compile Include="AttendanceRepository.cs" />
+    <Compile Include="AttendanceStaffRepository.cs" />
+    <Compile Include="CourseRepository.cs" />
+    <Compile Include="DeductionHistoryRepository.cs" />
+    <Compile Include="DeductionRepository.cs" />
+    <Compile Include="HostelRepository.cs" />
+    <Compile Include="LatenessDeductionRepository.cs" />
+    <Compile Include="LoanRepository.cs" />
+    <Compile Include="Migrations\201406081137176_InitialMigrations.cs" />
+    <Compile Include="Migrations\201406081137176_InitialMigrations.Designer.cs">
+      <DependentUpon>201406081137176_InitialMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewsBoardRepository.cs" />
+    <Compile Include="ParentRepository.cs" />
+    <Compile Include="PasswordRepository.cs" />
+    <Compile Include="CommentRepository.cs" />
+    <Compile Include="Exam1Repository.cs" />
+    <Compile Include="Exam2Repository.cs" />
+    <Compile Include="ExamRepository.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="IGenericRepository.cs" />
+    <Compile Include="InformationRepository.cs" />
+    <Compile Include="LevelRepository.cs" />
+    <Compile Include="MyRoleRepository.cs" />
+    <Compile Include="OnlineExamRepository.cs" />
+    <Compile Include="OrderItemRepository.cs" />
+    <Compile Include="OrderRepository.cs" />
+    <Compile Include="PersonRepository.cs" />
+    <Compile Include="PhotoRepository.cs" />
+    <Compile Include="PostRepository.cs" />
+    <Compile Include="PractiseSaveRepository.cs" />
+    <Compile Include="PrimarySchoolStaffRepository.cs" />
+    <Compile Include="PrimarySchoolStudentRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionPhotoRepository.cs" />
+    <Compile Include="QuestionRepository.cs" />
+    <Compile Include="RoomRepository.cs" />
+    <Compile Include="SalaryPaymentHistoryRepository.cs" />
+    <Compile Include="SalaryRepository.cs" />
+    <Compile Include="SchoolAccountRepository.cs" />
+    <Compile Include="SchoolFeePaymentRepository.cs" />
+    <Compile Include="SchoolFeesAccountRepository.cs" />
+    <Compile Include="SchoolFeesTypeRepository.cs" />
+    <Compile Include="SecondarySchoolStudentRepository.cs" />
+    <Compile Include="smConfiguration.cs" />
+    <Compile Include="smContext.cs" />
+    <Compile Include="StoreRepository.cs" />
+    <Compile Include="StudentFeesRepository.cs" />
+    <Compile Include="StudentStoreItemRepository.cs" />
+    <Compile Include="SubjectRegistrationRepository.cs" />
+    <Compile Include="SubjectRepository.cs" />
+    <Compile Include="SupplierOrderRepository.cs" />
+    <Compile Include="SupplierRepository.cs" />
+    <Compile Include="TeacherRepository.cs" />
+    <Compile Include="TeachingClassRepository.cs" />
+    <Compile Include="TeachingDayRepository.cs" />
+    <Compile Include="TeachingSubjectRepository.cs" />
+    <Compile Include="TeachingTimeRepository.cs" />
+    <Compile Include="TermRegistrationRepository.cs" />
+    <Compile Include="TermRepository.cs" />
+    <Compile Include="TextBookRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj">
+      <Project>{a1759d61-77f0-424c-9b3e-b9102edb1e07}</Project>
+      <Name>SchoolManagement.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201406081137176_InitialMigrations.resx">
+      <DependentUpon>201406081137176_InitialMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

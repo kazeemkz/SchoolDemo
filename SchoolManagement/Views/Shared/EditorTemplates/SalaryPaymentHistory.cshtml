@@ -1,0 +1,41 @@
+﻿@model SchoolManagement.Model.SalaryPaymentHistory
+
+@{
+    ViewBag.Title = "SalaryPaymentHistory";
+}
+
+@*<h4>SALARY PAYMENT HISTORY</h4>*@
+<fieldset>
+    <legend></legend>
+
+    <div class="editor-field">
+        <b>Staff ID:</b>  @Html.DisplayFor(model => model.StaffID)
+        <br />
+        <b>lastT Name:</b>  @Html.DisplayFor(model => model.LastName)
+        <br />
+        <b>First Name:</b>  @Html.DisplayFor(model => model.FirstName)
+        <br />
+        <b>Salary(NGN):</b>  @Html.DisplayFor(model => model.ActualSalary)
+        <br />
+        @Html.HiddenFor(model => model.StaffID)
+        @Html.HiddenFor(model => model.ActualSalary)
+        @Html.HiddenFor(model => model.AmountPaid)
+        @Html.HiddenFor(model => model.LastName)
+        @Html.HiddenFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.StaffID)
+    </div>
+    <div class="editor-field">
+
+        @Html.HiddenFor(model => model.StaffID)
+        @Html.ValidationMessageFor(model => model.StaffID)
+    </div>
+
+    <div class="editor-field">
+
+        @Html.HiddenFor(model => model.StaffID)
+        @Html.ValidationMessageFor(model => model.StaffID)
+    </div>
+    <div class="editor-label">
+        <b>Check to Pay Salary</b>: @Html.CheckBoxFor(model => model.PaySalary)
+    </div>
+</fieldset>

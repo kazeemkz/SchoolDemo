@@ -1,0 +1,177 @@
+﻿@model SchoolManagement.Model.Loan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>LOAN DETAILS</h4>
+
+<fieldset>
+    <legend>Loan</legend>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.StaffID)
+        </div>*@
+
+    <div class="display-field">
+        <b>Has Loan Been Approved?:</b>   @Html.DisplayFor(model => model.Approved)
+    </div>
+    <div class="display-field">
+        <b>Loan Awarded or to be Awarded to Staff ID :</b>   @Html.DisplayFor(model => model.StaffID)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.DateCreated)
+        </div>*@
+    <div class="display-field">
+        <b>Date Created</b> @string.Format("{0: dd-MMM-yyyy   hh:mm tt}", Model.DateApproved)
+    </div>
+
+    <div class="display-field">
+        <b>Date Approved</b> @string.Format("{0: dd-MMM-yyyy   hh:mm tt}", Model.DateCreated)
+
+    </div>
+
+    @*<div class="display-label">
+
+             @Html.DisplayNameFor(model => model.DateApproved)
+        </div>*@
+    @*<div class="display-field">
+        <b>Date Approved</b>  @Html.DisplayFor(model => model.DateApproved)
+    </div>*@
+
+    <div class="display-field">
+        <b>Approved By</b>  @Html.DisplayFor(model => model.ApprovedBy)
+    </div>
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.LoanAmount)
+        </div>*@
+    <br />
+    <div class="display-field">
+        <b>Loan Amount (NGN)</b>  @Html.DisplayFor(model => model.LoanAmount)
+    </div>
+
+    <fieldset>
+
+        <legend>Loan Repayment Structure</legend>
+        <fieldset>
+            <legend>First Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.FirstMonthPayment)
+            <div class="editor-field">
+                NGN @Html.DisplayFor(model => model.FirstAmountPayment)
+                @Html.ValidationMessageFor(model => model.FirstAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Second Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.SecondMonthPayment)
+            <div class="editor-field">
+                NGN @Html.DisplayFor(model => model.SecondAmountPayment)
+                @Html.ValidationMessageFor(model => model.SecondAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Third Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.ThirdMonthPayment)
+            <div class="editor-field">
+                NGN  @Html.DisplayFor(model => model.ThirdAmountPayment)
+                @Html.ValidationMessageFor(model => model.ThirdAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Forth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.ForthMonthPayment)
+            <div class="editor-field">
+               NGN @Html.DisplayFor(model => model.ForthAmountPayment)
+                @Html.ValidationMessageFor(model => model.ForthAmountPayment)
+            </div>
+
+        </fieldset>
+        <fieldset>
+            <legend>Fifth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.FifthMonthPayment)
+
+            <div class="editor-field">
+             NGN   @Html.DisplayFor(model => model.FifthAmountPayment)
+                @Html.ValidationMessageFor(model => model.FifthAmountPayment)
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Sixth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.SixthMonthPayment)
+            <div class="editor-field">
+          NGN      @Html.DisplayFor(model => model.SixthAmountPayment)
+                @Html.ValidationMessageFor(model => model.SixthAmountPayment)
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Seventh Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.SeventhMonthPayment)
+            <div class="editor-field">
+           NGN     @Html.DisplayFor(model => model.SeventhAmountPayment)
+                @Html.ValidationMessageFor(model => model.SeventhAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Eighth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.EighthMonthPayment)
+            <div class="editor-field">
+           NGN     @Html.DisplayFor(model => model.EightAmountPayment)
+                @Html.ValidationMessageFor(model => model.EightAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Ninth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.NinthMonthPayment)
+            <div class="editor-field">
+            NGN    @Html.DisplayFor(model => model.NinthAmountPayment)
+                @Html.ValidationMessageFor(model => model.NinthAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Tenth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.TenthMonthPayment)
+            <div class="editor-field">
+              NGN  @Html.DisplayFor(model => model.TenthAmountPayment)
+                @Html.ValidationMessageFor(model => model.TenthAmountPayment)
+            </div>
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Eleventh Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.EleventhMonthPayment)
+            <div class="editor-field">
+              NGN  @Html.DisplayFor(model => model.EleventhAmountPayment)
+                @Html.ValidationMessageFor(model => model.EleventhAmountPayment)
+            </div>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Twelfth Month Payment</legend>
+            @string.Format("{0: dd-MMM-yyyy }", Model.TwelfthMonthPayment)
+            <div class="editor-field">
+             NGN   @Html.DisplayFor(model => model.TwelfthAmountPayment)
+                @Html.ValidationMessageFor(model => model.TwelfthAmountPayment)
+            </div>
+
+        </fieldset>
+    </fieldset>
+</fieldset>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id=Model.LoanID }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,147 @@
+﻿@model SchoolManagement.Model.Person
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h3>MEMBER DETAILS</h3>
+<br />
+
+<fieldset>
+    <legend>@Model.FirstName @Model.LastName 's Details</legend>
+
+    @* <div class="display-label">*@
+    <div class="container-fluid">
+        <div class="row">
+            <div class="span3">
+                <img src="@Url.Action("GetImage", "Person", new { id = Model.PersonID })"  width="200" height="220" />
+            </div>
+            <div class="span5">
+                @* </div>*@
+                <div class="display-field">
+                   
+                    @if (Model.Approved == false)
+                    {
+                        <b>Date Approved:</b> <b><text>NOT APPROVED</text>
+                        </b> 
+                    }
+                    
+                       <b>Date Approved:</b> @string.Format("{0:dd-MMMM-yyy}", Model.DateApproved); @*@Html.DisplayFor(model => model.DateApproved)*@
+                    
+                </div>
+                <br />
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.FirstName):</b>   @Html.DisplayFor(model => model.FirstName)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.MiddleName):</b>   @Html.DisplayFor(model => model.MiddleName)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.LastName):</b>   @Html.DisplayFor(model => model.LastName)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.MobileNumber):</b> @Html.DisplayFor(model => model.MobileNumber)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.DOB):</b>   @string.Format("{0:dd-MMMMM-yyy}", Model.DOB)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.Sex):</b>  @Html.DisplayFor(model => model.Sex)
+                </div>
+
+                @*  <div class="display-label">
+         @Html.DisplayNameFor(model => model.MembersUnder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MembersUnder)
+    </div>*@
+
+                <div class="display-label">
+                    @* @Html.DisplayNameFor(model => model.RecommendedUserID)*@
+                </div>
+                <div class="display-field">
+                    <b>Recommended User Email:</b>  @Html.DisplayFor(model => model.RecommendedUserID)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>Date Registered:</b> @string.Format("{0:dd-MMMMM-yyy}", Model.DateRegistered)  @*@Html.DisplayFor(model => model.DateRegistered)*@
+                </div>
+
+                <div class="display-label">
+                </div>
+
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.Approved):</b>   @Html.DisplayFor(model => model.Approved)
+                </div>
+
+                <div class="display-label">
+                </div>
+                <div class="display-field">
+                    <b>@Html.DisplayNameFor(model => model.UserName):</b>@Html.Raw(@Html.DisplayFor(model => model.UserName))
+                </div>
+            </div>
+            <div class="span4">
+                @if (Model.Approved == true)
+                {
+                   @*@Html.DisplayFor(model => model.DateRegistered)*@
+                }
+                else
+                {
+                    <b>APPROVAL ACTION</b>
+                    <br />
+                    <br />
+                    using (Html.BeginForm("Approve", "Person", new { id = Model.PersonID }, FormMethod.Post, null))
+                    {
+                    @Html.AntiForgeryToken()
+                    <div class="editor-label">
+                      
+                    </div>
+                            <div class="editor-field">
+                       <b>Check Box to Approve User:</b>   @Html.CheckBox("ApprovedCheckBox")
+
+                        </div>
+                                        <input type="submit"  value="submit" class="btn btn-primary"/>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+    @* <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConfirmPassword)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConfirmPassword)
+    </div>*@
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PersonID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

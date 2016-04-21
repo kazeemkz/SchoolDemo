@@ -1,0 +1,350 @@
+﻿@model PagedList.IPagedList<SchoolManagement.Model.Loan>
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<h4>LOANS</h4>
+<br />
+@*<p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn-primary" })
+    </p>*@
+
+@using (Html.BeginForm())
+{
+
+    <fieldset>
+        <legend>Search Box</legend>
+
+        <table>
+            <tr>
+
+                <td>
+                    <b>Date Logged From:</b>
+                </td>
+                <td>
+                    @Html.TextBox("datefrom", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <b>Date Logged To:</b>
+                </td>
+                <td>
+                    @Html.TextBox("dateto", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+
+
+            <tr>
+
+
+            <tr>
+
+                <td>
+                    <b>Find by Staff ID:</b>
+                </td>
+                <td>
+                    @Html.TextBox("staffid", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Approved?:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("approved", SchoolManagement.Model.LevelDictionary.Approved)
+                    &nbsp;
+                </td>
+            </tr>
+
+
+
+
+
+
+        </table>
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+
+}
+<br />
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+            <b>Staff ID</b>
+        </th>
+        <th>
+            <b>Date Created</b>
+        </th>
+        <th>
+            <b>Date Approved</b>
+        </th>
+        <th>
+            <b>Loan Amount(NGN)</b>
+        </th>
+        <th>
+            <b>Approved?</b>
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.FirstMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThirdMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThirdAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForthMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForthAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FifthMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FifthAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SixthMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SixthAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeventhMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeventhAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EightMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EightAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NinettMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NinettAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenthMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenthAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EleventhMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EleventhAmountPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TwelfthMonthPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TwelfthAmountPayment)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffID)
+            </td>
+            <td>
+                @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", @item.DateCreated)
+                @*@Html.DisplayFor(modelItem => item.DateCreated)*@
+            </td>
+            <td>
+                @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", @item.DateApproved)
+                @*@Html.DisplayFor(modelItem => item.DateApproved)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.FirstMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThirdMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThirdAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ForthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ForthAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FifthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FifthAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SixthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SixthAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeventhMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeventhAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EightMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EightAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NinthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NinthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenthAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EleventhMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EleventhAmountPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TwelfthMonthPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TwelfthAmountPayment)
+                </td>*@
+            <td>
+                @if (item.Approved == false)
+                {
+                    @Html.ActionLink("Approve", "Edit", new { id = item.LoanID })
+                }|
+                @Html.ActionLink("Details", "Details", new { id = item.LoanID }) |
+                @if (item.Approved == false)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LoanID })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<table>
+    <tr>
+        <td>
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            &nbsp;
+        </td>
+        @if (Model.HasPreviousPage)
+        {
+            <td>
+                @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            @Html.Raw("&nbsp;")
+            <td>
+                @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td>
+                <<
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+                < Prev
+            </td>
+        }
+        &nbsp;
+        @if (Model.HasNextPage)
+        {
+            <td>
+                @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+            </td>
+            <td>
+                @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td>
+                Next >
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+            </td>
+            <td>
+                >>
+            </td>
+        }
+    </tr>
+</table>
+@section Scripts {
+    @* @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")*@
+
+    <script>
+        $(document).ready(function () {
+            $("#dateto").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //dateFormat: 'mm/dd/yy',
+                gotoCurrent: true
+            });
+
+            $("#datefrom").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                //dateFormat: 'mm/dd/yy',
+                gotoCurrent: true
+            });
+
+        });
+    </script>
+
+}

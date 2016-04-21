@@ -1,0 +1,153 @@
+﻿@model PagedList.IPagedList<SchoolManagement.Model.AuditTrail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>AUDIT TRAIL</h4>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+@using (Html.BeginForm("Index", "AuditTrail"))
+{
+   @* <h3>VIEW ATTENDANCE RECORD</h3>*@
+    <fieldset>
+        <legend>Search Box</legend>
+        <table>
+            <tr>
+                <td>Staff ID:</td>
+                <td>@Html.TextBox("userid") </td>
+
+            </tr>
+
+
+            <tr>
+                <td>Date From:</td>
+                <td>@Html.TextBox("date") </td>
+
+            </tr>
+            <tr>
+                <td>Date To:</td>
+                <td>@Html.TextBox("dateto") </td>
+
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Search" id="search" class="btn-primary" />
+    </fieldset>
+}
+
+@ViewBag.Count Records Found
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+            <b>Staff ID</b>
+        </th>
+        <th>
+            <b>Action Taken At</b>
+        </th>
+        <th>
+            <b>Action</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Date)*@ @string.Format("{0:dd-MMM-yyyy, hh:mm tt}", @item.Date)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Action)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.AuditTrailID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.AuditTrailID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.AuditTrailID })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<table>
+    <tr>
+        <td>
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            &nbsp;
+        </td>
+        @if (Model.HasPreviousPage)
+        {
+            <td>
+                @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            @Html.Raw("&nbsp;")
+            <td>
+                @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td>
+                <<
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+                < Prev
+            </td>
+        }
+        &nbsp;
+        @if (Model.HasNextPage)
+        {
+            <td>
+                @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+            </td>
+            <td>
+                @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td>
+                Next >
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+            </td>
+            <td>
+                >>
+            </td>
+        }
+    </tr>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+       
+        $("#date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+        $("#dateto").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+
+    </script>
+}

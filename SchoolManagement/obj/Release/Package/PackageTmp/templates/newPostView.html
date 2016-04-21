@@ -1,0 +1,27 @@
+﻿<h3>New Post</h3>
+
+<form name="newPostForm" novalidate data-ng-submit="save()">
+
+    <fieldset>
+        <legend>NEW POST</legend>
+        <div>
+           <label for="title">Title</label>
+            <input name="title" type="text" data-ng-minlength="5" data-ng-model="newPost.Title" required />
+            <span class="error" data-ng-show="newPostForm.title.$error.required">*</span>
+            <span class="error" data-ng-show="newPostForm.title.$error.minlength">Minimum Character is 5</span>
+        </div>
+        <div>
+            <label for="body">Body</label>
+            <textarea name="body" rows="5" cols="30"  data-ng-model="newPost.PostBody" data-ng-minlength="15" required/>
+               <span class="error" data-ng-show="newPostForm.body.$error.required">*</span>
+              <span class="error" data-ng-show="newPostForm.body.$error.minlength">Minimum Character is 15</span>
+        </div>
+        <div>
+
+            <input type="submit"  value="Save" data-ng-disabled="newPostForm.$invalid" class="btn btn-primary"/>
+            <a href="#/" class="btn">Cancel</a>
+        </div>
+
+    </fieldset>
+
+</form>

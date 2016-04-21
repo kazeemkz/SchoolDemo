@@ -1,0 +1,61 @@
+﻿@model SchoolManagement.Model.Parent
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>DELETE</h4>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Parent</legend>
+
+    <div class="display-field">
+        <b>User ID:</b>  @Html.DisplayFor(model => model.UserID)
+    </div>
+    <br />
+    @* <div class="display-label">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </div>*@
+    <div class="display-field">
+        <b>First Name:</b>   @Html.DisplayFor(model => model.FirstName)
+    </div>
+    <br />
+    @* <div class="display-label">
+        @Html.DisplayNameFor(model => model.MiddleName)
+    </div>*@
+    <div class="display-field">
+        <b>Middle Name:</b>  @Html.DisplayFor(model => model.MiddleName)
+    </div>
+    <br />
+    @* <div class="display-label">
+        @Html.DisplayNameFor(model => model.LastName)
+    </div>*@
+    <div class="display-field">
+        <b>Last Name:</b>   @Html.DisplayFor(model => model.LastName)
+    </div>
+    <br />
+    @* <div class="display-label">
+        @Html.DisplayNameFor(model => model.Date)
+    </div>*@
+    <div class="display-field">
+        <b>Registration Date:</b>  @Html.DisplayFor(model => model.Date)
+    </div>
+    <br />
+    @*<div class="display-label">
+        @Html.DisplayNameFor(model => model.UserID)
+    </div>*@
+
+
+
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        @Html.HiddenFor(m => m.ParentID)
+        <input type="submit" value="Delete" class="btn-danger" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

@@ -1,0 +1,95 @@
+﻿@model SchoolManagement.Model.Parent
+
+@{
+    ViewBag.Title = "Create Parent";
+}
+
+<h4>CREATE PARENT</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Parent</legend>
+
+        <div class="editor-label">
+            <b>First Name</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            <b>Middle Name</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MiddleName)
+            @Html.ValidationMessageFor(model => model.MiddleName)
+        </div>
+
+        <div class="editor-label">
+            <b>Last Name</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <fieldset>
+            <legend>Connect Parent to Students via Student IDs</legend>
+            <div class="editor-label">
+                <b>First Student ID </b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StudentIDOne)
+
+            </div>
+
+            <div class="editor-label">
+                <b>Second Student ID </b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StudentIDTwo)
+
+            </div>
+
+            <div class="editor-label">
+                <b>Third Student ID </b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StudentIDThree)
+
+            </div>
+
+            <div class="editor-label">
+                <b>Fourth Student ID</b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StudentIDFour)
+
+            </div>
+
+            <div class="editor-label">
+                <b>Fifth Student ID </b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StudentIDFive)
+
+            </div>
+        </fieldset>
+        <p>
+            <input type="submit" value="Create" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

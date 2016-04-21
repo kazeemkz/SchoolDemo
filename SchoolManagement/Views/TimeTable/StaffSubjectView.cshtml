@@ -1,0 +1,65 @@
+﻿@*@model IEnumerable<IEnumerable<SchoolManagement.Models.TimeTable>>*@
+@model List<List<SchoolManagement.Models.TimeTable>>
+@{
+    ViewBag.Title = "Time Table";
+}
+
+<h4></h4>
+<br />
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+@*@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Time Table Search Box</legend>
+
+        <table>
+            <tr>
+
+                <td>
+                    <b>Class Arm:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))
+                </td>
+            </tr>
+            <tr>
+        </table>
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+   
+}*@
+
+
+<fieldset>
+    <legend> YOUR TIME TABLE - (@ViewBag.Name)</legend>
+    <table>
+        @foreach (var item in ViewBag.TimeTable as List<List<SchoolManagement.Models.TimeTable>>)
+        {
+
+            <tr>
+                @foreach (var item1 in item)
+                {
+       
+                    <th>
+                        @Html.DisplayFor(modelItem => item1.Day)<br />
+                        @Html.DisplayFor(modelItem => item1.Subject)<br />
+                        @Html.DisplayFor(modelItem => item1.StratTimeHour)-@Html.DisplayFor(modelItem => item1.EndTimeHour)<br />
+                           @Html.DisplayFor(modelItem => item1.Class)<br />
+                        @Html.DisplayFor(modelItem => item1.Teacher)
+
+                        <hr />
+                    </th>
+                    <th></th>
+                    <th></th>
+                }
+
+            </tr>
+     
+        }
+
+    </table>
+</fieldset>

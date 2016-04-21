@@ -1,0 +1,85 @@
+﻿@*@model SchoolManagement.Model.Parent
+
+@{
+    ViewBag.Title = "Parent Details";
+}
+
+<h2>Parent Details</h2>
+
+<fieldset>
+    <legend>Parent</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Middle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Middle)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EnrollmentDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StudentIDOne)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StudentIDOne)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StudentIDTwo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StudentIDTwo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StudentIDThree)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StudentIDThree)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StudentIDFour)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StudentIDFour)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StudentIDFive)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StudentIDFive)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ParentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

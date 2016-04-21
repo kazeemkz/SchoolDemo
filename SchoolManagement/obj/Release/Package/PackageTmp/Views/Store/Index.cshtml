@@ -1,0 +1,238 @@
+﻿@model PagedList.IPagedList<SchoolManagement.Model.Store>
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>STORE ITEMS</h4>
+<br />
+<div id="button1">
+    @Html.ActionLink("Create New Store Item", "Create")
+</div>
+<br />
+<p>
+    <div id="button2">
+        <a href="@Url.Action("Index", "Order")">View Orders</a>
+
+    </div>
+    @* @Html.ActionLink("View Students' Index", "Order")*@
+    @*    @Html.ActionLink("Details", "Index", "OrderItem") *@
+</p>
+
+
+@using (Html.BeginForm())
+{
+   
+    <fieldset>
+        <legend>Search Box</legend>
+
+        <table>
+
+          @*  <tr>
+
+                <td>
+                    <b>Date:</b>
+                </td>
+                <td>
+                    @Html.TextBox("Date")
+                </td>
+            </tr>*@
+
+           @* <tr>
+
+                <td>
+                    <b>Find by Sex: </b>
+                </td>
+                <td>
+                    @Html.DropDownList("SexString", SchoolManagement.Model.SexDictionary.SexDicoList)
+                    &nbsp;
+
+                </td>
+            </tr>*@
+
+            <tr>
+
+
+                <td>
+                    <b>Find by Item Class:</b>
+                </td>
+                <td>
+                    @Html.DropDownList("ItemClass", SchoolManagement.Model.LevelDictionary.LevelDicoList)
+                    &nbsp;
+                </td>
+            </tr>
+
+            <tr>
+
+                <td>
+                    <b>Find by Item name:</b>
+                </td>
+                <td>
+                    @Html.TextBox("ItemName", ViewBag.CurrentFilter as string) &nbsp;
+                </td>
+            </tr>
+
+
+          @*  <tr>
+
+
+                <td>
+                    <b>Find by Author Name:</b>
+                </td>
+                <td>
+                    @Html.TextBox("AuthorName", ViewBag.CurrentFilter as string)
+                    &nbsp;
+                </td>
+            </tr>*@
+
+
+        </table>
+        <input type="submit" value="Search" id="button"  class="btn-primary"/>
+        <br />
+    </fieldset>
+   
+    }
+
+
+<fieldset>
+    <legend><b>@ViewBag.Count Records found in Total</b></legend>
+  <table class="table table-striped table-hover table-bordered table-condensed">
+        <tr>
+            @* <th>
+            @Html.DisplayNameFor(model => model.StoreID)
+        </th>*@
+
+            <th>
+                <b>Class</b>
+
+            </th>
+            <th>
+                <b>Item Name</b>
+              
+            </th>
+
+            <th>
+                   <b>Quantity</b>
+           
+            </th>
+
+            <th>
+               <b>Author Name</b>
+            </th>
+
+            <th>
+               <b>Size</b>
+            </th>
+
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.StoreID)
+        </td>*@
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td><td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quanity)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+
+                <td>
+                      @Html.ActionLink("Edit", "Edit",new { id = SchoolManagement.Models.Encript.EncryptString(item.StoreID.ToString(),true)}, null)
+                   @* @Html.ActionLink("Edit", "Edit", new { id = item.StoreID })*@
+                </td>
+                <td>  @Html.ActionLink("Details", "Details",new { id = SchoolManagement.Models.Encript.EncryptString(item.StoreID.ToString(),true)}, null)
+                   @* @Html.ActionLink("Details", "Details", new { id = item.StoreID })*@
+                </td>
+                <td>
+                     @Html.ActionLink("Delete", "Delete",new { id = SchoolManagement.Models.Encript.EncryptString(item.StoreID.ToString(),true)}, null)
+                 @*   @Html.ActionLink("Delete", "Delete", new { id = item.StoreID })*@
+                </td>
+            </tr>
+        }
+    </table>
+</fieldset>
+
+<table>
+    <tr>
+        <td>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+            &nbsp;
+        </td>
+        @if (Model.HasPreviousPage)
+        {
+            <td>
+                @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+            @Html.Raw("&nbsp;")
+            <td>
+                @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            </td>
+        }
+        else
+        {
+            <td><<
+            </td>
+            <td>
+                @Html.Raw("&nbsp;")
+                < Prev
+            </td>
+        }
+        &nbsp;
+    @if (Model.HasNextPage)
+    {
+        <td>
+            @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>
+            @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        </td>
+    }
+    else
+    {
+        <td>Next >
+        </td>
+        <td>
+            @Html.Raw("&nbsp;")
+        </td>
+        <td>>>
+        </td>
+    }
+    </tr>
+</table>
+@section Scripts {
+   @* @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")*@
+
+    <script>
+        $(document).ready(function () {
+
+            //$("#button1").button();
+            //$("#button2").button();
+
+            //$("#tabs").tabs().width("900px");
+            //$("#tabs1").tabs().width("900px");
+        });
+    </script>
+
+}

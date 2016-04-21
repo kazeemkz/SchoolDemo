@@ -1,0 +1,78 @@
+﻿@model SchoolManagement.Model.Choice
+@{
+    ViewBag.Title = "Choices";
+}
+
+
+
+<fieldset>
+    <legend></legend>
+
+    @Html.HiddenFor(model => model.ChoiceID)
+
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.Text)
+            @Html.TextAreaFor(model => model.Text, new { style = "width:400px" })
+                @Html.ValidationMessageFor(model => model.Text)</td>
+
+     
+            <td>@Html.LabelFor(model => model.IsAnswer)
+            @Html.EditorFor(model => model.IsAnswer)
+                @Html.ValidationMessageFor(model => model.IsAnswer)</td>
+
+        </tr>
+    </table>
+
+    @*<div class="editor1">
+        @Html.LabelFor(model => model.Text)
+        @Html.TextAreaFor(model => model.Text, new { style = "width:400px" })
+        @Html.ValidationMessageFor(model => model.Text)
+    </div>*@
+
+    @*<div class="editor-label">
+        <b>@Html.LabelFor(model => model.Text)</b>
+    </div>
+    <div class="editor-field">
+      
+        @Html.ValidationMessageFor(model => model.Text)
+    </div>*@
+
+   @* <div class="editor1-label">
+        @Html.LabelFor(model => model.IsAnswer)
+    </div>
+    <div class="editor1-field">
+        @Html.EditorFor(model => model.IsAnswer)
+        @Html.ValidationMessageFor(model => model.IsAnswer)
+    </div>*@
+
+
+
+    @*  <div class="editor-label">
+            @Html.LabelFor(model => model.QuestionID)
+        </div>*@
+    <div class="editor-field">
+        @Html.HiddenFor(model => model.QuestionID)
+        @Html.ValidationMessageFor(model => model.QuestionID)
+    </div>
+
+    @* <p>
+            <input type="submit" value="Save" />
+        </p>*@
+</fieldset>
+<style>
+    fieldset {
+        margin: 0 0 5px 0;
+    }
+
+    label {
+        width: 50px;
+        text-align: right;
+        float: left;
+    }
+
+    input {
+        width: 100px;
+        margin: 0 0 0 10px;
+    }
+</style>

@@ -1,0 +1,487 @@
+﻿@model SchoolManagement.Model.PrimarySchoolStudent
+@{
+    //ViewBag.Title = "Student Details";
+    //if (User.IsInRole("SuperAdmin"))
+    //{
+    //    Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+    //}
+    //else if (User.IsInRole("Student"))
+    //{
+    //    Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+    //}
+    //else
+    //{
+    //    Layout = "~/Views/Shared/_LayoutPrimaryReg.cshtml";
+    //    // Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    //}
+}
+
+
+<h4>@Model.LastName's REGISTRATION DETAILS</h4>
+
+<fieldset>
+    <legend>@Model.LastName's Information</legend>
+
+
+
+    @if (ViewBag.Success != null)
+    {
+        <div id="successMessage">
+            Please Close Browser!
+               <hr />
+            Your Information will be reviewed
+                    as soon as possible for approval.
+           
+        </div>
+    }
+    <div class="row-fluid">
+        <div class="span3">
+            <p>
+
+                <img width="200" height="200"  src="@Url.Action("GetImage", "PrimarySchoolStudent", new { id = Model.PersonID })"   />
+            </p>
+
+        </div>
+        <div class="span9">
+            <div class="display-field">
+                <b>
+                    <text>Has @Model.LastName Been Approved?</text>
+                    : </b>@Html.DisplayFor(model => model.IsApproved)
+            </div>
+            <br />
+            @if (!(Model.IsApproved))
+            {
+                <div class="display-field">
+                    <b>Class Applied For:</b> @Html.DisplayFor(model => model.InitialLevel)
+                </div>
+                <br />
+            }
+            @if (Model.IsApproved)
+            {
+               
+                <div class="display-field">
+                    <b>Student Identity:</b>  @Html.DisplayFor(model => model.UserID)
+                </div>
+                <br />
+                <div class="display-field">
+                    <b>Enrollment Date:</b> @string.Format("{0: dd-MMMM-yyyy   hh:mm tt}", Model.EnrollmentDate)
+                </div>
+                <br />
+                <div class="display-field">
+                    <b>Approval Date:</b> @string.Format("{0: dd-MMMM-yyyy   hh:mm tt}", Model.DateApproved)
+
+                </div>
+                <br />
+                <div class="display-field">
+                    <b> Class Applied For:</b> @Html.DisplayFor(model => model.InitialLevel) ;  <b>Class Given:</b> @Html.DisplayFor(model => model.ClassGivenEntryPoint)
+
+                </div>
+                
+                <br />
+                <div class="display-field">
+                  <b> Present Class:</b> @Html.DisplayFor(model => model.PresentLevel)  <b> Arm:</b> @Html.DisplayFor(model => model.LevelType)
+
+                </div>
+            }
+        </div>
+    </div>
+    <fieldset>
+        <legend>@Model.LastName 's General Information (Section 1)</legend>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FirstName):</b>  @Html.DisplayFor(model => model.FirstName)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Middle):</b> @Html.DisplayFor(model => model.Middle)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.LastName):</b>  @Html.DisplayFor(model => model.LastName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Sex):</b>  @Html.DisplayFor(model => model.Sex)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.HomeTelephone):</b>  @Html.DisplayFor(model => model.HomeTelephone)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.DOB) :</b> @String.Format("{0:ddd, MMM d, yyyy}", Model.DOB)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PlaceOfBirth):</b>  @Html.DisplayFor(model => model.PlaceOfBirth)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PreviousSchool):</b>  @Html.DisplayFor(model => model.PreviousSchool)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PreviousSchoolDetails):</b>  @Html.DisplayFor(model => model.PreviousSchoolDetails)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PresentLevel):</b>  @Html.DisplayFor(model => model.PresentLevel)
+        </div>
+        @*  <div class="display-label">
+         @Html.DisplayNameFor(model => model.InitialLevel)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InitialLevel)
+    </div>*@
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.HairColour):</b>   @Html.DisplayFor(model => model.HairColour)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PositionInTheFamilty):</b>  @Html.DisplayFor(model => model.PositionInTheFamilty)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>@Model.LastName Father's Information (Setion 2)</legend>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherName):</b>   @Html.DisplayFor(model => model.FatherName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherNationality):</b>  @Html.DisplayFor(model => model.FatherNationality)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherStateOfOrigin):</b>  @Html.DisplayFor(model => model.FatherStateOfOrigin)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherTown):</b>  @Html.DisplayFor(model => model.FatherTown)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherPlaceOfWork):</b> @Html.DisplayFor(model => model.FatherPlaceOfWork)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherOccupation):</b> @Html.DisplayFor(model => model.FatherOccupation)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherPostHeld):</b>   @Html.DisplayFor(model => model.FatherPostHeld)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherEmployer):</b>  @Html.DisplayFor(model => model.FatherEmployer)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherPOX):</b> @Html.DisplayFor(model => model.FatherPOX)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherMobileNo):</b> @Html.DisplayFor(model => model.FatherMobileNo)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherEmail):</b>  @Html.DisplayFor(model => model.FatherEmail)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FatherAddress):</b> @Html.DisplayFor(model => model.FatherAddress)
+        </div>
+
+    </fieldset>
+
+
+    <fieldset>
+        <legend>@Model.LastName Mother's Information (Setion 3)</legend>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherName):</b>  @Html.DisplayFor(model => model.MotherName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherNationality):</b> @Html.DisplayFor(model => model.MotherNationality)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherStateOfOrigin):</b>  @Html.DisplayFor(model => model.MotherStateOfOrigin)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherTown):</b>  @Html.DisplayFor(model => model.MotherTown)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherPlaceOfWork):</b>  @Html.DisplayFor(model => model.MotherPlaceOfWork)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherOccupation):</b>   @Html.DisplayFor(model => model.MotherOccupation)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherPostHeld):</b>   @Html.DisplayFor(model => model.MotherPostHeld)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherEmployer):</b>  @Html.DisplayFor(model => model.MotherEmployer)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherPOX):</b>  @Html.DisplayFor(model => model.MotherPOX)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherMobileNo):</b>  @Html.DisplayFor(model => model.MotherMobileNo)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherEmail)</b> @Html.DisplayFor(model => model.MotherEmail)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.MotherAddress):</b>   @Html.DisplayFor(model => model.MotherAddress)
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>@Model.LastName Adoption Information (Section 4)</legend>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.IsChildAdopted):</b>    @Html.DisplayFor(model => model.IsChildAdopted)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.AgeOfAdoptionIfAdopted):</b>  @Html.DisplayFor(model => model.AgeOfAdoptionIfAdopted)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.IsChildAwareOfAdoption):</b>  @Html.DisplayFor(model => model.IsChildAwareOfAdoption)
+        </div>
+    </fieldset>
+
+
+    <fieldset>
+        <legend>General Behavioural Questions about @Model.LastName (Section 5)</legend>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ToiletTrained):</b>  @Html.DisplayFor(model => model.ToiletTrained)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Nap):</b> @Html.DisplayFor(model => model.Nap)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.WhenNap):</b>   @Html.DisplayFor(model => model.WhenNap)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ForbiddableFood):</b> @Html.DisplayFor(model => model.ForbiddableFood)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PlayWellHimSelf):</b>  @Html.DisplayFor(model => model.PlayWellHimSelf)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PlayWellInGroups):</b>   @Html.DisplayFor(model => model.PlayWellInGroups)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.AcceptCorrectionEasily):</b> @Html.DisplayFor(model => model.AcceptCorrectionEasily)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.OtherLanguages):</b>  @Html.DisplayFor(model => model.OtherLanguages)
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>@Model.LastName Health Information (Section 6)</legend>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.BloodGroup):</b>  @Html.DisplayFor(model => model.BloodGroup)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Genotype):</b> @Html.DisplayFor(model => model.Genotype)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.VisionProblem):</b>  @Html.DisplayFor(model => model.VisionProblem)
+        </div>
+
+        <div class="display-label">
+        </div>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.VisionProblemDetails):</b> @Html.DisplayFor(model => model.VisionProblemDetails)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.EaringProblem):</b>  @Html.DisplayFor(model => model.EaringProblem)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.EaringProblemDetails):</b>  @Html.DisplayFor(model => model.EaringProblemDetails)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.SeriousAccident):</b>  @Html.DisplayFor(model => model.SeriousAccident)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.SeriousAccidentDetails):</b> @Html.DisplayFor(model => model.SeriousAccidentDetails)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Disability):</b>  @Html.DisplayFor(model => model.Disability)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ChildSpeechClear):</b> @Html.DisplayFor(model => model.ChildSpeechClear)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ChildSpeechUnderstandability):</b>  @Html.DisplayFor(model => model.ChildSpeechUnderstandability)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ChildConcern):</b> @Html.DisplayFor(model => model.ChildConcern)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.ChildConcernDetails):</b>  @Html.DisplayFor(model => model.ChildConcernDetails)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Allegies):</b> @Html.DisplayFor(model => model.Allegies)
+        </div>
+        <div class="display-label">
+        </div>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PhysicianName):</b>  @Html.DisplayFor(model => model.PhysicianName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PhysicianAddress):</b>  @Html.DisplayFor(model => model.PhysicianAddress)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PhysicianMobile):</b>  @Html.DisplayFor(model => model.PhysicianMobile)
+        </div>
+
+    </fieldset>
+    <fieldset>
+        <legend>Three Persons That Can Pick-Up @Model.LastName at School (Section 7)</legend>
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp1Name):</b> @Html.DisplayFor(model => model.PickUp1Name)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp1Relationship):</b>   @Html.DisplayFor(model => model.PickUp1Relationship)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp1Telephone):</b>  @Html.DisplayFor(model => model.PickUp1Telephone)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp2Name):</b>   @Html.DisplayFor(model => model.PickUp2Name)
+        </div>
+
+
+        <div class="display-field">
+            <b   @Html.DisplayNameFor(model => model.PickUp2Relationship)>:</b>  @Html.DisplayFor(model => model.PickUp2Relationship)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp2Telephone):</b>  @Html.DisplayFor(model => model.PickUp2Telephone)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp3Name):</b>  @Html.DisplayFor(model => model.PickUp3Name)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickU3Relationship):</b>   @Html.DisplayFor(model => model.PickU3Relationship)
+        </div>
+
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PickUp3Telephone):</b>  @Html.DisplayFor(model => model.PickUp3Telephone)
+        </div>
+
+    </fieldset>
+
+</fieldset>
+<p>
+    @*   @Html.ActionLink("Edit", "Edit", new { id = Model.PersonID }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var id = $("#PrimarySchoolStudentID").val();
+
+        });
+
+
+        $("#successMessage").dialog({
+            show: { effect: 'bounce', duration: 350, /* SPECIF ARGUMENT */ times: 8 },
+            modal: true,
+            height: 200,
+            width: 300,
+
+        });//.css("background-color", "grey");
+
+        var countDownVal = 1;
+        if ('@ViewBag.Success' != "") {
+            var timer1 = setInterval(function () { myTimer() }, 20000);
+            function myTimer() {
+                countDownVal--;
+                $('#dCountDown').html(countDownVal);
+                if (countDownVal == 0) {
+                    clearInterval(timer1);
+                    $(window).unbind('beforeunload');
+                    window.location.href = "/Home/Index";
+                    //   $("#form").submit();
+
+                };
+            };
+        }
+
+
+    </script>
+}

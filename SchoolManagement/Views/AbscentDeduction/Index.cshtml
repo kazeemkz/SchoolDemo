@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SchoolManagement.Model.AbscentDeduction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>ABSCENT DEDUCTION</h4>
+<br />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<br />
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+       
+        <th>
+            <b>Amount To Be Deducted (NGN)</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountToBeDeducted)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AbscentDeductionID }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.LatenessDeductionID }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.AbscentDeductionID })
+            </td>
+        </tr>
+    }
+
+</table>

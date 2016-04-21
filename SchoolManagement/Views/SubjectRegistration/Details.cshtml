@@ -1,0 +1,60 @@
+﻿@model SchoolManagement.Model.SubjectRegistration
+
+@{
+    ViewBag.Title = "Details";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>CLASS SUBJECT DETAILS</h4>
+
+<fieldset>
+    <legend>Subjects for @Model.Level</legend>
+
+    <div class="display-label">
+        
+    </div>
+    <div class="display-field">
+     <b>Class:</b>   @Html.DisplayFor(model => model.Level)
+    </div>
+
+    <table>
+    <tr>
+        <th>
+           <text> Subjects (@Model.Subjects.Count in Number)</text>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Subjects) {
+    
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SubjectRegistrationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SubjectRegistrationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SubjectRegistrationID })
+        </td>*@
+    </tr>
+}
+
+</table>
+
+</fieldset>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SubjectRegistrationID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+<div id="button2">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#button").button();
+        //$("#button2").button();
+
+    </script>
+}

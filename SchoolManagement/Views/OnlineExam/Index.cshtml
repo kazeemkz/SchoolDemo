@@ -1,0 +1,170 @@
+﻿@model SchoolManagement.Model.OnlineExam
+@{
+    ViewBag.Title = "Exam";
+    //Layout = "~/Views/Shared/_LayoutExam.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("Index", "OnlineExam", FormMethod.Get))
+{
+  
+   
+    @Html.DropDownList("ExamCode", new SelectList((System.Collections.IEnumerable)ViewData["ExamCodes"], "Value", "Text"))
+     
+
+    <input type="submit" value="Start Exam" id="button1" class="btn-primary" />
+}
+
+  <h3>
+        <table class="timer">
+            <tr>
+                <td id="dCountDown"></td>
+                <td>Minute(s) Left</td>
+            </tr>
+        </table>
+    </h3>
+
+
+@if (Model.Questions != null)
+{
+    @*<h3>
+        <table class="timer">
+            <tr>
+                <td id="dCountDown"></td>
+                <td>Minute(s) Left</td>
+            </tr>
+        </table>
+    </h3>*@
+    
+    <table>
+
+        <tr>
+            <td>
+                <h3>Student ID :-@User.Identity.Name </h3>
+                <h3>Exam Code :-@Model.ExamCode </h3>
+                <h3>Subject :-@Model.Course </h3>
+                <h3>Class :-@Model.LevelName </h3>
+                <h3>Term :-@Model.Term </h3>
+                <h3>Duration:-@Model.Duration Minutes </h3>
+
+            </td>
+            <td></td>
+        </tr>
+
+
+    </table>    
+    
+    <br />
+    @Html.Hidden("OnlineExamID", Model.OnlineExamID)
+    @Html.HiddenFor(model => model.ExamType)
+    @Html.HiddenFor(model => model.LevelName)
+
+    using (Html.BeginForm("Grade", "OnlineExam", FormMethod.Post, new { id = "form" }))
+    {
+          
+         
+        foreach (var question in Model.Questions)
+        {
+            
+          
+
+            Html.RenderPartial("__question", question);         
+     
+    <br />
+     
+        } 
+    
+    <input type="submit" value="Submit" id="button"  class="btn-primary"/>
+    }
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/jquery.countdown.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.countdown.js"></script>
+    <script>
+
+
+
+      //  $("#tabs").tabs().width("450px");
+       // $("#accordion").accordion().width("235px");
+        var countDownVal;// = //100;
+        $("#button").attr('disabled', 'disabled');
+
+        $('input:radio').first().each(function () {
+            $("#button1").attr('disabled', 'disabled');
+            $("#button").removeAttr('disabled');
+
+        });
+
+        if ($("#button").is(':disabled') == false) {
+
+
+            var theValue = $('#OnlineExamID').val();
+
+            $.get('@Url.Action("LoadExamDuration","OnlineExam")', { examID: theValue }, function (data) {
+                countDownVal = data;
+                $('#dCountDown').html(countDownVal);
+
+            });
+
+        }
+
+        if ($("#button").is(':disabled') == false) {
+
+            $(window).bind('beforeunload', function () {
+                return 'are you sure you want to leave?';
+
+            });
+        }
+
+
+        function executeQuery() {
+            $.ajax({
+                url: 'OnlineExam/Timer/',
+                success: function(data) {
+                    // do something with the return value here if you like
+                }
+            });
+            setTimeout(executeQuery, 360000); // you could choose not to continue on failure...
+        }
+
+        $(document).ready(function() {
+            // run the first time; all subsequent calls will take care of themselves
+            setTimeout(executeQuery, 360000);
+        });
+
+           
+           // $.getJSON('/OnlineExam/Timer', function (result) {
+
+
+
+          //  });
+       
+
+
+
+
+
+
+        if ($("#button").is(':disabled') == false) {
+            // var countDownVal = 12;
+            $('#dCountDown').html(countDownVal);
+            var timer1 = setInterval(function () { myTimer() }, 60000);
+            function myTimer() {
+                countDownVal--;
+                $('#dCountDown').html(countDownVal);
+                if (countDownVal == 0) {
+                    $("#button1").removeAttr('disabled');
+                    clearInterval(timer1);
+                    $(window).unbind('beforeunload');
+                    $("#form").submit();
+
+                };
+            };
+
+        }
+
+    </script>
+}

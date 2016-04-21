@@ -1,0 +1,162 @@
+﻿@model SchoolManagement.Models.UploadAdditionalChapterMaterial
+@{
+    ViewBag.Title = "Create";
+}
+
+<h4> CREATE ADDITIONAL CHAPTER MATERIAL FOR A CHAPTER </h4>
+
+@using (Html.BeginForm("Create", "UploadAdditionalChapterMaterial", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Upload Additional Chapter Material</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Level)
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 1", new { @checked = "checked" })JSS 1
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 2")JSS 2
+            @Html.RadioButtonFor(Model => Model.Level, "JSS 3")JSS 3
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 1")SS 1
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 2")SS 2
+            @Html.RadioButtonFor(Model => Model.Level, "SSS 3")SS 3
+           
+            @Html.ValidationMessageFor(model => model.Level)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Subject)
+        </div>
+        <div class="editor-field">
+            @*  @Html.DropDownListFor(model => model.Subject,  eLibrary.Model.CourseDictionary.CourseDicoList)
+            @Html.ValidationMessageFor(model => model.Subject)*@
+            @Html.DropDownListFor(x => x.Subject, new SelectList(Enumerable.Empty<SelectListItem>()))
+            @*  <select id="Subject" data-value="true" name="Subject"></select>*@
+            @* <a href="#" id="ViewSubject">Select from Existing Subjects</a>*@
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Chapter)
+        </div>
+        <div class="editor-field">
+            @*  @Html.DropDownListFor(model => model.Subject,  eLibrary.Model.CourseDictionary.CourseDicoList)
+            @Html.ValidationMessageFor(model => model.Subject)*@
+            @Html.DropDownListFor(x => x.Chapter, new SelectList(Enumerable.Empty<SelectListItem>()))
+            @*  <select id="Subject" data-value="true" name="Subject"></select>*@
+            @* <a href="#" id="ViewSubject">Select from Existing Subjects</a>*@
+        </div>
+        @* <div class="editor-field">
+             @Html.EditorFor(model => model.Chapter)
+            @Html.ValidationMessageFor(model => model.Chapter)
+        </div>*@
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.TopicTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TopicTitle)
+            @Html.ValidationMessageFor(model => model.TopicTitle)
+        </div>*@
+         @if (ViewBag.Success == "1")
+        {
+            <div id="dialog" title=" Upload Success Dialog">
+
+                <b>Additional Chapter Note Was Successsfully Uploaded!</b>
+            </div>
+        }
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaterialTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaterialTitle)
+            @Html.ValidationMessageFor(model => model.MaterialTitle)
+        </div>
+        <fieldset>
+            <legend>Upload a PDF File ONLY </legend>
+            <b>Please select File : </b>
+            <input type="file" id="FileUpload1" name="FileUpload1" /><br />
+
+        </fieldset>
+        <p>
+            <input type="submit" value="Create Additional Material" />
+        </p>
+    </fieldset>
+}
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+           // $("#dialog").dialog().width("350px").css("background-color", "grey");
+            var theCheckedValue = "JSS1";
+           var key = '@ViewBag.theKey';
+            var theRealVal = $('input:radio[name=Level]:checked').val();
+            //load course based on jss1 value first
+            $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theRealVal }, function (data) {
+                var ddl = $("#Subject");
+                ddl.empty();
+                ddl.append("<option value='" + "" + "'>"
+                       + "Choose...." + "</option>");
+                for (var i = 0; i < data.length; i++) {
+                    ddl.append("<option value='" + data[i].Value + "'>"
+                         + data[i].Text + "</option>");
+                }
+
+            });
+            $("#dialog").dialog().width("350px").css("background-color", "grey");
+            // $("#Chapter").attr("disabled", "disabled");
+            $('input:radio').click(function () {
+                theCheckedValue = $('input:radio:checked').val();
+                $.get('@Url.Action("LoadCourse","UploadLessonNote")', { level: theCheckedValue }, function (data) {
+                    var ddl = $("#Subject");
+                    ddl.empty();
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                });
+            });
+
+            //$('#Subject').live('change', function (e) {
+
+
+            //    alert(theValue);
+            //});
+
+            $('#Subject').live('change', function (e) {
+
+                if (key == 1) {
+                    var theValue = theRealVal + ":" + $('#Subject').val();
+                }
+                else {
+                    var theValue = theCheckedValue + ":" + $('#Subject').val();
+                }
+                
+             
+             
+
+                $.get('@Url.Action("LoadCourseChapters","UploadAdditionalChapterMaterial")', { courseLevel: theValue }, function (data) {
+                    var ddl = $("#Chapter");
+                    ddl.empty();
+                    ddl.append("<option value='" + "" + "'>"
+                           + "Choose...." + "</option>");
+                    for (var i = 0; i < data.length; i++) {
+                        ddl.append("<option value='" + data[i].Value + "'>"
+                             + data[i].Text + "</option>");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+}

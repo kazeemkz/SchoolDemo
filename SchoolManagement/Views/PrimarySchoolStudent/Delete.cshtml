@@ -1,0 +1,155 @@
+﻿@model SchoolManagement.Model.PrimarySchoolStudent
+@{
+    ViewBag.Title = "Delete";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>DELETE STUDENT</h4>
+@using (Html.BeginForm())
+{
+    <h3>Are you sure you want to delete  @Model.LastName<text>'s Account?</text></h3>
+
+    <fieldset>
+        <legend>@Model.LastName<text>'s Profile</text></legend>
+
+         <div class="display-field">
+           @Html.HiddenFor(model => model.PersonID)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.FirstName):</b>   @Html.DisplayFor(model => model.FirstName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.Middle):</b>  @Html.DisplayFor(model => model.Middle)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.LastName):</b> @Html.DisplayFor(model => model.LastName)
+        </div>
+
+        <div class="display-field">
+            <b>@Html.DisplayNameFor(model => model.PresentLevel):</b>    @Html.DisplayFor(model => model.PresentLevel)
+        </div>
+
+     
+        <div class="display-field">
+          <b> @Html.DisplayNameFor(model => model.EnrollmentDate):</b>  @Html.DisplayFor(model => model.EnrollmentDate)
+        </div>
+
+        @*<div class="display-label">
+            @Html.DisplayNameFor(model => model.Telephone)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Telephone)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DOB)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DOB)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.BloodGroup)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.BloodGroup)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Genotype)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Genotype)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Disability)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Disability)
+        </div>*@
+
+        @*<div class="display-label">
+         @Html.DisplayNameFor(model => model.IsApproved)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsApproved)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Role)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Role)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ApprovedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ApprovedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DeletedUserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DeletedUserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateApproved)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateApproved)
+    </div>*@
+    </fieldset>
+    
+    
+    
+    <span>
+        <p>
+
+             <input type="submit" value="Delete" id="button" />
+           
+        </p>
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </span>
+    
+    
+    
+
+    @*<p>
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#button").button();
+        //$("#button2").button();
+
+    </script>
+}
+

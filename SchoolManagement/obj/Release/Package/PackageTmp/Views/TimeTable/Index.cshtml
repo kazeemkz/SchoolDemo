@@ -1,0 +1,92 @@
+﻿@*@model IEnumerable<IEnumerable<SchoolManagement.Models.TimeTable>>*@
+@model List<List<SchoolManagement.Models.TimeTable>>
+@{
+    ViewBag.Title = "Time Table";
+}
+
+<h4></h4>
+<br />
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+@if (!(User.IsInRole("Student")))
+{
+    using (Html.BeginForm())
+    {
+    <fieldset>
+        <legend>Time Table Search Box</legend>
+
+        <table>
+
+            <tr>
+
+                <td>
+                    @if (!(User.IsInRole("Parent")))
+                    {
+                        <b>Class Arm:</b>
+                    }
+                </td>
+                <td>@if (!(User.IsInRole("Parent")))
+                    {
+                    @Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))
+                    }
+                </td>
+            </tr>
+            <tr>
+                @if (Request.IsAuthenticated && HttpContext.Current.User.IsInRole("Parent"))
+                {
+                    <tr>
+                        <td><b>Student: </b></td>
+                        <td>@Html.DropDownList("studentID", new SelectList((System.Collections.IEnumerable)ViewData["Students"], "Value", "Text"))</td>
+                    </tr>
+                }
+        </table>
+        <input type="submit" value="Search" id="button" class="btn-primary" />
+        <br />
+    </fieldset>
+   
+    }
+}
+
+
+<fieldset>
+    <legend>VIEW TIME TABLE</legend>
+    @if (ViewBag.TimeTable != null)
+    {
+       
+        <table>
+            @foreach (var item in ViewBag.TimeTable as List<List<SchoolManagement.Models.TimeTable>>)
+            {
+
+                <tr>
+                    @foreach (var item1 in item)
+                    {
+                        // item1.
+                        <th>
+                            @Html.DisplayFor(modelItem => item1.Day)<br />
+                            @Html.DisplayFor(modelItem => item1.Subject)<br />
+                            @Html.DisplayFor(modelItem => item1.StratTimeHour)-@Html.DisplayFor(modelItem => item1.EndTimeHour)<br />
+                            @Html.DisplayFor(modelItem => item1.Teacher)
+                            @Html.HiddenFor(modelItem => item1.TeachingSubjectID)
+                            <br />
+                            @if (!(User.IsInRole("Student")))
+                            {
+                                if (!(User.IsInRole("Parent")))
+                                {
+                                @Html.ActionLink("Remove", "Delete", new { id = item1.TeachingSubjectID })
+                                }
+                            }
+                            <hr />
+                        </th>
+                        <th></th>
+                        <th></th>
+                    }
+
+                </tr>
+     
+            }
+
+        </table>
+    }
+</fieldset>

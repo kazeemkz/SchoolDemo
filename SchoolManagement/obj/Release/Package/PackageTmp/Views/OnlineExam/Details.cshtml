@@ -1,0 +1,60 @@
+﻿@model SchoolManagement.Model.OnlineExam
+@{
+    ViewBag.Title = "Details";
+        // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>EXAM DETAILS </h4>
+
+<fieldset>
+    <legend>@Model.ExamCode</legend>
+
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.ExamCode):</b>  @Html.DisplayFor(model => model.ExamCode)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Course):</b>  @Html.DisplayFor(model => model.Course)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Duration):</b>  @Html.DisplayFor(model => model.Duration)
+    </div>
+    <br />
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.ExamType):</b>  @Html.DisplayFor(model => model.ExamType)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>Class:</b>  @Html.DisplayFor(model => model.LevelName)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Term):</b>  @Html.DisplayFor(model => model.Term)
+    </div>
+    <br />
+
+    <div class="display-field">
+        <b>@Html.DisplayNameFor(model => model.Visible):</b>  @Html.DisplayFor(model => model.Visible)
+    </div>
+
+
+</fieldset>
+<div id="button2">
+    @*   @Html.ActionLink("Edit", "Edit", new { id = Model.OnlineExamID }) |*@
+    @Html.ActionLink("Back to List", "LoadExamCodes")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#tabs").tabs().width("450px");
+        //$("#accordion").accordion().width("235px");
+        //$("#button1").button();
+        //$("#button").button();
+        //$("#button2").button();
+
+    </script>
+}

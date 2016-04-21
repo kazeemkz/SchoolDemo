@@ -1,0 +1,138 @@
+﻿@model IEnumerable<SchoolManagement.Model.AttendanceStaff>
+
+@{
+    ViewBag.Title = "Attendance";
+   // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+@using (Html.BeginForm("StaffView", "AttendanceStaff"))
+{
+    <h3> VIEW ATTENDANCE RECORD</h3>
+    <fieldset>
+        <legend>Search Box</legend>
+        <table>
+
+            <tr>
+                <td>Date From:</td>
+                <td>@Html.TextBox("date") </td>
+
+            </tr>
+            <tr>
+                <td>Date To:</td>
+                <td>@Html.TextBox("dateto") </td>
+
+            </tr>
+            
+           @* <tr>
+                <td>Class: </td> <td> @Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))</td>
+            </tr>
+
+             <tr>
+                <td>Student ID:</td>
+                <td>@Html.TextBox("studentid") </td>
+
+            </tr>*@
+             <tr>
+                <td>Present: </td> <td>@Html.DropDownList("present", SchoolManagement.Model.LevelDictionary.Approved)
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Search" id="search" class="btn-primary" />
+    </fieldset>
+}
+
+
+<h3> @ViewBag.Count ATTENDANCE RECORD</h3>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        @* <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.SurName)
+        </th>
+      @*  <th>
+            <b>Class</b>
+        </th>*@
+        <th>
+            <b>User ID</b>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTaken)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Present)
+        </th>
+
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            @*  <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.arm)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffID)
+            </td>
+            <td>
+                @string.Format("{0: ddd dd-MMM-yyyy   hh:mm tt}", item.DateTaken)
+                @*  @string theDate =  @string.Format("{0}: dd-MMMM-YYYY  hh:mm:ss tt",item.DateTaken)*@
+                @* <text>@theDate</text>*@
+                @* @Html.DisplayFor(modelItem => item.DateTaken)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Present)
+            </td>
+
+            @* <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AttendanceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AttendanceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AttendanceID })
+        </td>*@
+        </tr>
+        }
+    }
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#tabs").tabs().width("780px");
+        //$("#tabs1").tabs().width("780px");
+        //$("#accordion").accordion().width("235px");
+      //  $("#search").button();
+        $("#date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+
+        $("#dateto").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+    </script>
+}

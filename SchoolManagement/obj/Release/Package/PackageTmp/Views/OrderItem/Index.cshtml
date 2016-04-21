@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SchoolManagement.Model.OrderItem>
+
+@{
+    ViewBag.Title = "Order Details";
+    //Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h4>ORDER DETAILS</h4>
+<br />
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+ <table class="table table-striped table-hover table-bordered table-condensed">
+    <tr>
+        @*  <th>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </th>*@
+        <th>
+            <b>Oder No.</b>
+        </th>
+        <th>
+           <b>Item Name</b>
+        </th>
+        <th>
+            <b>Quantity</b>
+        </th>
+        <th>
+            <b>Sub Total</b>
+        </th>
+        <th>
+            <b>Reserve Order</b>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @* <td>
+            @Html.DisplayFor(modelItem => item.OrderID)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTotal)
+            </td>
+            <td>
+               
+                @using (Html.BeginForm("Edit", "OrderItem", new { id = SchoolManagement.Models.Encript.EncryptString(item.OrderItemID.ToString(), true) }, FormMethod.Post))
+                {
+                    <input type="submit" value="Reverse Order Item"  class="btn-primary"/>
+                }
+                @* @Html.ActionLink("Reverse Order", "ReverseOrderItem", "OrderItem", new { id=item.OrderItemID }, null)*@
+            </td>
+            <td>
+                @* @Html.ActionLink("Edit", "Edit", new { id=item.OrderItemID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderItemID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //$("#tabs").tabs().width("780px");
+        //$("#tabs1").tabs().width("780px");
+        //$("#accordion").accordion().width("235px");
+
+    </script>
+}

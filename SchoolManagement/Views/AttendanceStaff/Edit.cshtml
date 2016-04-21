@@ -1,0 +1,77 @@
+﻿@model SchoolManagement.Models.AttendanceStaffViewModel
+
+@{
+    ViewBag.Title = " Staff Attendance";
+    // Layout = "~/Views/Shared/_Layout.mobile.cshtml";
+}
+
+<h3>MARK STAFF ATTENDANCE FOR TODAY -@string.Format("{0: ddd dd-MMMMM-yyyy}", @DateTime.Now)</h3>
+<br />
+@*@using (Html.BeginForm("Edit", "Attendance", FormMethod.Get))
+{
+    <fieldset>
+        <legend>Search Box</legend>
+        <table>
+            <tr>
+                <td><b>Class:</b>@Html.DropDownList("arm", new SelectList((System.Collections.IEnumerable)ViewData["arm"], "Value", "Text"))</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Search" id="search" class="btn-primary" />
+    </fieldset>
+}*@
+<br />
+
+@using (Html.BeginForm("Edit", "AttendanceStaff", FormMethod.Post))
+{
+   @* <fieldset>
+        <legend></legend>
+
+        <table>
+            <tr>
+
+                <td>
+                    <b>Choose Attendance Date: </b> 
+                </td>
+                <td>
+                    @Html.TextBox("attendanceDate")
+                    &nbsp;
+                   <b>(If Not Filled, Today's Date is Assumed!)</b> 
+                </td>
+            </tr>
+
+
+        </table>
+
+    </fieldset>*@
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>@*@ViewBag.Arm*@</legend>
+        @Html.EditorFor(x => x.TheAttendanceStaff)
+        <p>
+            <input type="submit" value="Save" id="save" class="btn-primary" />
+        </p>
+    </fieldset>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $("#attendanceDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            //dateFormat: 'mm/dd/yy',
+            gotoCurrent: true
+        });
+
+
+    </script>
+}
+
