@@ -15,13 +15,13 @@
 
         @Html.HiddenFor(model => model.StudentFeesID)
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.Level)
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.Level,SchoolManagement.Model.LevelDictionary.LevelDicoListWithoutNone)
             @Html.ValidationMessageFor(model => model.Level)
-        </div>
+        </div>*@
         <div class="editor-label">
             <b>Term</b>
         </div>
