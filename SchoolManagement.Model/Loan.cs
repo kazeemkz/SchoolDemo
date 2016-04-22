@@ -68,11 +68,11 @@ namespace SchoolManagement.Model
         [Display(Name = "Seventh Amount Payment")]
         public decimal? SeventhAmountPayment { get; set; }
 
-        //[Display(Name = "Eighth Month Payment")]
-        //public DateTime? EighthMonthPayment { get; set; }
-        //[Range(0.0, Double.MaxValue)]
-        //[Display(Name = "Eight Amount Payment")]
-        //public decimal? EightAmountPayment { get; set; }
+        [Display(Name = "Eighth Month Payment")]
+        public DateTime? EighthMonthPayment { get; set; }
+        [Range(0.0, Double.MaxValue)]
+        [Display(Name = "Eight Amount Payment")]
+        public decimal? EightAmountPayment { get; set; }
 
         [Display(Name = "Ninth Month Payment")]
         public DateTime? NinthMonthPayment { get; set; }

@@ -145,10 +145,10 @@ namespace SchoolManagement.Controllers
                 paymentModel += Convert.ToDecimal(model.SeventhAmountPayment);
             }
 
-            //if (model.EightAmountPayment != null)
-            //{
-            //    paymentModel += Convert.ToDecimal(model.EightAmountPayment);
-            //}
+            if (model.EightAmountPayment != null)
+            {
+                paymentModel += Convert.ToDecimal(model.EightAmountPayment);
+            }
             if (model.NinthAmountPayment != null)
             {
                 paymentModel += Convert.ToDecimal(model.NinthAmountPayment);

@@ -1263,16 +1263,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SchoolManagement.DAL\SchoolManagement.DAL.csproj">
-      <Project>{4948710c-45ae-4e01-a508-9173271898f8}</Project>
-      <Name>SchoolManagement.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj">
-      <Project>{a1759d61-77f0-424c-9b3e-b9102edb1e07}</Project>
-      <Name>SchoolManagement.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -1282,6 +1272,16 @@
     <EmbeddedResource Include="Migrations\201405151840239_InitialMigrations1.resx">
       <DependentUpon>201405151840239_InitialMigrations1.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.DAL\SchoolManagement.DAL.csproj">
+      <Project>{4948710c-45ae-4e01-a508-9173271898f8}</Project>
+      <Name>SchoolManagement.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj">
+      <Project>{a1759d61-77f0-424c-9b3e-b9102edb1e07}</Project>
+      <Name>SchoolManagement.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
