@@ -43,7 +43,7 @@ namespace SchoolManagement.Controllers
 
             foreach (var level in theLevels)
             {
-                theItem.Add(new SelectListItem() { Text = level.LevelName + ":" + level.Type, Value = level.LevelName + ":" + level.Type });
+                theItem.Add(new SelectListItem() { Text = level.LevelName + ":" + level.Type, Value = level.LevelName + ":" + level.Type }); ;
             }
 
             ViewData["arm"] = theItem;
