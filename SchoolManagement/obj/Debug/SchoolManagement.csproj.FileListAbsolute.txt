@@ -180,7 +180,6 @@ C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolMan
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolManagement\obj\Debug\SchoolManagement.csproj.GenerateResource.Cache
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolManagement\obj\Debug\SchoolManagement.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolManagement\obj\Debug\SchoolManagement.pdb
-C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\HtmlSanitizationLibrary.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\SchoolManagement.dll.config
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\SchoolManagement.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\SchoolManagement.pdb
@@ -191,6 +190,7 @@ C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDem
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\DataAnnotationsExtensions.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\EntityFramework.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\EntityFramework.SqlServer.dll
+C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\HtmlSanitizationLibrary.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\HtmlSanitizer.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\itextsharp.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement\bin\Microsoft.Data.Edm.dll
