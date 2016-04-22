@@ -40,8 +40,8 @@ namespace SchoolManagement.Controllers
       //  [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            model.UserName = Server.HtmlEncode(model.UserName);
-            model.Password = Server.HtmlEncode(model.Password);
+            //model.UserName = Server.HtmlEncode(model.UserName);
+           // model.Password = Server.HtmlEncode(model.Password);
             //  model.Username
             // model.UserName = Sanitizer.GetSafeHtml(model.UserName);
             // model.Password = Sanitizer.GetSafeHtml(model.Password);
