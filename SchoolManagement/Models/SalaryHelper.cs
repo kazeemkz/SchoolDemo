@@ -107,16 +107,16 @@ namespace SchoolManagement.Models
                         }
                     }
 
-                    if (l.EighthMonthPayment != null)
-                    {
-                        if (l.EighthMonthPayment.Value.Month == theTime.Month && l.EighthMonthPayment.Value.Year == theTime.Year)
-                        {
-                            if (l.EightAmountPayment != null)
-                            {
-                                model.TotalLoan = l.EightAmountPayment + model.TotalLoan;
-                            }
-                        }
-                    }
+                    //if (l.EighthMonthPayment != null)
+                    //{
+                    //    if (l.EighthMonthPayment.Value.Month == theTime.Month && l.EighthMonthPayment.Value.Year == theTime.Year)
+                    //    {
+                    //        if (l.EightAmountPayment != null)
+                    //        {
+                    //            model.TotalLoan = l.EightAmountPayment + model.TotalLoan;
+                    //        }
+                    //    }
+                    //}
 
                     if (l.NinthMonthPayment != null)
                     {
