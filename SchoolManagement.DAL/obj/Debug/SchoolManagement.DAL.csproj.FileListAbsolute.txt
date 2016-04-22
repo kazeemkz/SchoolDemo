@@ -114,7 +114,7 @@ C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDem
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\SchoolManagement.DAL.csprojResolveAssemblyReference.cache
-C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\eLibrary.DAL.InitialMigrations.resources
+C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\SchoolManagement.DAL.Migrations.201406081137176_InitialMigrations.resources
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\SchoolManagement.DAL.csproj.GenerateResource.Cache
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\SchoolManagement.DAL.dll
 C:\Project\SchoolManagement\SchoolManagement\emplace-Dummy\schoolDummy\SchoolDemo\SchoolManagement.DAL\obj\Debug\SchoolManagement.DAL.pdb
